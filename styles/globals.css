@@ -14,7 +14,17 @@
   --muted: #b6bfdb;
 }
 
-html, body { background: linear-gradient(180deg, #070b18, var(--bg) 30%, var(--bg) 70%, #070b18); color: var(--text); }
+html, body {
+  /* fallback */
+  background-color: var(--bg);
+  /* layered, subtle glow + vertical wash */
+  background:
+    radial-gradient(900px 600px at 20% -10%, rgba(107,140,255,0.08), transparent 40%),
+    radial-gradient(800px 500px at 80% 110%, rgba(142,235,255,0.06), transparent 42%),
+    linear-gradient(180deg, #070b18, var(--bg) 30%, var(--bg) 70%, #070b18);
+  color: var(--text);
+  background-attachment: fixed;
+}
 .container { max-width: 1100px; }
 
 .card{ @apply rounded-2xl p-4; border:1px solid rgba(255,255,255,.06); background: linear-gradient(180deg, var(--surface), var(--surface-2)); box-shadow: 0 20px 60px rgba(0,0,0,.30); transition: transform .15s ease, box-shadow .15s ease; }
