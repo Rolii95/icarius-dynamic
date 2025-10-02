@@ -3,6 +3,17 @@ import remarkGfm from 'remark-gfm'
 import rehypeSlug from 'rehype-slug'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 
-const baseConfig = { experimental: { mdxRs: true }, pageExtensions: ['ts', 'tsx', 'md', 'mdx'] }
-const withMDX = createMDX({ extension: /\.mdx?$/, options: { remarkPlugins:[remarkGfm], rehypePlugins:[rehypeSlug, [rehypeAutolinkHeadings, {behavior:'wrap'}]] } })
-export default withMDX(baseConfig)
+const withMDX = createMDX({
+  extension: /\.mdx?$/,
+  options: {
+    remarkPlugins: [remarkGfm],
+    rehypePlugins: [rehypeSlug, [rehypeAutolinkHeadings, { behavior: 'wrap' }]],
+  },
+})
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
+}
+
+export default withMDX(nextConfig)
