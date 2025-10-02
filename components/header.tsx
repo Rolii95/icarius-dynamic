@@ -1,8 +1,10 @@
 'use client'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 
 import { bookingUrl } from '@/lib/booking'
+import { primaryNavLinks } from '@/lib/navigation'
 
 function trackPlausible(name:string, props?:Record<string,any>){ if (typeof window!=='undefined' && (window as any).plausible){ (window as any).plausible(name, { props }); } }
 
@@ -110,10 +112,11 @@ export function Header(){
           <span className="text-xl md:text-2xl tracking-tight">Icarius Consulting</span>
         </a>       
         <nav className="hidden md:flex items-center gap-6 text-sm">
-          <a href="#services" className="hover:underline">Services</a>
-          <a href="#work" className="hover:underline">Work</a>
-          <a href="#pricing" className="hover:underline">Packages</a>
-          <a href="#contact" className="hover:underline">Contact</a>
+          {primaryNavLinks.map((link) => (
+            <Link key={link.href} href={link.href} className="hover:underline">
+              {link.label}
+            </Link>
+          ))}
           <a
             data-book-call
             href={bookingUrl}
