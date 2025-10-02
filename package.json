@@ -8,9 +8,7 @@
     "start": "next start",
     "lint": "next lint"
   },
-  "engines": {
-    "node": ">=18.17.0 <19"
-  },
+ "engines": { "node": "22.x" },
   "dependencies": {
     "@next/mdx": "14.2.5",
     "@mdx-js/loader": "^2.3.0",
