@@ -15,6 +15,9 @@ export function ConsentProvider({ children }: { children: React.ReactNode }) {
       const target = e.target as HTMLElement
       const trigger = target?.closest?.('[data-book-call]')
       if (trigger) {
+        if (e.metaKey || e.ctrlKey || e.button !== 0) {
+          return
+        }
         e.preventDefault()
         ;(window as any).plausible?.('BookCallClick')
         document.getElementById('calendly')?.setAttribute('aria-hidden', 'false')

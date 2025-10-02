@@ -2,6 +2,8 @@
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 
+import { bookingUrl } from '@/lib/booking'
+
 function trackPlausible(name:string, props?:Record<string,any>){ if (typeof window!=='undefined' && (window as any).plausible){ (window as any).plausible(name, { props }); } }
 
 // Utility for trapping focus within a modal
@@ -59,6 +61,11 @@ export function Header(){
     const handleBookCallClick = (e: Event) => {
       const target = e.target as HTMLElement
       if (target && target.closest('[data-book-call]')) {
+        if (e instanceof MouseEvent) {
+          if (e.metaKey || e.ctrlKey || e.button !== 0) {
+            return
+          }
+        }
         e.preventDefault()
         trackPlausible('BookCallClick')
         const calendly = document.getElementById('calendly')
@@ -107,13 +114,13 @@ export function Header(){
           <a href="#work" className="hover:underline">Work</a>
           <a href="#pricing" className="hover:underline">Packages</a>
           <a href="#contact" className="hover:underline">Contact</a>
-          <button
-            type="button"
+          <a
             data-book-call
+            href={bookingUrl}
             className="inline-flex items-center gap-2 rounded-full border px-4 py-2"
           >
             Book a call
-          </button>
+          </a>
         </nav>
       </div>
     </header>
