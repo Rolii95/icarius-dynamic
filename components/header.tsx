@@ -38,7 +38,13 @@ export function Header(){
           <a href="#work" className="hover:underline">Work</a>
           <a href="#pricing" className="hover:underline">Packages</a>
           <a href="#contact" className="hover:underline">Contact</a>
-          <a data-book-call href="#" className="inline-flex items-center gap-2 rounded-full border px-4 py-2">Book a call</a>
+          <button
+            type="button"
+            data-book-call
+            className="inline-flex items-center gap-2 rounded-full border px-4 py-2"
+          >
+            Book a call
+          </button>
         </nav>
       </div>
     </header>
