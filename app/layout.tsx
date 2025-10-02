@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import './globals.css'
+import '@/styles/globals.css'
 import { ConsentProvider } from '@/components/consent-provider'
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
