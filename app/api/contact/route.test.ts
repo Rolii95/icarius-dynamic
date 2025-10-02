@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { handleContactRequest } from './route';
+import { handleContactRequest } from './handler';
 
 function createRequest(body: unknown): Request {
   return new Request('http://localhost/api/contact', {
