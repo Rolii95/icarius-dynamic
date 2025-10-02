@@ -1,15 +1,19 @@
-import dynamic from 'next/dynamic'
-const MdxProvider = dynamic(() => import('@/components/mdx-provider'), { ssr: false })
+import { promises as fs } from 'fs'
+import path from 'path'
+import Link from 'next/link'
 
-// ...keep generateStaticParams & generateMetadata as is...
-
-export default async function BlogPost({ params }: { params: { slug: string }}) {
-  const MDX = (await import(`@/content/posts/${params.slug}.mdx`)).default
+export default async function BlogIndex(){
+  const dir = path.join(process.cwd(), 'content', 'posts')
+  const files = (await fs.readdir(dir)).filter(f => f.endsWith('.mdx'))
   return (
-    <MdxProvider>
-      <article className="prose prose-invert max-w-none">
-        <MDX />
-      </article>
-    </MdxProvider>
+    <section className="py-12">
+      <h1 className="text-3xl font-semibold">Insights</h1>
+      <ul className="mt-4 grid gap-3">
+        {files.map(f => {
+          const slug = f.replace(/\.mdx$/, '')
+          return <li key={slug}><Link className="mini-link" href={`/blog/${slug}`}>{slug.replace(/-/g,' ')}</Link></li>
+        })}
+      </ul>
+    </section>
   )
 }
