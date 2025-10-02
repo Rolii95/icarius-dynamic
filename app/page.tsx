@@ -1,7 +1,7 @@
 'use client'
 import { useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { BarChart3, Calculator, CheckCircle2, ChevronDown, Mail, Phone, Sparkles, Star } from 'lucide-react'
+import { Calculator, CheckCircle2, ChevronDown, Mail, Phone } from 'lucide-react'
 
 function trackPlausible(name:string, props?:Record<string,any>){ if (typeof window!=='undefined' && (window as any).plausible){ (window as any).plausible(name, { props }); } }
 
@@ -50,10 +50,10 @@ function Services(){
     <section id="services" className="py-12 border-t border-[rgba(255,255,255,.06)]">
       <h2 className="text-2xl font-semibold">What we do</h2>
       <ul className="mt-4 grid md:grid-cols-4 gap-4">
-        <li className="card"><h3 className="font-semibold">HRIT Advisory</h3><p className="text-slate-300 text-sm mt-1">Cut through vendor noise. Target architecture, integration patterns, and build/buy guidance tailored to HR.</p></li>
-        <li className="card"><h3 className="font-semibold">Project Delivery</h3><p className="text-slate-300 text-sm mt-1">Enterprise PMO without the drag: RAID, burn‑down, change enablement, and crisp cutover plans.</p></li>
-        <li className="card"><h3 className="font-semibold">System Audits</h3><p className="text-slate-300 text-sm mt-1">Fact‑based config & data reviews with prioritised fixes and a backlog teams will actually ship.</p></li>
-        <li className="card"><h3 className="font-semibold">AI Solutions</h3><p className="text-slate-300 text-sm mt-1">Pragmatic automation. Agents for HR Ops, knowledge surfacing, and guard‑railed data access.</p></li>
+        <li className="card"><h3 className="font-semibold">HRIT Advisory</h3><p className="text-slate-300 text-sm mt-1">Target architecture, integration patterns, and build/buy guidance tailored to HR.</p></li>
+        <li className="card"><h3 className="font-semibold">Project Delivery</h3><p className="text-slate-300 text-sm mt-1">PMO without the drag: RAID, burn‑down, change enablement, and crisp cutover plans.</p></li>
+        <li className="card"><h3 className="font-semibold">System Audits</h3><p className="text-slate-300 text-sm mt-1">Fact‑based config & data reviews with prioritised fixes.</p></li>
+        <li className="card"><h3 className="font-semibold">AI Solutions</h3><p className="text-slate-300 text-sm mt-1">Pragmatic automation for HR Ops and knowledge.</p></li>
       </ul>
     </section>
   )

@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Brand variables */
 :root {
   --bg: #0b1020;
   --surface: #111834;
@@ -11,16 +12,18 @@
   --accent: #ff6b9e;
   --text: #e8ecf8;
   --muted: #b6bfdb;
-  --radius: 16px;
 }
+
 html, body { background: linear-gradient(180deg, #070b18, var(--bg) 30%, var(--bg) 70%, #070b18); color: var(--text); }
 .container { max-width: 1100px; }
+
 .card{ @apply rounded-2xl p-4; border:1px solid rgba(255,255,255,.06); background: linear-gradient(180deg, var(--surface), var(--surface-2)); box-shadow: 0 20px 60px rgba(0,0,0,.30); transition: transform .15s ease, box-shadow .15s ease; }
 @media (prefers-reduced-motion: no-preference){
   .card:hover{ transform: translateY(-2px); box-shadow: 0 8px 20px rgba(2,6,23,.28); }
 }
 .mini-link{ @apply inline-block mt-1 text-sm; border-bottom: 1px solid rgba(255,255,255,.20); }
 .stars{ color: #f59e0b; letter-spacing: .08em; font-size: 14px; margin: 6px 0; }
+
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;padding:16px;z-index:60}
 .modal[aria-hidden="false"]{display:flex}
 .modal-box{background:linear-gradient(160deg,var(--surface),var(--surface-2));border-radius:16px;padding:16px;max-width:720px;width:100%;border:1px solid rgba(255,255,255,.12)}
