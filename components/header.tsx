@@ -20,10 +20,12 @@ export function Header(){
   return (
     <header className={`sticky top-0 z-40 transition-colors border-b ${solid ? 'backdrop-blur bg-[rgba(11,16,32,.7)]' : 'bg-transparent'}`}>
       <div className="container mx-auto flex items-center justify-between py-3 px-4">
-        <a href="#top" className="flex items-center gap-2 font-bold">
-          <Image src="/icarius-logo.svg" width={28} height={28} alt="Icarius logo" />
-          <span>Icarius Consulting</span>
-        </a>
+        <a href="#top" className="flex items-center gap-3 font-bold leading-none">
+  {/* Bigger logo */}
+  <img src="/icarius-logo.svg" alt="Icarius logo" className="h-9 w-9 md:h-10 md:w-10" />
+  {/* Larger brand name */}
+  <span className="text-xl md:text-2xl tracking-tight">Icarius Consulting</span>
+   </a>       
         <nav className="hidden md:flex items-center gap-6 text-sm">
           <a href="#services" className="hover:underline">Services</a>
           <a href="#work" className="hover:underline">Work</a>
