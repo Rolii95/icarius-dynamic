@@ -3,6 +3,8 @@ import { useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Calculator, CheckCircle2, ChevronDown, Mail, Phone } from 'lucide-react'
 
+import { bookingUrl } from '@/lib/booking'
+
 function trackPlausible(name:string, props?:Record<string,any>){ if (typeof window!=='undefined' && (window as any).plausible){ (window as any).plausible(name, { props }); } }
 
 export default function Page(){
@@ -33,7 +35,7 @@ function Hero(){
           </p>
           <div className="mt-6 flex gap-3">
             <a href="#pricing" className="rounded-full bg-[color:var(--primary)] text-slate-900 px-5 py-3">View Packages</a>
-            <a data-book-call onClick={()=>trackPlausible('BookCallClick')} href="#contact" className="rounded-full border px-5 py-3">Book a call</a>
+            <a data-book-call onClick={()=>trackPlausible('BookCallClick')} href={bookingUrl} className="rounded-full border px-5 py-3">Book a call</a>
           </div>
         </div>
         <div className="card">
@@ -78,7 +80,7 @@ function Pricing(){
               <li className="flex items-center gap-2"><CheckCircle2 size={16}/> Findings & backlog</li>
               <li className="flex items-center gap-2"><CheckCircle2 size={16}/> 30-day support</li>
             </ul>
-            <a data-book-call onClick={()=>trackPlausible('BookCallClick')} href="#contact" className="mt-4 inline-block rounded-full bg-[color:var(--primary)] text-slate-900 px-4 py-2">Book</a>
+            <a data-book-call onClick={()=>trackPlausible('BookCallClick')} href={bookingUrl} className="mt-4 inline-block rounded-full bg-[color:var(--primary)] text-slate-900 px-4 py-2">Book</a>
           </div>
         ))}
       </div>
@@ -207,7 +209,7 @@ function CTA(){
         <p className="text-slate-300 mt-2">Tell us about your goals. We’ll respond within one business day.</p>
         <div className="mt-6 flex flex-col md:flex-row gap-3 justify-center">
           <a className="rounded-full bg-[color:var(--primary)] text-slate-900 px-5 py-3 inline-flex items-center gap-2" href="mailto:hello@icarius-consulting.com"><Mail size={18}/> Email us</a>
-          <a data-book-call onClick={()=>trackPlausible('BookCallClick')} className="rounded-full border px-5 py-3 inline-flex items-center gap-2" href="#"><Phone size={18}/> Book a call</a>
+          <a data-book-call onClick={()=>trackPlausible('BookCallClick')} className="rounded-full border px-5 py-3 inline-flex items-center gap-2" href={bookingUrl}><Phone size={18}/> Book a call</a>
         </div>
       </div>
     </section>
