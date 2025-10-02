@@ -21,8 +21,15 @@ export function Header(){
     <header className={`sticky top-0 z-40 transition-colors border-b ${solid ? 'backdrop-blur bg-[rgba(11,16,32,.7)]' : 'bg-transparent'}`}>
       <div className="container mx-auto flex items-center justify-between py-3 px-4">
         <a href="#top" className="flex items-center gap-3 font-bold leading-none">
-  {/* Bigger logo */}
-  <img src="/icarius-logo.svg" alt="Icarius logo" className="h-9 w-9 md:h-10 md:w-10" />
+  {/* Bigger logo using Next.js Image */}
+  <Image
+    src="/icarius-logo.svg"
+    alt="Icarius logo"
+    width={40}
+    height={40}
+    className="h-9 w-9 md:h-10 md:w-10"
+    priority
+  />
   {/* Larger brand name */}
   <span className="text-xl md:text-2xl tracking-tight">Icarius Consulting</span>
    </a>       
