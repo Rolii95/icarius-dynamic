@@ -37,9 +37,7 @@ function trapFocus(modal: HTMLElement) {
   }
 
   modal.addEventListener('keydown', handleKeyDown)
-  // Focus the first element
   firstElement?.focus()
-  // Return cleanup
   return () => {
     modal.removeEventListener('keydown', handleKeyDown)
   }
@@ -48,39 +46,46 @@ function trapFocus(modal: HTMLElement) {
 export function Header(){
   const [solid, setSolid] = useState(false)
   const lastActiveElement = useRef<HTMLElement | null>(null)
+
   useEffect(()=>{
     const onScroll = () => setSolid(window.scrollY > 8)
-    onScroll(); window.addEventListener('scroll', onScroll)
+    onScroll()
+    window.addEventListener('scroll', onScroll)
     return ()=> window.removeEventListener('scroll', onScroll)
   },[])
+
   useEffect(()=>{
-    const on = (e: Event) => { 
-      e.preventDefault(); 
-      trackPlausible('BookCallClick'); 
-      const calendly = document.getElementById('calendly')
-      if (calendly) {
-        // Save last focused element
-        lastActiveElement.current = document.activeElement as HTMLElement
-        calendly.setAttribute('aria-hidden','false')
-        calendly.setAttribute('tabIndex', '-1')
-        calendly.focus()
-        // Trap focus inside the modal
-        const removeTrap = trapFocus(calendly)
-        // Listen for modal close to restore focus
-        const observer = new MutationObserver(() => {
-          if (calendly.getAttribute('aria-hidden') === 'true' && lastActiveElement.current) {
-            lastActiveElement.current.focus()
-            observer.disconnect()
-            removeTrap()
-          }
-        })
-        observer.observe(calendly, { attributes: true, attributeFilter: ['aria-hidden'] })
+    // Handle dynamic [data-book-call] elements using event delegation
+    const handleBookCallClick = (e: Event) => {
+      const target = e.target as HTMLElement
+      if (target && target.closest('[data-book-call]')) {
+        e.preventDefault()
+        trackPlausible('BookCallClick')
+        const calendly = document.getElementById('calendly')
+        if (calendly) {
+          lastActiveElement.current = document.activeElement as HTMLElement
+          calendly.setAttribute('aria-hidden','false')
+          calendly.setAttribute('tabIndex', '-1')
+          calendly.focus()
+          const removeTrap = trapFocus(calendly)
+          const observer = new MutationObserver(() => {
+            if (calendly.getAttribute('aria-hidden') === 'true' && lastActiveElement.current) {
+              lastActiveElement.current.focus()
+              observer.disconnect()
+              removeTrap()
+            }
+          })
+          observer.observe(calendly, { attributes: true, attributeFilter: ['aria-hidden'] })
+        }
       }
     }
-    const els = document.querySelectorAll('[data-book-call]')
-    els.forEach(el => el.addEventListener('click', on))
-    return ()=> els.forEach(el => el.removeEventListener('click', on))
+    // Attach event delegation at the document level for dynamic elements
+    document.addEventListener('click', handleBookCallClick)
+    return () => {
+      document.removeEventListener('click', handleBookCallClick)
+    }
   },[])
+
   return (
     <header className={`sticky top-0 z-40 transition-colors border-b ${solid ? 'backdrop-blur bg-[rgba(11,16,32,.7)]' : 'bg-transparent'}`}>
       <div className="container mx-auto flex items-center justify-between py-3 px-4">
