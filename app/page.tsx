@@ -1,30 +1,56 @@
-'use client'
-import { Suspense, useMemo, useState } from 'react'
-import { useSearchParams } from 'next/navigation'
-import { AnimatePresence, motion } from 'framer-motion'
-import { Calculator, CheckCircle2, ChevronDown, Phone } from 'lucide-react'
+import dynamic from 'next/dynamic'
+import { Suspense } from 'react'
+import { CheckCircle2, ChevronDown, Phone } from 'lucide-react'
 
 import { AssistantForm } from '@/components/AssistantForm'
-import { BookCTA } from '@/components/BookCTA'
+import type { ContactModalTriggerProps } from '@/components/ContactModal'
 
-export default function Page(){
+const DynamicROIWidget = dynamic(() => import('@/components/ROIWidget').then((mod) => mod.ROIWidget), {
+  ssr: false,
+  loading: () => (
+    <section className="py-12 border-t border-[rgba(255,255,255,.06)]">
+      <div className="h-40 animate-pulse rounded-lg border border-white/10 bg-white/5" />
+    </section>
+  ),
+})
+
+const DynamicContactTrigger = dynamic<ContactModalTriggerProps>(
+  () => import('@/components/ContactModal').then((mod) => mod.ContactModalTrigger),
+  {
+    ssr: false,
+    loading: () => (
+      <span className="inline-flex items-center gap-2 rounded-full border border-white/20 px-5 py-3 text-sm text-slate-300 opacity-70">
+        Loading…
+      </span>
+    ),
+  }
+)
+
+type PageProps = {
+  searchParams?: Record<string, string | string[] | undefined>
+}
+
+export default function Page({ searchParams }: PageProps) {
+  const planParam = searchParams?.plan
+  const defaultPlan = Array.isArray(planParam) ? planParam[0] : planParam ?? undefined
+
   return (
     <div className="space-y-12">
       <Hero />
       <Services />
       <Pricing />
-      <ROI />
+      <DynamicROIWidget />
       <Work />
       <Testimonials />
       <FAQ />
-      <Suspense fallback={<CTAFallback />}> 
-        <CTA />
+      <Suspense fallback={<CTAFallback />}>
+        <CTA defaultPlan={defaultPlan} />
       </Suspense>
     </div>
   )
 }
 
-function CTAFallback(){
+function CTAFallback() {
   return (
     <section id="contact" className="py-16">
       <div className="card p-8 md:p-10 animate-pulse">
@@ -47,7 +73,7 @@ function CTAFallback(){
   )
 }
 
-function Hero(){
+function Hero() {
   return (
     <section className="py-16 md:py-24">
       <div className="grid md:grid-cols-2 gap-10 items-center">
@@ -60,60 +86,61 @@ function Hero(){
           </p>
           <div className="mt-6 flex gap-3">
             <a href="#pricing" className="rounded-full bg-[color:var(--primary)] text-slate-900 px-5 py-3">View Packages</a>
-            <BookCTA cta="hero" className="rounded-full border px-5 py-3">
+            <DynamicContactTrigger cta="hero" className="rounded-full border px-5 py-3">
               Book a call
-            </BookCTA>
+            </DynamicContactTrigger>
           </div>
         </div>
         <div className="card">
           <p className="font-semibold text-[color:var(--primary)] uppercase text-xs">Delivery cockpit</p>
-          <p className="text-slate-300 mt-1">Aligned milestones, RAID, adoption & value tracking. Clear owners. No surprises.</p>
+          <p className="text-slate-300 mt-1">Aligned milestones, RAID, adoption &amp; value tracking. Clear owners. No surprises.</p>
         </div>
       </div>
     </section>
   )
 }
 
-function Services(){
+function Services() {
   return (
     <section id="services" className="py-12 border-t border-[rgba(255,255,255,.06)]">
       <h2 className="text-2xl font-semibold">What we do</h2>
       <ul className="mt-4 grid md:grid-cols-4 gap-4">
         <li className="card"><h3 className="font-semibold">HRIT Advisory</h3><p className="text-slate-300 text-sm mt-1">Target architecture, integration patterns, and build/buy guidance tailored to HR.</p></li>
         <li className="card"><h3 className="font-semibold">Project Delivery</h3><p className="text-slate-300 text-sm mt-1">PMO without the drag: RAID, burn‑down, change enablement, and crisp cutover plans.</p></li>
-        <li className="card"><h3 className="font-semibold">System Audits</h3><p className="text-slate-300 text-sm mt-1">Fact‑based config & data reviews with prioritised fixes.</p></li>
+        <li className="card"><h3 className="font-semibold">System Audits</h3><p className="text-slate-300 text-sm mt-1">Fact‑based config &amp; data reviews with prioritised fixes.</p></li>
         <li className="card"><h3 className="font-semibold">AI Solutions</h3><p className="text-slate-300 text-sm mt-1">Pragmatic automation for HR Ops and knowledge.</p></li>
       </ul>
     </section>
   )
 }
 
-function Pricing(){
+function Pricing() {
   const cards = [
     { name: 'Audit Sprint', price: 6000, plan: 'audit-sprint' },
     { name: 'Delivery Jumpstart', price: 12000, plan: 'delivery-jumpstart' },
     { name: 'AI Readiness', price: 9000, plan: 'ai-readiness' },
-  ]
+  ] as const
+
   return (
     <section id="pricing" className="py-12 border-t border-[rgba(255,255,255,.06)]">
       <h2 className="text-2xl font-semibold">Packages</h2>
       <div className="mt-4 grid md:grid-cols-3 gap-4">
-        {cards.map(c => (
-          <div key={c.name} className="card">
-            <h3 className="font-semibold">{c.name}</h3>
-            <p className="text-3xl font-bold mt-2">£{c.price}</p>
+        {cards.map((card) => (
+          <div key={card.name} className="card">
+            <h3 className="font-semibold">{card.name}</h3>
+            <p className="text-3xl font-bold mt-2">£{card.price}</p>
             <ul className="mt-3 text-sm text-slate-300 space-y-1">
-              <li className="flex items-center gap-2"><CheckCircle2 size={16}/> Executive readout</li>
-              <li className="flex items-center gap-2"><CheckCircle2 size={16}/> Findings & backlog</li>
-              <li className="flex items-center gap-2"><CheckCircle2 size={16}/> 30-day support</li>
+              <li className="flex items-center gap-2"><CheckCircle2 size={16} /> Executive readout</li>
+              <li className="flex items-center gap-2"><CheckCircle2 size={16} /> Findings &amp; backlog</li>
+              <li className="flex items-center gap-2"><CheckCircle2 size={16} /> 30-day support</li>
             </ul>
-            <BookCTA
+            <DynamicContactTrigger
               cta="pricing"
-              plan={c.plan}
+              plan={card.plan}
               className="mt-4 inline-block rounded-full bg-[color:var(--primary)] text-slate-900 px-4 py-2"
             >
               Book
-            </BookCTA>
+            </DynamicContactTrigger>
           </div>
         ))}
       </div>
@@ -121,41 +148,7 @@ function Pricing(){
   )
 }
 
-function ROI(){
-  const [headcount, setHeadcount] = useState(500)
-  const [salary, setSalary] = useState(55000)
-  const [hours, setHours] = useState(1.5)
-  const savings = useMemo(()=>{
-    const hourly = salary / 220 / 7.5
-    return Math.round(headcount * hours * hourly * 52)
-  }, [headcount, salary, hours])
-  return (
-    <section className="py-12 border-t border-[rgba(255,255,255,.06)]">
-      <h2 className="text-2xl font-semibold flex items-center gap-2"><Calculator size={20}/> ROI Calculator</h2>
-      <div className="grid md:grid-cols-4 gap-4 mt-4 items-end">
-        <label className="block">
-          <div className="text-sm text-slate-400 mb-1">Employees</div>
-          <input type="range" min={50} max={10000} defaultValue={500} onChange={(e)=>setHeadcount(+e.target.value)} className="w-full"/>
-          <div className="text-sm text-slate-400">{headcount}</div>
-        </label>
-        <label className="block">
-          <div className="text-sm text-slate-400 mb-1">Average salary (£)</div>
-          <input type="number" defaultValue={55000} onChange={(e)=>setSalary(+e.target.value)} className="w-full border rounded px-3 py-2 bg-transparent"/>
-        </label>
-        <label className="block">
-          <div className="text-sm text-slate-400 mb-1">Hours saved / week</div>
-          <input type="number" step="0.1" defaultValue={1.5} onChange={(e)=>setHours(+e.target.value)} className="w-full border rounded px-3 py-2 bg-transparent"/>
-        </label>
-        <div className="card">
-          <div className="text-sm text-slate-400">Estimated annual value</div>
-          <div className="text-3xl font-bold">£{savings.toLocaleString()}</div>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-function Work(){
+function Work() {
   return (
     <section id="work" className="py-12 border-t border-[rgba(255,255,255,.06)]">
       <h2 className="text-2xl font-semibold">Selected Work</h2>
@@ -168,7 +161,7 @@ function Work(){
   )
 }
 
-function Testimonials(){
+function Testimonials() {
   return (
     <section className="py-12 border-t border-[rgba(255,255,255,.06)]">
       <h2 className="text-2xl font-semibold">What clients say</h2>
@@ -205,28 +198,26 @@ function Testimonials(){
   )
 }
 
-function FAQ(){
+function FAQ() {
   const qas = [
     { q: 'How quickly can we start?', a: 'We can kick off within 2 weeks, often faster for audits.' },
     { q: 'Do you work globally?', a: 'Yes, we deliver across EMEA/NA with remote-first governance.' },
     { q: 'What systems do you cover?', a: 'Workday, SuccessFactors, Dayforce, Oracle, plus payroll/ATS/IDM.' },
-  ];
-  const [open, setOpen] = useState<number | null>(null)
+  ] as const
+
   return (
     <section className="py-12 border-t border-[rgba(255,255,255,.06)]">
       <h2 className="text-2xl font-semibold">FAQ</h2>
       <ul className="divide-y divide-[rgba(255,255,255,.06)]">
-        {qas.map((qa, i)=> (
-          <li key={i}>
-            <button onClick={()=> setOpen(o => o===i ? null : i)} className="w-full flex items-center justify-between py-3 text-left">
-              <span className="font-medium">{qa.q}</span>
-              <ChevronDown className={`transition-transform ${open===i?'rotate-180':''}`} />
-            </button>
-            <AnimatePresence initial={false}>
-              {open===i && (
-                <motion.div initial={{height:0,opacity:0}} animate={{height:'auto',opacity:1}} exit={{height:0,opacity:0}} className="pb-3 text-slate-300">{qa.a}</motion.div>
-              )}
-            </AnimatePresence>
+        {qas.map((qa, index) => (
+          <li key={qa.q + index}>
+            <details className="group py-3">
+              <summary className="flex cursor-pointer items-center justify-between gap-3 text-left">
+                <span className="font-medium">{qa.q}</span>
+                <ChevronDown className="transition-transform group-open:rotate-180" />
+              </summary>
+              <div className="pt-3 text-slate-300">{qa.a}</div>
+            </details>
           </li>
         ))}
       </ul>
@@ -234,10 +225,7 @@ function FAQ(){
   )
 }
 
-function CTA(){
-  const params = useSearchParams()
-  const defaultPlan = params.get('plan')
-
+function CTA({ defaultPlan }: { defaultPlan?: string }) {
   return (
     <section id="contact" className="py-16">
       <div className="card p-8 md:p-10">
@@ -248,17 +236,15 @@ function CTA(){
             <p className="text-sm text-slate-400">
               Prefer to jump straight to a conversation? Use the booking link and we’ll tailor the agenda.
             </p>
-            <BookCTA
+            <DynamicContactTrigger
               cta="contact"
+              plan={defaultPlan}
               className="inline-flex items-center gap-2 rounded-full border px-5 py-3"
             >
-              <Phone size={18}/> Book a call
-            </BookCTA>
+              <Phone size={18} /> Book a call
+            </DynamicContactTrigger>
           </div>
-          <AssistantForm
-            plan={defaultPlan}
-            className="card p-6 shadow-none"
-          />
+          <AssistantForm plan={defaultPlan} className="card p-6 shadow-none" />
         </div>
       </div>
     </section>
