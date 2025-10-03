@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import '@/styles/globals.css'
-import { ConsentProvider } from '@/components/consent-provider'
+import { SiteProviders } from '@/components/consent-provider'
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
 import { inter } from '@/app/fonts'
@@ -26,15 +26,34 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              window.gtag = window.gtag || gtag;
+              gtag('consent', 'default', {
+                analytics_storage: 'denied',
+                ad_storage: 'denied',
+                ad_user_data: 'denied',
+                ad_personalization: 'denied',
+                functionality_storage: 'denied',
+                security_storage: 'granted'
+              });
+            `,
+          }}
+        />
+      </head>
       <body className={`${inter.className} bg-transparent text-slate-100`}>
         <a href="#main" className="skip-link">Skip to content</a>
-        <ConsentProvider>
+        <SiteProviders>
           <Header />
           <main id="main" className="container mx-auto px-4">
             {children}
           </main>
           <Footer />
-        </ConsentProvider>
+        </SiteProviders>
       </body>
     </html>
   )
