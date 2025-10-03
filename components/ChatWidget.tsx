@@ -6,7 +6,6 @@ import { useDeepLinks } from '@/components/chat/hooks'
 import { bookingUrl } from '@/lib/booking'
 import {
   ChatMessage,
-  ChatRouteOutput,
   ChatSession,
   ContactForwardPayload,
   QuickReply,
@@ -44,33 +43,6 @@ function parseChatSession(input: unknown): ChatSession | undefined {
     pendingContactSummary:
       typeof session.pendingContactSummary === 'string' ? session.pendingContactSummary : undefined,
   }
-}
-
-function parseQuickReplies(input: unknown): QuickReply[] | undefined {
-  if (!Array.isArray(input)) {
-    return undefined
-  }
-
-  const replies = input
-    .map((entry) => {
-      if (typeof entry !== 'object' || entry === null) {
-        return null
-      }
-
-      const reply = entry as Record<string, unknown>
-      const id = typeof reply.id === 'string' ? reply.id : undefined
-      const label = typeof reply.label === 'string' ? reply.label : undefined
-      const value = typeof reply.value === 'string' ? reply.value : undefined
-
-      if (!id || !label || !value) {
-        return null
-      }
-
-      return { id, label, value }
-    })
-    .filter((reply): reply is QuickReply => reply !== null)
-
-  return replies
 }
 
 function parseReplies(input: unknown): string[] | undefined {
@@ -126,11 +98,9 @@ export function ChatWidget() {
         const parsed = JSON.parse(raw) as {
           messages?: ChatMessage[]
           session?: unknown
-          quickReplies?: unknown
         }
         const restoredMessages = Array.isArray(parsed.messages) && parsed.messages.length > 0 ? parsed.messages : undefined
         const restoredSession = parseChatSession(parsed.session)
-        const restoredQuickReplies = parseQuickReplies(parsed.quickReplies)
 
         if (restoredMessages) {
           setMessages(
@@ -144,14 +114,7 @@ export function ChatWidget() {
         if (restoredSession) {
           setSession(restoredSession)
           sessionRef.current = restoredSession
-
-          if (restoredQuickReplies) {
-            setQuickReplies(restoredQuickReplies)
-          } else {
-            setQuickReplies(getQuickReplies(restoredSession))
-          }
-        } else if (restoredQuickReplies) {
-          setQuickReplies(restoredQuickReplies)
+          setQuickReplies(getQuickReplies(restoredSession))
         }
       }
     } catch (error) {
@@ -221,10 +184,15 @@ export function ChatWidget() {
   }, [appendMessages])
 
   const applyResult = useCallback(
-    async (result: ChatRouteOutput) => {
+    async (result: {
+      replies: string[]
+      session: ChatSession
+      openScheduler?: boolean
+      forwardContact?: ContactForwardPayload
+    }) => {
       sessionRef.current = result.session
       setSession(result.session)
-      setQuickReplies(result.quickReplies)
+      setQuickReplies(getQuickReplies(result.session))
 
       if (result.replies.length > 0) {
         const assistantMessages = result.replies.map((reply) => createMessage('assistant', reply))
@@ -243,13 +211,13 @@ export function ChatWidget() {
   )
 
   const send = useCallback(
-    async (text: string) => {
+    async (trimmed: string) => {
       try {
         const response = await fetch('/api/chat', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            message: text,
+            message: trimmed,
             session: sessionRef.current,
           }),
         })
@@ -258,34 +226,19 @@ export function ChatWidget() {
 
         if (response.ok && data && typeof data === 'object') {
           const payload = data as Record<string, unknown>
-          const rawReplies = payload.replies
-          if (Array.isArray(rawReplies)) {
-            const replies = parseReplies(rawReplies)
+          const replies = parseReplies(payload.replies)
+          const nextSession = parseChatSession(payload.session)
 
-            if (replies !== undefined) {
-              const rawSession = payload.session
-              const nextSession = parseChatSession(rawSession) ?? sessionRef.current
-              const rawQuickReplies = payload.quickReplies
-              const nextQuickReplies = parseQuickReplies(rawQuickReplies) ?? getQuickReplies(nextSession)
-              const forwardContactPayload = parseForwardContact(payload.forwardContact)
+          if (replies && nextSession) {
+            const forwardContactPayload = parseForwardContact(payload.forwardContact)
 
-              const result: ChatRouteOutput = {
-                replies,
-                session: nextSession,
-                quickReplies: nextQuickReplies,
-              }
-
-              if (payload.openScheduler === true) {
-                result.openScheduler = true
-              }
-
-              if (forwardContactPayload) {
-                result.forwardContact = forwardContactPayload
-              }
-
-              await applyResult(result)
-              return
-            }
+            await applyResult({
+              replies,
+              session: nextSession,
+              openScheduler: payload.openScheduler === true ? true : undefined,
+              forwardContact: forwardContactPayload,
+            })
+            return
           }
         }
 
@@ -298,23 +251,28 @@ export function ChatWidget() {
         console.error('Failed to send chat message', error)
       }
 
-      const fallbackResult = routeChatMessage({ message: text, session: sessionRef.current })
-      await applyResult(fallbackResult)
+      const fallbackResult = routeChatMessage({ message: trimmed, session: sessionRef.current })
+      await applyResult({
+        replies: fallbackResult.replies,
+        session: fallbackResult.session,
+        openScheduler: fallbackResult.openScheduler,
+        forwardContact: fallbackResult.forwardContact,
+      })
     },
     [applyResult],
   )
 
   const handleSend = useCallback(
     async (rawInput: string) => {
-      const text = rawInput.trim()
-      if (!text) {
+      const trimmed = rawInput.trim()
+      if (!trimmed) {
         return
       }
 
-      const userMessage = createMessage('user', text)
+      const userMessage = createMessage('user', trimmed)
       appendMessages([userMessage])
 
-      await send(text)
+      await send(trimmed)
     },
     [appendMessages, send],
   )
