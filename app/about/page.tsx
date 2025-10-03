@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 
+import { Section } from '@/components/Section'
+
 export const metadata: Metadata = {
   title: 'About Icarius Consulting',
   description:
@@ -9,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <section className="py-16">
+    <Section className="py-16">
       <div className="container mx-auto max-w-3xl px-4">
         <div className="space-y-6">
           <h1 className="text-4xl font-semibold tracking-tight">About Icarius Consulting</h1>
@@ -32,6 +34,6 @@ export default function AboutPage() {
           </p>
         </div>
       </div>
-    </section>
+    </Section>
   )
 }

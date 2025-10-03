@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 import { CASE_STUDIES } from './case-studies'
+import { Section } from '@/components/Section'
 
 export const metadata: Metadata = {
   title: 'Work — Icarius Consulting',
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function WorkPage() {
   return (
-    <section className="py-16">
+    <Section className="py-16">
       <div className="container mx-auto px-4 md:px-6">
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-sm font-medium uppercase tracking-[0.2em] text-sky-300/80">Selected work</p>
@@ -41,6 +42,6 @@ export default function WorkPage() {
           ))}
         </div>
       </div>
-    </section>
+    </Section>
   )
 }

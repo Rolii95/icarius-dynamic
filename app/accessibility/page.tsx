@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 
+import { Section } from '@/components/Section'
+
 export const metadata: Metadata = {
   title: 'Accessibility statement — Icarius Consulting',
   description: 'Steps Icarius Consulting takes to keep this website usable for everyone.',
@@ -8,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function AccessibilityPage() {
   return (
-    <section className="py-12">
+    <Section className="py-12">
       <div className="prose prose-invert max-w-3xl mx-auto">
         <h1>Accessibility statement</h1>
         <p>
@@ -37,6 +39,6 @@ export default function AccessibilityPage() {
         </p>
         <p>Last updated: {new Date().toLocaleDateString('en-GB')}</p>
       </div>
-    </section>
+    </Section>
   )
 }

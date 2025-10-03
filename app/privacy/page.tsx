@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 
+import { Section } from '@/components/Section'
+
 export const metadata: Metadata = {
   title: 'Privacy policy — Icarius Consulting',
   description: 'How Icarius Consulting handles the personal information you share with us.',
@@ -8,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <section className="py-12">
+    <Section className="py-12">
       <div className="prose prose-invert max-w-3xl mx-auto">
         <h1>Privacy policy</h1>
         <p>
@@ -55,6 +57,6 @@ export default function PrivacyPage() {
         </p>
         <p>Last updated: {new Date().toLocaleDateString('en-GB')}</p>
       </div>
-    </section>
+    </Section>
   )
 }

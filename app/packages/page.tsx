@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 
+import { Section } from '@/components/Section'
+
 export const metadata: Metadata = {
   title: 'Packages — Icarius Consulting',
   description: 'Choose the engagement model that fits your operational goals and pace.',
@@ -26,7 +28,7 @@ const packages = [
 
 export default function PackagesPage() {
   return (
-    <section className="py-16">
+    <Section className="py-16">
       <div className="container mx-auto max-w-4xl px-4">
         <div className="space-y-10">
           <header className="space-y-4">
@@ -49,6 +51,6 @@ export default function PackagesPage() {
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   )
 }
