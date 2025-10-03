@@ -26,9 +26,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className="bg-transparent text-slate-100">
+        <a href="#main" className="skip-link">Skip to content</a>
         <ConsentProvider>
           <Header />
-          <main id="content" className="container mx-auto px-4">
+          <main id="main" className="container mx-auto px-4">
             {children}
           </main>
           <Footer />
