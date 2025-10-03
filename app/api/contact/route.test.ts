@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { handleContactRequest } from './handler';
 
 function createRequest(body: unknown): Request {
@@ -31,8 +31,8 @@ describe('handleContactRequest', () => {
     const request = createRequest({
       name: 'Jane Doe',
       email: 'jane@example.com',
-      company: 'Example Co',
       message: 'Hello there',
+      plan: 'audit-sprint',
     });
 
     const response = await handleContactRequest(request, {
@@ -52,6 +52,7 @@ describe('handleContactRequest', () => {
       email: 'jane@example.com',
       company: ' Example Co ',
       message: 'Hello there',
+      plan: ' delivery-jumpstart ',
     });
 
     let sentPayload: unknown;
@@ -63,12 +64,56 @@ describe('handleContactRequest', () => {
 
     expect(response.status).toBe(200);
     const payload = await response.json();
-    expect(payload).toEqual({ success: true });
+    expect(payload).toEqual({ ok: true });
     expect(sentPayload).toEqual({
       name: 'Jane Doe',
       email: 'jane@example.com',
       company: 'Example Co',
       message: 'Hello there',
+      plan: 'delivery-jumpstart',
     });
+  });
+
+  it('invokes webhook before logging metadata', async () => {
+    const request = createRequest({
+      name: 'Amy Example',
+      email: 'amy@example.com',
+      message: 'Hello',
+    });
+
+    const fetchSpy = vi
+      .spyOn(globalThis, 'fetch')
+      .mockResolvedValue(new Response(null, { status: 204 }));
+    const infoSpy = vi.spyOn(console, 'info').mockImplementation(() => {});
+    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+    process.env.CONTACT_WEBHOOK_URL = 'https://example.com/webhook';
+
+    const response = await handleContactRequest(request, {
+      sendEmail: async () => {},
+    });
+
+    expect(response.status).toBe(200);
+    expect(fetchSpy).toHaveBeenCalledWith(
+      'https://example.com/webhook',
+      expect.objectContaining({
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+      }),
+    );
+    expect(infoSpy).toHaveBeenCalledWith(
+      'Contact request processed',
+      expect.objectContaining({
+        emailDomain: 'example.com',
+        companyProvided: false,
+        plan: null,
+        messageLength: 5,
+      }),
+    );
+
+    fetchSpy.mockRestore();
+    infoSpy.mockRestore();
+    errorSpy.mockRestore();
+    delete process.env.CONTACT_WEBHOOK_URL;
   });
 });

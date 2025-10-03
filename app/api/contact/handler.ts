@@ -4,8 +4,9 @@ import { Resend } from 'resend';
 type ContactPayload = {
   name: string;
   email: string;
-  company: string;
   message: string;
+  company?: string;
+  plan?: string;
 };
 
 type ValidationError = {
@@ -32,11 +33,13 @@ function validatePayload(payload: unknown): ValidationResult {
   }
 
   const raw = payload as Record<string, unknown>;
-  const fields: (keyof ContactPayload)[] = ['name', 'email', 'company', 'message'];
   const errors: ValidationError[] = [];
   const normalized: Partial<ContactPayload> = {};
 
-  for (const field of fields) {
+  const requiredFields: (keyof ContactPayload)[] = ['name', 'email', 'message'];
+  const optionalFields: (keyof ContactPayload)[] = ['company', 'plan'];
+
+  for (const field of requiredFields) {
     const value = raw[field];
     if (typeof value !== 'string') {
       errors.push({ field, message: `${field} is required.` });
@@ -46,6 +49,24 @@ function validatePayload(payload: unknown): ValidationResult {
     const trimmed = value.trim();
     if (!trimmed) {
       errors.push({ field, message: `${field} is required.` });
+      continue;
+    }
+
+    (normalized as Record<string, string>)[field] = trimmed;
+  }
+
+  for (const field of optionalFields) {
+    const value = raw[field];
+    if (value === undefined || value === null) {
+      continue;
+    }
+
+    if (typeof value !== 'string') {
+      continue;
+    }
+
+    const trimmed = value.trim();
+    if (!trimmed) {
       continue;
     }
 
@@ -77,18 +98,27 @@ async function sendWithResend(payload: ContactPayload): Promise<void> {
 
   const resend = new Resend(apiKey);
 
+  const lines = [
+    `Name: ${payload.name}`,
+    `Email: ${payload.email}`,
+  ];
+
+  if (payload.company) {
+    lines.push(`Company: ${payload.company}`);
+  }
+
+  if (payload.plan) {
+    lines.push(`Plan: ${payload.plan}`);
+  }
+
+  lines.push('', payload.message);
+
   await resend.emails.send({
     from,
     to: [to],
     replyTo: payload.email,
     subject: `New contact request from ${payload.name}`,
-    text: [
-      `Name: ${payload.name}`,
-      `Email: ${payload.email}`,
-      `Company: ${payload.company}`,
-      '',
-      payload.message,
-    ].join('\n'),
+    text: lines.join('\n'),
   });
 }
 
@@ -120,5 +150,29 @@ export async function handleContactRequest(
     );
   }
 
-  return NextResponse.json({ success: true });
+  const webhookUrl = process.env.CONTACT_WEBHOOK_URL;
+
+  if (webhookUrl) {
+    try {
+      await fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(validation.data),
+      });
+    } catch (error) {
+      console.error('Failed to invoke contact webhook', error);
+    }
+  }
+
+  const { email, company, plan, message } = validation.data;
+  const [, domain = ''] = email.split('@');
+
+  console.info('Contact request processed', {
+    emailDomain: domain,
+    companyProvided: Boolean(company),
+    plan: plan ?? null,
+    messageLength: message.length,
+  });
+
+  return NextResponse.json({ ok: true });
 }
