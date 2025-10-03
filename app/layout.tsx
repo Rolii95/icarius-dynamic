@@ -8,8 +8,16 @@ export const metadata: Metadata = {
   title: 'Icarius Consulting — HRIT Advisory & Delivery',
   description: 'HRIT advisory, project delivery, system audits, and AI solutions.',
   metadataBase: new URL('https://www.icarius-consulting.com'),
-  openGraph: { type: 'website', title: 'Icarius Consulting', description: 'HRIT advisory, project delivery, system audits, and AI solutions.', images: ['/og-image-brand.png'] },
-  twitter: { card: 'summary_large_image', images: ['/og-image-brand.png'] },
+  openGraph: {
+    type: 'website',
+    title: 'Icarius Consulting',
+    description: 'HRIT advisory, project delivery, system audits, and AI solutions.',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    images: [{ url: '/twitter-image', width: 1200, height: 630 }],
+  },
   icons: { icon: '/favicon.ico', shortcut: '/favicon.svg', apple: '/apple-touch-icon.png' },
   alternates: { canonical: '/' },
 }
