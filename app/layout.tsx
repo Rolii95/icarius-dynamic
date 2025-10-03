@@ -3,6 +3,7 @@ import '@/styles/globals.css'
 import { ConsentProvider } from '@/components/consent-provider'
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
+import { inter } from '@/app/fonts'
 
 export const metadata: Metadata = {
   title: 'Icarius Consulting — HRIT Advisory & Delivery',
@@ -25,7 +26,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="bg-transparent text-slate-100">
+      <body className={`${inter.className} bg-transparent text-slate-100`}>
         <a href="#main" className="skip-link">Skip to content</a>
         <ConsentProvider>
           <Header />
