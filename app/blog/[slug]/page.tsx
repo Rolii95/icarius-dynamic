@@ -30,14 +30,6 @@ function isModuleNotFound(error: unknown) {
   return missingModuleByCode || missingModuleByMessage
 }
 
-function formatSlugToTitle(slug: string) {
-  return slug
-    .split('-')
-    .filter(Boolean)
-    .map((segment) => segment.charAt(0).toUpperCase() + segment.slice(1))
-    .join(' ')
-}
-
 async function loadPostModule(slug: string): Promise<PostModule> {
   try {
     return (await import(`@/content/posts/${slug}.mdx`)) as PostModule
@@ -77,13 +69,31 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: BlogPageProps): Promise<Metadata> {
   const postModule = await loadPostModule(params.slug)
-  const title = postModule.metadata?.title ?? formatSlugToTitle(params.slug)
-  const description = postModule.metadata?.description
+  const metadata = postModule.metadata
+
+  if (!metadata?.title || !metadata?.description) {
+    throw new Error(`Missing metadata export for blog post: ${params.slug}`)
+  }
+
+  const { title, description } = metadata
 
   return {
     title,
     description,
     alternates: { canonical: `/blog/${params.slug}` },
+    openGraph: {
+      title,
+      description,
+      url: `/blog/${params.slug}`,
+      images: [{ url: '/opengraph-image', width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [{ url: '/twitter-image', width: 1200, height: 630 }],
+    },
+    robots: { index: true, follow: true },
   }
 }
 
@@ -91,6 +101,12 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
   const { slug } = params
 
   const postModule = await loadPostModule(slug)
+  const metadata = postModule.metadata
+
+  if (!metadata?.title || !metadata?.description) {
+    throw new Error(`Missing metadata export for blog post: ${slug}`)
+  }
+
   const Post = postModule.default
 
   return (

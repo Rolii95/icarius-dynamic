@@ -4,10 +4,27 @@ import Link from 'next/link'
 import { CASE_STUDIES } from './case-studies'
 import { Section } from '@/components/Section'
 
+const title = 'HRIT advisory HR systems audit HR AI PMO outcomes portfolio'
+const description =
+  'Browse case studies where HRIT advisory blueprints, HR systems audit remediations, HR AI pilots, and PMO governance de-risked global people technology change.'
+
 export const metadata: Metadata = {
-  title: 'Work — Icarius Consulting',
-  description: 'See examples of the outcomes we help operations and finance teams deliver.',
+  title,
+  description,
   alternates: { canonical: '/work' },
+  openGraph: {
+    title,
+    description,
+    url: '/work',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title,
+    description,
+    images: [{ url: '/twitter-image', width: 1200, height: 630 }],
+  },
+  robots: { index: true, follow: true },
 }
 
 export default function WorkPage() {

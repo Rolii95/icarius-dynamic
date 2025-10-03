@@ -5,13 +5,30 @@ import type { Metadata } from 'next'
 
 import { Section } from '@/components/Section'
 
+const title = 'HRIT advisory HR systems audit HR AI PMO insights library'
+const description =
+  'See how our HRIT advisory strategies, HR systems audit tactics, HR AI adoption, and PMO leadership keep transformations focused on tangible impact.'
+
 export const metadata: Metadata = {
-  title: 'Insights — Icarius Consulting',
-  description: 'Browse articles and updates from the Icarius Consulting team.',
+  title,
+  description,
   alternates: { canonical: '/blog' },
+  openGraph: {
+    title,
+    description,
+    url: '/blog',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title,
+    description,
+    images: [{ url: '/twitter-image', width: 1200, height: 630 }],
+  },
+  robots: { index: true, follow: true },
 }
 
-export default async function BlogIndex(){
+export default async function BlogIndex() {
   const dir = path.join(process.cwd(), 'content', 'posts')
   const files = (await fs.readdir(dir)).filter(f => f.endsWith('.mdx'))
   return (

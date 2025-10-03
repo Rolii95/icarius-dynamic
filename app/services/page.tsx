@@ -2,11 +2,27 @@ import type { Metadata } from 'next'
 
 import { Section } from '@/components/Section'
 
+const title = 'HRIT advisory HR systems audit HR AI PMO services playbooks'
+const description =
+  'Explore HRIT advisory roadmaps, HR systems audit accelerators, HR AI experiments, and PMO toolkits aligning teams and platforms around measurable outcomes.'
+
 export const metadata: Metadata = {
-  title: 'Services — Icarius Consulting',
-  description:
-    'Explore the consulting services Icarius offers to modernise operations and finance teams.',
+  title,
+  description,
   alternates: { canonical: '/services' },
+  openGraph: {
+    title,
+    description,
+    url: '/services',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title,
+    description,
+    images: [{ url: '/twitter-image', width: 1200, height: 630 }],
+  },
+  robots: { index: true, follow: true },
 }
 
 const services = [

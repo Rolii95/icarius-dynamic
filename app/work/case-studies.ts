@@ -2,6 +2,8 @@ export type CaseStudy = {
   slug: string
   title: string
   summary: string
+  seoTitle: string
+  seoDescription: string
   hero: {
     eyebrow: string
     title: string
@@ -35,6 +37,9 @@ export const CASE_STUDIES: CaseStudy[] = [
     slug: 'global-hcm-replacement',
     title: 'Global HCM replacement',
     summary: 'Vendor selection and readiness for 40k employees.',
+    seoTitle: 'HRIT advisory HR systems audit HR AI PMO global scale',
+    seoDescription:
+      'See HRIT advisory direction with HR systems audit rigor, HR AI exploration, and PMO governance combine to unify a hospitality group\'s global HCM landscape.',
     hero: {
       eyebrow: 'FTSE250 hospitality group',
       title: 'Replacing fragmented HR platforms with a single global HCM',
@@ -90,6 +95,9 @@ export const CASE_STUDIES: CaseStudy[] = [
     slug: 'payroll-consolidation',
     title: 'Payroll consolidation',
     summary: '12-country integration and control framework.',
+    seoTitle: 'HRIT advisory HR systems audit HR AI PMO payroll unity',
+    seoDescription:
+      'Watch HRIT advisory guidance, HR systems audit structure, HR AI experimentation, and PMO cadence consolidate payroll operations into a control framework.',
     hero: {
       eyebrow: 'Retail & eCommerce group',
       title: 'Creating a single payroll control framework across 12 countries',
@@ -140,6 +148,9 @@ export const CASE_STUDIES: CaseStudy[] = [
     slug: 'hr-ops-ai-assistant',
     title: 'HR Ops AI assistant',
     summary: 'Reduced resolution time by 34%.',
+    seoTitle: 'HRIT advisory HR systems audit HR AI PMO assistant win',
+    seoDescription:
+      'Follow how HRIT advisory prioritisation, HR systems audit cleanup, HR AI guardrails, and PMO coaching delivered a compliant assistant that shrank handle times.',
     hero: {
       eyebrow: 'Global professional services firm',
       title: 'Deploying an AI assistant to accelerate HR case resolution',

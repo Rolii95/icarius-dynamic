@@ -2,10 +2,27 @@ import type { Metadata } from 'next'
 import { bookingUrl } from '@/lib/booking'
 import { Section } from '@/components/Section'
 
+const title = 'HRIT advisory HR systems audit HR AI PMO contact team'
+const description =
+  'Connect with HRIT advisory leads to scope HR systems audit support, HR AI pilots, and PMO engagements shaped around your timelines, stakeholders, and goals.'
+
 export const metadata: Metadata = {
-  title: 'Contact — Icarius Consulting',
-  description: 'Book time with the Icarius team or request more information about our services.',
+  title,
+  description,
   alternates: { canonical: '/contact' },
+  openGraph: {
+    title,
+    description,
+    url: '/contact',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title,
+    description,
+    images: [{ url: '/twitter-image', width: 1200, height: 630 }],
+  },
+  robots: { index: true, follow: true },
 }
 
 const contactMethods = [

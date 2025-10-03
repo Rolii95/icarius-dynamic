@@ -1,6 +1,7 @@
 import dynamic from 'next/dynamic'
 import { Suspense } from 'react'
 import { CheckCircle2, ChevronDown, Phone } from 'lucide-react'
+import type { Metadata } from 'next'
 
 import { AssistantForm } from '@/components/AssistantForm'
 import type { ContactModalTriggerProps } from '@/components/ContactModal'
@@ -30,6 +31,29 @@ const DynamicContactTrigger = dynamic<ContactModalTriggerProps>(
 
 type PageProps = {
   searchParams?: Record<string, string | string[] | undefined>
+}
+
+const title = 'HRIT advisory HR systems audit HR AI PMO experts guide'
+const description =
+  'Navigate HRIT advisory, HR systems audit, HR AI innovation, and PMO delivery with Icarius—boutique consultants keeping people, process, and platforms in sync.'
+
+export const metadata: Metadata = {
+  title,
+  description,
+  alternates: { canonical: '/' },
+  openGraph: {
+    title,
+    description,
+    url: '/',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title,
+    description,
+    images: [{ url: '/twitter-image', width: 1200, height: 630 }],
+  },
+  robots: { index: true, follow: true },
 }
 
 export default function Page({ searchParams }: PageProps) {

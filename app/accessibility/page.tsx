@@ -2,10 +2,27 @@ import type { Metadata } from 'next'
 
 import { Section } from '@/components/Section'
 
+const title = 'HRIT advisory HR systems audit HR AI PMO access pledge'
+const description =
+  'See how our HRIT advisory culture, HR systems audit rigor, HR AI experimentation, and PMO discipline inform accessible design standards upheld across this site.'
+
 export const metadata: Metadata = {
-  title: 'Accessibility statement — Icarius Consulting',
-  description: 'Steps Icarius Consulting takes to keep this website usable for everyone.',
+  title,
+  description,
   alternates: { canonical: '/accessibility' },
+  openGraph: {
+    title,
+    description,
+    url: '/accessibility',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title,
+    description,
+    images: [{ url: '/twitter-image', width: 1200, height: 630 }],
+  },
+  robots: { index: true, follow: true },
 }
 
 export default function AccessibilityPage() {

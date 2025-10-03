@@ -23,15 +23,44 @@ export function generateMetadata({ params }: Params): Metadata {
     return {
       title: 'Case study — Icarius Consulting',
       description: 'Explore case studies from the Icarius Consulting team.',
+      alternates: {
+        canonical: `/work/${params.slug}`,
+      },
+      openGraph: {
+        title: 'Case study — Icarius Consulting',
+        description: 'Explore case studies from the Icarius Consulting team.',
+        url: `/work/${params.slug}`,
+        images: [{ url: '/opengraph-image', width: 1200, height: 630 }],
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: 'Case study — Icarius Consulting',
+        description: 'Explore case studies from the Icarius Consulting team.',
+        images: [{ url: '/twitter-image', width: 1200, height: 630 }],
+      },
+      robots: { index: true, follow: true },
     }
   }
 
   return {
-    title: `${study.title} — Work — Icarius Consulting`,
-    description: study.summary,
+    title: study.seoTitle,
+    description: study.seoDescription,
     alternates: {
       canonical: `/work/${study.slug}`,
     },
+    openGraph: {
+      title: study.seoTitle,
+      description: study.seoDescription,
+      url: `/work/${study.slug}`,
+      images: [{ url: '/opengraph-image', width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: study.seoTitle,
+      description: study.seoDescription,
+      images: [{ url: '/twitter-image', width: 1200, height: 630 }],
+    },
+    robots: { index: true, follow: true },
   }
 }
 
