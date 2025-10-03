@@ -5,6 +5,7 @@ import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
 import { inter } from '@/app/fonts'
 import { ViewObserver } from '@/app/providers'
+import { siteOrigin } from '@/lib/config/site'
 import {
   buildCoreServiceSchemas,
   buildLocalBusinessSchema,
@@ -16,10 +17,12 @@ import {
 const fallbackTitle = 'HRIT advisory HR systems audit HR AI PMO experts guide'
 const fallbackDescription = ORGANIZATION_DESCRIPTION
 
+const metadataBaseUrl = new URL(siteOrigin)
+
 export const metadata: Metadata = {
   title: fallbackTitle,
   description: fallbackDescription,
-  metadataBase: new URL('https://www.icarius-consulting.com'),
+  metadataBase: metadataBaseUrl,
   openGraph: {
     type: 'website',
     title: fallbackTitle,
@@ -39,7 +42,10 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const metadataBase = metadata.metadataBase ?? new URL('https://www.icarius-consulting.com')
+  const metadataBase =
+    metadata.metadataBase instanceof URL
+      ? metadata.metadataBase
+      : new URL((metadata.metadataBase as string | undefined) ?? siteOrigin)
   const structuredData = stringifyJsonLd([
     buildOrganizationSchema(metadataBase),
     buildLocalBusinessSchema(metadataBase),
