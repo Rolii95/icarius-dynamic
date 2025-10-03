@@ -98,7 +98,7 @@ export function Header(){
   return (
     <header className={`sticky top-0 z-40 transition-colors border-b ${solid ? 'backdrop-blur bg-[rgba(11,16,32,.7)]' : 'bg-transparent'}`}>
       <div className="container mx-auto flex items-center justify-between py-3 px-4">
-        <a href="#top" className="flex items-center gap-3 font-bold leading-none">
+        <Link href="/" className="flex items-center gap-3 font-bold leading-none">
           {/* Bigger logo using Next.js Image */}
           <Image
             src="/icarius-logo.svg"
@@ -110,7 +110,7 @@ export function Header(){
           />
           {/* Larger brand name */}
           <span className="text-xl md:text-2xl tracking-tight">Icarius Consulting</span>
-        </a>       
+        </Link>
         <nav className="hidden md:flex items-center gap-6 text-sm">
           {primaryNavLinks.map((link) => (
             <Link key={link.href} href={link.href} className="hover:underline">
