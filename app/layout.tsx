@@ -5,10 +5,16 @@ import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
 import { inter } from '@/app/fonts'
 import { ViewObserver } from '@/app/providers'
+import {
+  buildCoreServiceSchemas,
+  buildLocalBusinessSchema,
+  buildOrganizationSchema,
+  ORGANIZATION_DESCRIPTION,
+  stringifyJsonLd,
+} from '@/lib/structured-data'
 
 const fallbackTitle = 'HRIT advisory HR systems audit HR AI PMO experts guide'
-const fallbackDescription =
-  'Navigate HRIT advisory, HR systems audit, HR AI innovation, and PMO delivery with Icarius—boutique consultants keeping people, process, and platforms in sync.'
+const fallbackDescription = ORGANIZATION_DESCRIPTION
 
 export const metadata: Metadata = {
   title: fallbackTitle,
@@ -33,9 +39,17 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const metadataBase = metadata.metadataBase ?? new URL('https://www.icarius-consulting.com')
+  const structuredData = stringifyJsonLd([
+    buildOrganizationSchema(metadataBase),
+    buildLocalBusinessSchema(metadataBase),
+    ...buildCoreServiceSchemas(metadataBase),
+  ])
+
   return (
     <html lang="en">
       <head>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: structuredData }} />
         <script
           dangerouslySetInnerHTML={{
             __html: `
