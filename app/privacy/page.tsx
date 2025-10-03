@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Privacy policy — Icarius Consulting',
   description: 'How Icarius Consulting handles the personal information you share with us.',
+  alternates: { canonical: '/privacy' },
 }
 
 export default function PrivacyPage() {

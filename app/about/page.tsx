@@ -4,6 +4,7 @@ export const metadata: Metadata = {
   title: 'About Icarius Consulting',
   description:
     'Learn about the team, ethos, and operating principles behind Icarius Consulting.',
+  alternates: { canonical: '/about' },
 }
 
 export default function AboutPage() {

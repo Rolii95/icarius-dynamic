@@ -4,6 +4,7 @@ import { bookingUrl } from '@/lib/booking'
 export const metadata: Metadata = {
   title: 'Contact — Icarius Consulting',
   description: 'Book time with the Icarius team or request more information about our services.',
+  alternates: { canonical: '/contact' },
 }
 
 const contactMethods = [

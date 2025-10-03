@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Accessibility statement — Icarius Consulting',
   description: 'Steps Icarius Consulting takes to keep this website usable for everyone.',
+  alternates: { canonical: '/accessibility' },
 }
 
 export default function AccessibilityPage() {

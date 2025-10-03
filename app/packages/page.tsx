@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Packages — Icarius Consulting',
   description: 'Choose the engagement model that fits your operational goals and pace.',
+  alternates: { canonical: '/packages' },
 }
 
 const packages = [

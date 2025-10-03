@@ -4,6 +4,7 @@ export const metadata: Metadata = {
   title: 'Services — Icarius Consulting',
   description:
     'Explore the consulting services Icarius offers to modernise operations and finance teams.',
+  alternates: { canonical: '/services' },
 }
 
 const services = [
