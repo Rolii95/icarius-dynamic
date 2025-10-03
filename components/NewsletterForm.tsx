@@ -69,6 +69,14 @@ export function NewsletterForm({ className }: NewsletterFormProps) {
     .filter(Boolean)
     .join(' ')
 
+  const feedbackClassName = `text-xs ${
+    status === 'success'
+      ? 'text-emerald-300'
+      : status === 'error'
+        ? 'text-red-300'
+        : 'text-slate-300'
+  }`
+
   return (
     <form className={formClasses} onSubmit={handleSubmit} noValidate>
       <label className="relative flex-1">
@@ -91,19 +99,14 @@ export function NewsletterForm({ className }: NewsletterFormProps) {
       >
         {buttonLabel}
       </button>
-      {feedback && (
-        <p
-          className={`text-xs ${
-            status === 'success'
-              ? 'text-emerald-300'
-              : status === 'error'
-                ? 'text-red-300'
-                : 'text-slate-300'
-          }`}
-        >
-          {feedback}
-        </p>
-      )}
+      <p
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        className={feedbackClassName}
+      >
+        {feedback ?? ''}
+      </p>
     </form>
   )
 }
