@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { bookingUrl } from '@/lib/booking'
 import { Section } from '@/components/Section'
+import { BUSINESS_ADDRESS, CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_URI } from '@/lib/structured-data'
 
 const title = 'HRIT advisory HR systems audit HR AI PMO contact team'
 const description =
@@ -36,7 +37,7 @@ const contactMethods = [
   },
   {
     label: 'Email the team',
-    href: 'mailto:hello@icarius-consulting.com',
+    href: `mailto:${CONTACT_EMAIL}`,
     description: 'Share context, RFPs, or supporting information and we will reply within one business day.',
     newTab: false,
     cta: 'contact-page-email',
@@ -54,6 +55,14 @@ export default function ContactPage() {
             <p className="text-lg text-slate-300">
               We would love to learn about the challenges in front of you. Choose the option below that
               suits you best and we will respond quickly.
+            </p>
+            <p className="text-sm text-slate-400">
+              Based in {BUSINESS_ADDRESS.addressLocality} {BUSINESS_ADDRESS.postalCode}, {BUSINESS_ADDRESS.addressRegion}, we partner with
+              clients across the UK, EMEA, and North America. Prefer to speak now? Call{' '}
+              <a href={`tel:${CONTACT_PHONE_URI}`} className="text-[color:var(--primary)]">
+                {CONTACT_PHONE}
+              </a>
+              .
             </p>
           </header>
           <ul className="space-y-4">

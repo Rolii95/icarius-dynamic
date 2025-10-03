@@ -7,6 +7,8 @@ import { AssistantForm } from '@/components/AssistantForm'
 import type { ContactModalTriggerProps } from '@/components/ContactModal'
 import { HeroIllustration } from '@/components/HeroIllustration'
 import { Section } from '@/components/Section'
+import { metadata as rootMetadata } from '@/app/layout'
+import { buildFaqPageSchema, coreServices, type FAQItem, stringifyJsonLd } from '@/lib/structured-data'
 
 const DynamicROIWidget = dynamic(() => import('@/components/ROIWidget').then((mod) => mod.ROIWidget), {
   ssr: false,
@@ -32,6 +34,18 @@ const DynamicContactTrigger = dynamic<ContactModalTriggerProps>(
 type PageProps = {
   searchParams?: Record<string, string | string[] | undefined>
 }
+
+export const homepageFaqItems = [
+  { question: 'How quickly can we start?', answer: 'We can kick off within 2 weeks, often faster for audits.' },
+  {
+    question: 'Do you work globally?',
+    answer: 'Yes, we deliver across EMEA/NA with remote-first governance.',
+  },
+  {
+    question: 'What systems do you cover?',
+    answer: 'Workday, SuccessFactors, Dayforce, Oracle, plus payroll/ATS/IDM.',
+  },
+] satisfies readonly FAQItem[]
 
 const title = 'HRIT advisory HR systems audit HR AI PMO experts guide'
 const description =
@@ -128,10 +142,12 @@ function Services() {
     <Section id="services" className="py-12 border-t border-[rgba(255,255,255,.06)]">
       <h2 className="text-2xl font-semibold">What we do</h2>
       <ul className="mt-4 grid md:grid-cols-4 gap-4">
-        <li className="card"><h3 className="font-semibold">HRIT Advisory</h3><p className="text-slate-300 text-sm mt-1">Target architecture, integration patterns, and build/buy guidance tailored to HR.</p></li>
-        <li className="card"><h3 className="font-semibold">Project Delivery</h3><p className="text-slate-300 text-sm mt-1">PMO without the drag: RAID, burn‑down, change enablement, and crisp cutover plans.</p></li>
-        <li className="card"><h3 className="font-semibold">System Audits</h3><p className="text-slate-300 text-sm mt-1">Fact‑based config &amp; data reviews with prioritised fixes.</p></li>
-        <li className="card"><h3 className="font-semibold">AI Solutions</h3><p className="text-slate-300 text-sm mt-1">Pragmatic automation for HR Ops and knowledge.</p></li>
+        {coreServices.map((service) => (
+          <li key={service.id} className="card">
+            <h3 className="font-semibold">{service.name}</h3>
+            <p className="text-slate-300 text-sm mt-1">{service.description}</p>
+          </li>
+        ))}
       </ul>
     </Section>
   )
@@ -222,24 +238,27 @@ function Testimonials() {
 }
 
 function FAQ() {
-  const qas = [
-    { q: 'How quickly can we start?', a: 'We can kick off within 2 weeks, often faster for audits.' },
-    { q: 'Do you work globally?', a: 'Yes, we deliver across EMEA/NA with remote-first governance.' },
-    { q: 'What systems do you cover?', a: 'Workday, SuccessFactors, Dayforce, Oracle, plus payroll/ATS/IDM.' },
-  ] as const
+  const faqJsonLd = stringifyJsonLd(
+    buildFaqPageSchema({
+      baseUrl: rootMetadata.metadataBase ?? new URL('https://www.icarius-consulting.com'),
+      path: '/',
+      items: homepageFaqItems,
+    }),
+  )
 
   return (
     <Section className="py-12 border-t border-[rgba(255,255,255,.06)]">
       <h2 className="text-2xl font-semibold">FAQ</h2>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: faqJsonLd }} />
       <ul className="divide-y divide-[rgba(255,255,255,.06)]">
-        {qas.map((qa, index) => (
-          <li key={qa.q + index}>
+        {homepageFaqItems.map((qa, index) => (
+          <li key={qa.question + index}>
             <details className="group py-3">
               <summary className="flex cursor-pointer items-center justify-between gap-3 text-left">
-                <span className="font-medium">{qa.q}</span>
+                <span className="font-medium">{qa.question}</span>
                 <ChevronDown className="transition-transform group-open:rotate-180" />
               </summary>
-              <div className="pt-3 text-slate-300">{qa.a}</div>
+              <div className="pt-3 text-slate-300">{qa.answer}</div>
             </details>
           </li>
         ))}
