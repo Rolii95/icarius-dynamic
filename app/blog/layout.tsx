@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 
-import { Header } from '@/components/header'
 
 const defaultTitle = 'HRIT advisory HR systems audit HR AI PMO insights library'
 const defaultDescription =
@@ -31,7 +30,6 @@ export const metadata: Metadata = {
 export default function BlogLayout({ children }: { children: ReactNode }) {
   return (
     <>
-      <Header />
       <div className="prose prose-invert mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
         {children}
       </div>
