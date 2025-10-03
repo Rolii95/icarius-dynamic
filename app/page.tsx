@@ -4,6 +4,7 @@ import { CheckCircle2, ChevronDown, Phone } from 'lucide-react'
 
 import { AssistantForm } from '@/components/AssistantForm'
 import type { ContactModalTriggerProps } from '@/components/ContactModal'
+import { HeroIllustration } from '@/components/HeroIllustration'
 
 const DynamicROIWidget = dynamic(() => import('@/components/ROIWidget').then((mod) => mod.ROIWidget), {
   ssr: false,
@@ -91,10 +92,7 @@ function Hero() {
             </DynamicContactTrigger>
           </div>
         </div>
-        <div className="card">
-          <p className="font-semibold text-[color:var(--primary)] uppercase text-xs">Delivery cockpit</p>
-          <p className="text-slate-300 mt-1">Aligned milestones, RAID, adoption &amp; value tracking. Clear owners. No surprises.</p>
-        </div>
+        <HeroIllustration />
       </div>
     </section>
   )
