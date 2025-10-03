@@ -6,9 +6,20 @@ export const metadata = {
   tags: ['AI', 'HR', 'Change'],
 }
 
+import { ArticleJsonLd } from '@/components/ArticleJsonLd'
 import { BlogCTA } from '@/components/BlogCTA'
 import { InlineROI } from '@/components/InlineROI'
 import { NewsletterForm } from '@/components/NewsletterForm'
+
+<ArticleJsonLd
+  url={`${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.icarius-consulting.com'}/blog/ai-readiness-for-hr`}
+  title={metadata.title}
+  description={metadata.description}
+  datePublished={metadata.date}
+  dateModified={metadata.date}
+  author="Icarius Consulting"
+  image={`${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.icarius-consulting.com'}/blog/ai-readiness-for-hr/opengraph-image`}
+/>
 
 # AI Readiness for HR
 
