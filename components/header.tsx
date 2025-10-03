@@ -42,7 +42,7 @@ export function Header() {
             </Link>
           ))}
           <BookCTA
-            cta="header"
+            data-cta="header"
             className="inline-flex items-center gap-2 rounded-full border px-4 py-2"
           >
             Book a call
