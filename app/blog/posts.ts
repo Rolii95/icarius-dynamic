@@ -8,6 +8,22 @@ export type Post = {
 
 export const POSTS: Post[] = [
   {
+    slug: 'hris-audit-sprint-playbook',
+    title: 'HRIS Audit Sprint Playbook',
+    summary:
+      'Use a six-week sprint model to surface HRIS risk, quantify impact, and build a remediation roadmap leaders trust.',
+    date: '2024-11-05',
+    tags: ['HRIS', 'Audit', 'Governance'],
+  },
+  {
+    slug: 'delivery-jumpstart-30-days',
+    title: 'Delivery Jumpstart: 30 Days to Program Momentum',
+    summary:
+      'Stabilise struggling HR transformations with a 30-day cadence reset that rebuilds trust and accelerates value.',
+    date: '2024-10-22',
+    tags: ['Delivery', 'PMO', 'Transformation'],
+  },
+  {
     slug: 'modernizing-hr-service-delivery-analytics',
     title: 'Modernizing HR Service Delivery with Analytics',
     summary:
@@ -24,6 +40,14 @@ export const POSTS: Post[] = [
     tags: ['PMO', 'Transformation'],
   },
   {
+    slug: 'ai-readiness-for-hr',
+    title: 'AI Readiness for HR',
+    summary:
+      'Prepare HR data, governance, and teams for responsible AI pilots that balance innovation with compliance.',
+    date: '2024-09-18',
+    tags: ['AI', 'HR', 'Change'],
+  },
+  {
     slug: 'ai-change-management-playbook-for-people-teams',
     title: 'An AI Change Management Playbook for People Teams',
     summary:
@@ -38,6 +62,14 @@ export const POSTS: Post[] = [
       'Use value-stream prioritization to focus HR technology roadmaps on measurable enterprise OKRs.',
     date: '2024-08-20',
     tags: ['HRIT', 'Strategy'],
+  },
+  {
+    slug: 'roi-of-hr-automation',
+    title: 'Calculating the ROI of HR Automation',
+    summary:
+      'Build a data-backed business case for automating HR operations by combining cost, experience, and risk insights.',
+    date: '2024-08-28',
+    tags: ['Automation', 'ROI', 'HR Operations'],
   },
 ]
 
