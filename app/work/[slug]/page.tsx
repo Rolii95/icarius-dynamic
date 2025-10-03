@@ -113,7 +113,13 @@ export default function CaseStudyPage({ params }: Params) {
             </dl>
           </div>
           <div className="rounded-3xl border border-[rgba(255,255,255,0.08)] bg-slate-950/40 p-6">
-            <h2 className="text-base font-semibold text-white">Headline outcomes</h2>
+            <h2 id="results" className="text-base font-semibold text-white">
+              Results
+            </h2>
+            <p className="mt-3 text-sm text-slate-300">
+              {study.resultsSummary}{' '}
+              These metrics capture the outcomes delivered through the engagement.
+            </p>
             <ul className="mt-4 grid gap-4 sm:grid-cols-3">
               {study.outcomes.map((outcome) => (
                 <li key={outcome.label} className="rounded-2xl border border-[rgba(255,255,255,0.08)] bg-slate-950/60 p-4">
