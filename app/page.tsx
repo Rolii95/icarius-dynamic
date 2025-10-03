@@ -1,5 +1,5 @@
 'use client'
-import { useMemo, useState } from 'react'
+import { Suspense, useMemo, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Calculator, CheckCircle2, ChevronDown, Phone } from 'lucide-react'
@@ -17,8 +17,33 @@ export default function Page(){
       <Work />
       <Testimonials />
       <FAQ />
-      <CTA />
+      <Suspense fallback={<CTAFallback />}> 
+        <CTA />
+      </Suspense>
     </div>
+  )
+}
+
+function CTAFallback(){
+  return (
+    <section id="contact" className="py-16">
+      <div className="card p-8 md:p-10 animate-pulse">
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr),minmax(0,420px)] lg:items-start">
+          <div className="space-y-4">
+            <div className="h-8 w-3/4 rounded bg-white/10" />
+            <div className="h-4 w-full rounded bg-white/10" />
+            <div className="h-4 w-2/3 rounded bg-white/10" />
+            <div className="h-10 w-40 rounded-full border border-white/10" />
+          </div>
+          <div className="card p-6 shadow-none space-y-4">
+            <div className="h-4 w-full rounded bg-white/10" />
+            <div className="h-4 w-5/6 rounded bg-white/10" />
+            <div className="h-4 w-2/3 rounded bg-white/10" />
+            <div className="h-10 w-full rounded bg-white/10" />
+          </div>
+        </div>
+      </div>
+    </section>
   )
 }
 
