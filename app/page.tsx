@@ -8,6 +8,7 @@ import { HeroIllustration } from '@/components/HeroIllustration'
 import { Section } from '@/components/Section'
 import { metadata as rootMetadata } from '@/app/layout'
 import { buildFaqPageSchema, coreServices, type FAQItem, stringifyJsonLd } from '@/lib/structured-data'
+import { siteOrigin } from '@/lib/config/site'
 
 const DynamicROIWidget = dynamic(() => import('@/components/ROIWidget').then((mod) => mod.ROIWidget), {
   ssr: false,
@@ -56,6 +57,11 @@ export const metadata: Metadata = {
   },
   robots: { index: true, follow: true },
 }
+
+const metadataBase =
+  rootMetadata.metadataBase instanceof URL
+    ? rootMetadata.metadataBase
+    : new URL((rootMetadata.metadataBase as string | undefined) ?? siteOrigin)
 
 export default function Page({ searchParams }: PageProps) {
   const planParam = searchParams?.plan
@@ -202,7 +208,7 @@ function Testimonials() {
 function FAQ() {
   const faqJsonLd = stringifyJsonLd(
     buildFaqPageSchema({
-      baseUrl: rootMetadata.metadataBase ?? new URL('https://www.icarius-consulting.com'),
+      baseUrl: metadataBase,
       path: '/',
       items: homepageFaqItems,
     }),
