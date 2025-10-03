@@ -1,116 +1,203 @@
 'use client'
 
-import { FormEvent, useCallback, useState } from 'react'
+import { FormEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+
+import { useDeepLinks } from '@/components/chat/hooks'
 import { bookingUrl } from '@/lib/booking'
+import {
+  ChatMessage,
+  ChatSession,
+  ContactForwardPayload,
+  createDefaultSession,
+  getQuickReplies,
+  routeChatMessage,
+} from '@/lib/chat/router'
 
-const bookingPhrases = [
-  'book a call',
-  'book an intro call',
-  'book a meeting',
-  'book time',
-  'schedule a call',
-  'schedule an intro call',
-  'schedule time',
-  'schedule a meeting',
-  'calendar link',
-  'calendly',
-  'cal.com',
-  'booking link',
-]
+const STORAGE_KEY = 'icarius.chat.history.v1'
+const SCHEDULER_URL = process.env.NEXT_PUBLIC_BOOKING_URL ?? bookingUrl
 
-const escapeRegExp = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-const keyword = (phrase: string) => escapeRegExp(phrase.trim().toLowerCase()).replace(/\s+/g, '\\s+')
-
-const openSched = new RegExp(`\\b(?:${bookingPhrases.map(keyword).join('|')})\\b`, 'i')
-
-type MessageAuthor = 'assistant' | 'user'
-
-type Message = {
-  id: number
-  author: MessageAuthor
-  text: string
+function createMessage(role: ChatMessage['role'], content: string): ChatMessage {
+  return {
+    role,
+    content,
+    createdAt: Date.now(),
+  }
 }
 
-type QuickReply = {
-  label: string
-  value: string
-}
-
-const quickReplies: QuickReply[] = [
-  { label: 'Book a call', value: 'Can we book a call?' },
-  { label: 'Share capabilities', value: 'What does Icarius help with?' },
-  { label: 'Case studies', value: 'Can you point me to relevant case studies?' },
-]
-
-const BOT_RESPONSE_DELAY_MS = 600
+const INITIAL_MESSAGE = createMessage(
+  'assistant',
+  "Hey! I'm the Icarius assistant. Ask anything about our services, case studies, or grab time with the team.",
+)
 
 export function ChatWidget() {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: 0,
-      author: 'assistant',
-      text: "Hey! I'm the Icarius assistant. Ask anything about our services or book time with the team.",
-    },
-  ])
+  const [messages, setMessages] = useState<ChatMessage[]>([INITIAL_MESSAGE])
+  const [session, setSession] = useState<ChatSession>(createDefaultSession)
   const [input, setInput] = useState('')
-  const [showScheduler, setShowScheduler] = useState(false)
+  const [hydrated, setHydrated] = useState(false)
+  const [isSendingContact, setIsSendingContact] = useState(false)
+  const deepLink = useDeepLinks()
+  const sessionRef = useRef<ChatSession>(session)
+  const mountedRef = useRef(false)
 
-  const addMessage = useCallback((text: string, author: MessageAuthor) => {
-    setMessages((current) => [...current, { id: current.length, author, text }])
+  useEffect(() => {
+    sessionRef.current = session
+  }, [session])
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || mountedRef.current) {
+      return
+    }
+
+    mountedRef.current = true
+
+    try {
+      const raw = window.localStorage.getItem(STORAGE_KEY)
+      if (raw) {
+        const parsed = JSON.parse(raw) as { messages?: ChatMessage[]; session?: ChatSession }
+        const restoredMessages = Array.isArray(parsed.messages) && parsed.messages.length > 0 ? parsed.messages : undefined
+        const restoredSession = parsed.session
+
+        if (restoredMessages) {
+          setMessages(
+            restoredMessages.map((message) => ({
+              ...message,
+              createdAt: typeof message.createdAt === 'number' ? message.createdAt : Date.now(),
+            })),
+          )
+        }
+
+        if (restoredSession) {
+          const nextSession: ChatSession = {
+            hasOpenedScheduler: Boolean(restoredSession.hasOpenedScheduler),
+            awaitingContactEmail: Boolean(restoredSession.awaitingContactEmail),
+            pendingContactSummary: restoredSession.pendingContactSummary,
+          }
+
+          setSession(nextSession)
+          sessionRef.current = nextSession
+        }
+      }
+    } catch (error) {
+      console.warn('Failed to restore chat history from local storage', error)
+      const fallbackSession = createDefaultSession()
+      setMessages([INITIAL_MESSAGE])
+      setSession(fallbackSession)
+      sessionRef.current = fallbackSession
+    }
+
+    setHydrated(true)
   }, [])
 
-  const queueAssistantMessage = useCallback(
-    (text: string) => {
-      const schedule = typeof window !== 'undefined' ? window.setTimeout.bind(window) : setTimeout
-
-      schedule(() => {
-        addMessage(text, 'assistant')
-      }, BOT_RESPONSE_DELAY_MS)
-    },
-    [addMessage],
-  )
-
-  const handleSend = (text: string) => {
-    const normalized = text.trim()
-    if (!normalized) {
+  useEffect(() => {
+    if (!hydrated || typeof window === 'undefined') {
       return
     }
 
-    addMessage(normalized, 'user')
+    const snapshot = {
+      messages,
+      session,
+    }
 
-    if (openSched.test(normalized)) {
-      if (typeof window !== 'undefined') {
-        window.open(bookingUrl, '_blank', 'noopener,noreferrer')
+    try {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(snapshot))
+    } catch (error) {
+      console.warn('Failed to persist chat history', error)
+    }
+  }, [messages, session, hydrated])
+
+  const quickReplies = useMemo(() => getQuickReplies(session), [session])
+
+  const appendMessages = useCallback((entries: ChatMessage[]) => {
+    setMessages((current) => {
+      const next = [...current, ...entries]
+      return next.slice(-40)
+    })
+  }, [])
+
+  const forwardContact = useCallback(async (payload: ContactForwardPayload) => {
+    setIsSendingContact(true)
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: payload.name,
+          email: payload.email,
+          message: payload.message,
+        }),
+      })
+
+      if (!response.ok) {
+        throw new Error(`Contact request failed with status ${response.status}`)
+      }
+    } catch (error) {
+      console.error('Failed to forward contact request from chat widget', error)
+      appendMessages([
+        createMessage(
+          'assistant',
+          "Hmm, I couldn't send that to the team just now. Feel free to book a call or try again in a moment.",
+        ),
+      ])
+    } finally {
+      setIsSendingContact(false)
+    }
+  }, [appendMessages])
+
+  const handleSend = useCallback(
+    async (rawInput: string) => {
+      const text = rawInput.trim()
+      if (!text) {
+        return
       }
 
-      setShowScheduler(true)
-      queueAssistantMessage('Great! You can grab time with us here: ' + bookingUrl)
-      return
-    }
+      const userMessage = createMessage('user', text)
+      appendMessages([userMessage])
 
-    queueAssistantMessage(
-      "I'll share links and context based on your question. You can also choose a quick reply below.",
-    )
-  }
+      const result = routeChatMessage({ message: text, session: sessionRef.current })
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    const pending = input
-    setInput('')
-    handleSend(pending)
-  }
+      sessionRef.current = result.session
+      setSession(result.session)
 
-  const handleQuickReply = (value: string) => {
-    setInput('')
-    handleSend(value)
-  }
+      const assistantMessages = result.replies.map((reply) => createMessage('assistant', reply))
+      if (assistantMessages.length > 0) {
+        appendMessages(assistantMessages)
+      }
+
+      if (result.openScheduler && typeof window !== 'undefined') {
+        deepLink(SCHEDULER_URL)
+      }
+
+      if (result.forwardContact) {
+        await forwardContact(result.forwardContact)
+      }
+    },
+    [appendMessages, deepLink, forwardContact],
+  )
+
+  const handleSubmit = useCallback(
+    (event: FormEvent<HTMLFormElement>) => {
+      event.preventDefault()
+      const pending = input
+      setInput('')
+      void handleSend(pending)
+    },
+    [handleSend, input],
+  )
+
+  const handleQuickReply = useCallback(
+    (value: string) => {
+      setInput('')
+      void handleSend(value)
+    },
+    [handleSend],
+  )
 
   return (
     <div className="flex flex-col gap-4 rounded-2xl border border-slate-800 bg-slate-950/60 p-4 text-left">
       <div className="space-y-3 text-sm text-slate-200">
-        {messages.map((message) => (
-          <p key={message.id} className={message.author === 'assistant' ? 'text-slate-300' : 'text-white'}>
-            {message.text}
+        {messages.map((message, index) => (
+          <p key={`${message.createdAt}-${index}`} className={message.role === 'assistant' ? 'text-slate-300' : 'text-white'}>
+            {message.content}
           </p>
         ))}
       </div>
@@ -122,10 +209,12 @@ export function ChatWidget() {
           onChange={(event) => setInput(event.target.value)}
           placeholder="Type a message"
           className="flex-1 rounded-md border border-[rgba(255,255,255,.12)] bg-transparent px-3 py-2 text-sm"
+          disabled={isSendingContact}
         />
         <button
           type="submit"
-          className="rounded-md bg-[color:var(--primary)] px-3 py-2 text-sm font-medium text-slate-950"
+          className="rounded-md bg-[color:var(--primary)] px-3 py-2 text-sm font-medium text-slate-950 disabled:cursor-not-allowed disabled:opacity-60"
+          disabled={!input.trim() || isSendingContact}
         >
           Send
         </button>
@@ -134,21 +223,22 @@ export function ChatWidget() {
       <div className="flex flex-wrap gap-2">
         {quickReplies.map((reply) => (
           <button
-            key={reply.label}
+            key={reply.id}
             type="button"
             className="rounded-full border border-[rgba(255,255,255,.12)] px-3 py-1 text-xs text-slate-200"
             onClick={() => handleQuickReply(reply.value)}
+            disabled={isSendingContact}
           >
             {reply.label}
           </button>
         ))}
       </div>
 
-      {showScheduler && (
+      {session.hasOpenedScheduler && (
         <div className="rounded-lg border border-[rgba(255,255,255,.12)] bg-slate-950/80 p-3 text-sm text-slate-200">
           <p>
             Booking link:{' '}
-            <a href={bookingUrl} className="text-[color:var(--primary)]" target="_blank" rel="noreferrer noopener">
+            <a href={SCHEDULER_URL} className="text-[color:var(--primary)]" target="_blank" rel="noreferrer noopener">
               Book a call
             </a>
           </p>
@@ -158,4 +248,4 @@ export function ChatWidget() {
   )
 }
 
-export { openSched }
+export { useDeepLinks }
