@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { bookingUrl } from '@/lib/booking'
+import { Section } from '@/components/Section'
 
 export const metadata: Metadata = {
   title: 'Contact — Icarius Consulting',
@@ -28,7 +29,7 @@ const contactMethods = [
 
 export default function ContactPage() {
   return (
-    <section className="py-16">
+    <Section className="py-16">
       <div className="container mx-auto max-w-3xl px-4">
         <div className="space-y-6">
           <header className="space-y-4">
@@ -58,6 +59,6 @@ export default function ContactPage() {
           </ul>
         </div>
       </div>
-    </section>
+    </Section>
   )
 }

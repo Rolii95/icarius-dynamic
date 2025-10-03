@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 
+import { Section } from '@/components/Section'
+
 export const metadata: Metadata = {
   title: 'Terms of service — Icarius Consulting',
   description: 'Commercial terms governing consulting engagements with Icarius Consulting.',
@@ -8,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function TermsPage() {
   return (
-    <section className="py-12">
+    <Section className="py-12">
       <div className="prose prose-invert max-w-3xl mx-auto">
         <h1>Terms of service</h1>
         <p>
@@ -57,6 +59,6 @@ export default function TermsPage() {
         </p>
         <p>Last updated: {new Date().toLocaleDateString('en-GB')}</p>
       </div>
-    </section>
+    </Section>
   )
 }

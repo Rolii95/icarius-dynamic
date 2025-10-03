@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import { Fragment } from 'react'
 
 import { CASE_STUDIES } from '../case-studies'
+import { Section } from '@/components/Section'
 
 type Params = {
   params: {
@@ -66,7 +67,7 @@ export default function CaseStudyPage({ params }: Params) {
           <p className="text-lg text-slate-300">{study.hero.description}</p>
         </header>
 
-        <section className="mt-10 grid gap-6 md:grid-cols-2">
+        <Section className="mt-10 grid gap-6 md:grid-cols-2">
           <div className="rounded-3xl border border-[rgba(255,255,255,0.08)] bg-slate-950/40 p-6">
             <h2 className="text-base font-semibold text-white">Project snapshot</h2>
             <dl className="mt-4 text-sm text-slate-300">
@@ -93,9 +94,9 @@ export default function CaseStudyPage({ params }: Params) {
               ))}
             </ul>
           </div>
-        </section>
+        </Section>
 
-        <section className="mt-12 space-y-12">
+        <Section className="mt-12 space-y-12">
           <div>
             <h2 className="text-2xl font-semibold text-white">The challenge</h2>
             <ul className="mt-4 space-y-3 text-base text-slate-300">
@@ -119,15 +120,15 @@ export default function CaseStudyPage({ params }: Params) {
               ))}
             </div>
           </div>
-        </section>
+        </Section>
 
         {study.testimonial ? (
-          <section className="mt-12 rounded-3xl border border-[rgba(255,255,255,0.08)] bg-slate-900/50 p-8">
+          <Section className="mt-12 rounded-3xl border border-[rgba(255,255,255,0.08)] bg-slate-900/50 p-8">
             <blockquote className="text-xl font-medium text-white">“{study.testimonial.quote}”</blockquote>
             <p className="mt-4 text-sm text-slate-300">
               — {study.testimonial.person}, {study.testimonial.role}
             </p>
-          </section>
+          </Section>
         ) : null}
       </div>
     </article>

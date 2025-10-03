@@ -3,6 +3,8 @@
 import { useMemo, useState } from 'react'
 import { Calculator } from 'lucide-react'
 
+import { Section } from '@/components/Section'
+
 export function ROIWidget() {
   const [headcount, setHeadcount] = useState(500)
   const [salary, setSalary] = useState(55000)
@@ -14,7 +16,7 @@ export function ROIWidget() {
   }, [headcount, salary, hours])
 
   return (
-    <section className="py-12 border-t border-[rgba(255,255,255,.06)]">
+    <Section className="py-12 border-t border-[rgba(255,255,255,.06)]">
       <h2 className="text-2xl font-semibold flex items-center gap-2">
         <Calculator size={20} /> ROI Calculator
       </h2>
@@ -55,6 +57,6 @@ export function ROIWidget() {
           <div className="text-3xl font-bold">£{savings.toLocaleString()}</div>
         </div>
       </div>
-    </section>
+    </Section>
   )
 }

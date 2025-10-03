@@ -5,13 +5,14 @@ import { CheckCircle2, ChevronDown, Phone } from 'lucide-react'
 import { AssistantForm } from '@/components/AssistantForm'
 import type { ContactModalTriggerProps } from '@/components/ContactModal'
 import { HeroIllustration } from '@/components/HeroIllustration'
+import { Section } from '@/components/Section'
 
 const DynamicROIWidget = dynamic(() => import('@/components/ROIWidget').then((mod) => mod.ROIWidget), {
   ssr: false,
   loading: () => (
-    <section className="py-12 border-t border-[rgba(255,255,255,.06)]">
+    <Section className="py-12 border-t border-[rgba(255,255,255,.06)]">
       <div className="h-40 animate-pulse rounded-lg border border-white/10 bg-white/5" />
-    </section>
+    </Section>
   ),
 })
 
@@ -53,7 +54,7 @@ export default function Page({ searchParams }: PageProps) {
 
 function CTAFallback() {
   return (
-    <section id="contact" className="py-16">
+    <Section id="contact" className="py-16">
       <div className="card p-8 md:p-10 animate-pulse">
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr),minmax(0,420px)] lg:items-start">
           <div className="space-y-4">
@@ -70,13 +71,13 @@ function CTAFallback() {
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   )
 }
 
 function Hero() {
   return (
-    <section className="py-16 md:py-24">
+    <Section className="py-16 md:py-24">
       <div className="grid md:grid-cols-2 gap-10 items-center">
         <div>
           <h1 className="text-4xl md:text-6xl font-semibold tracking-tight">
@@ -94,13 +95,13 @@ function Hero() {
         </div>
         <HeroIllustration />
       </div>
-    </section>
+    </Section>
   )
 }
 
 function Services() {
   return (
-    <section id="services" className="py-12 border-t border-[rgba(255,255,255,.06)]">
+    <Section id="services" className="py-12 border-t border-[rgba(255,255,255,.06)]">
       <h2 className="text-2xl font-semibold">What we do</h2>
       <ul className="mt-4 grid md:grid-cols-4 gap-4">
         <li className="card"><h3 className="font-semibold">HRIT Advisory</h3><p className="text-slate-300 text-sm mt-1">Target architecture, integration patterns, and build/buy guidance tailored to HR.</p></li>
@@ -108,7 +109,7 @@ function Services() {
         <li className="card"><h3 className="font-semibold">System Audits</h3><p className="text-slate-300 text-sm mt-1">Fact‑based config &amp; data reviews with prioritised fixes.</p></li>
         <li className="card"><h3 className="font-semibold">AI Solutions</h3><p className="text-slate-300 text-sm mt-1">Pragmatic automation for HR Ops and knowledge.</p></li>
       </ul>
-    </section>
+    </Section>
   )
 }
 
@@ -120,7 +121,7 @@ function Pricing() {
   ] as const
 
   return (
-    <section id="pricing" className="py-12 border-t border-[rgba(255,255,255,.06)]">
+    <Section id="pricing" className="py-12 border-t border-[rgba(255,255,255,.06)]">
       <h2 className="text-2xl font-semibold">Packages</h2>
       <div className="mt-4 grid md:grid-cols-3 gap-4">
         {cards.map((card) => (
@@ -142,26 +143,26 @@ function Pricing() {
           </div>
         ))}
       </div>
-    </section>
+    </Section>
   )
 }
 
 function Work() {
   return (
-    <section id="work" className="py-12 border-t border-[rgba(255,255,255,.06)]">
+    <Section id="work" className="py-12 border-t border-[rgba(255,255,255,.06)]">
       <h2 className="text-2xl font-semibold">Selected Work</h2>
       <ul className="mt-4 grid md:grid-cols-3 gap-4">
         <li id="cs-hcm" className="card"><h3 className="font-semibold">Global HCM replacement</h3><p className="text-sm text-slate-300 mt-1">Vendor selection and readiness for 40k employees.</p></li>
         <li id="cs-payroll" className="card"><h3 className="font-semibold">Payroll consolidation</h3><p className="text-sm text-slate-300 mt-1">12‑country integration and control framework.</p></li>
         <li id="cs-ai" className="card"><h3 className="font-semibold">HR Ops AI assistant</h3><p className="text-sm text-slate-300 mt-1">Reduced resolution time by 34%.</p></li>
       </ul>
-    </section>
+    </Section>
   )
 }
 
 function Testimonials() {
   return (
-    <section className="py-12 border-t border-[rgba(255,255,255,.06)]">
+    <Section className="py-12 border-t border-[rgba(255,255,255,.06)]">
       <h2 className="text-2xl font-semibold">What clients say</h2>
       <ul className="mt-4 grid md:grid-cols-3 gap-4">
         <li className="card grid grid-cols-[auto,1fr] gap-3 items-start">
@@ -192,7 +193,7 @@ function Testimonials() {
           </div>
         </li>
       </ul>
-    </section>
+    </Section>
   )
 }
 
@@ -204,7 +205,7 @@ function FAQ() {
   ] as const
 
   return (
-    <section className="py-12 border-t border-[rgba(255,255,255,.06)]">
+    <Section className="py-12 border-t border-[rgba(255,255,255,.06)]">
       <h2 className="text-2xl font-semibold">FAQ</h2>
       <ul className="divide-y divide-[rgba(255,255,255,.06)]">
         {qas.map((qa, index) => (
@@ -219,13 +220,13 @@ function FAQ() {
           </li>
         ))}
       </ul>
-    </section>
+    </Section>
   )
 }
 
 function CTA({ defaultPlan }: { defaultPlan?: string }) {
   return (
-    <section id="contact" className="py-16">
+    <Section id="contact" className="py-16">
       <div className="card p-8 md:p-10">
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr),minmax(0,420px)] lg:items-start">
           <div className="space-y-4 text-left">
@@ -245,6 +246,6 @@ function CTA({ defaultPlan }: { defaultPlan?: string }) {
           <AssistantForm plan={defaultPlan} className="card p-6 shadow-none" />
         </div>
       </div>
-    </section>
+    </Section>
   )
 }
