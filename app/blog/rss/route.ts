@@ -1,6 +1,6 @@
-import { POSTS } from '../posts'
+import { siteOrigin } from '@/lib/config/site'
 
-const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000').replace(/\/$/, '')
+import { POSTS } from '../posts'
 
 const escapeXml = (value: string) =>
   value
@@ -12,7 +12,7 @@ const escapeXml = (value: string) =>
 
 const buildFeed = () => {
   const items = POSTS.map((post) => {
-    const postUrl = `${SITE_URL}/blog/${post.slug}`
+    const postUrl = `${siteOrigin}/blog/${post.slug}`
     const pubDate = new Date(post.date).toUTCString()
 
     return `    <item>\n` +
@@ -29,7 +29,7 @@ const buildFeed = () => {
     '<rss version="2.0">',
     '  <channel>',
     '    <title>Icarius Blog</title>',
-    `    <link>${SITE_URL}/blog</link>`,
+    `    <link>${siteOrigin}/blog</link>`,
     '    <description>Latest posts from the Icarius blog.</description>',
     '    <language>en-US</language>',
     `    <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>`,
