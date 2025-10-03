@@ -35,7 +35,7 @@ type PageProps = {
   searchParams?: Record<string, string | string[] | undefined>
 }
 
-export const homepageFaqItems = [
+const homepageFaqItems = [
   { question: 'How quickly can we start?', answer: 'We can kick off within 2 weeks, often faster for audits.' },
   {
     question: 'Do you work globally?',
