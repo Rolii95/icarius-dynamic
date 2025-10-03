@@ -36,8 +36,113 @@ export async function POST(request: Request): Promise<Response> {
 
   const { email } = result.data;
 
-  // TODO: Replace this log with integration to the selected ESP provider.
-  console.info('Newsletter subscription received', { email });
+  const apiKey = process.env.MAILJET_API_KEY;
+  const apiSecret = process.env.MAILJET_API_SECRET;
+  const listId = process.env.MAILJET_LIST_ID;
+
+  if (!apiKey || !apiSecret || !listId) {
+    console.error('Mailjet environment variables are not fully configured.');
+    return NextResponse.json(
+      { ok: false, message: 'Email service is not configured.' },
+      { status: 500 },
+    );
+  }
+
+  try {
+    const authHeader = `Basic ${Buffer.from(`${apiKey}:${apiSecret}`).toString('base64')}`;
+
+    const commonHeaders = {
+      Authorization: authHeader,
+      'Content-Type': 'application/json',
+    } satisfies Record<string, string>;
+
+    const ensureContactResponse = await fetch('https://api.mailjet.com/v3/REST/contact', {
+      method: 'POST',
+      headers: commonHeaders,
+      body: JSON.stringify({ Email: email }),
+    });
+
+    if (!ensureContactResponse.ok) {
+      const responseText = await ensureContactResponse.text();
+      let responseBody: unknown = responseText;
+
+      try {
+        responseBody = JSON.parse(responseText);
+      } catch {
+        // Ignore JSON parse errors and use plain text body for logging.
+      }
+
+      const isAlreadyExistsError =
+        ensureContactResponse.status === 400 &&
+        ((typeof responseBody === 'object' &&
+          responseBody !== null &&
+          (() => {
+            const details = responseBody as Record<string, unknown>;
+            const message = String(
+              details.ErrorMessage ??
+                details.message ??
+                details.ErrorIdentifier ??
+                details.ErrorCode ??
+                '',
+            ).toLowerCase();
+            return message.includes('already exist');
+          })()) ||
+          (typeof responseBody === 'string' &&
+            responseBody.toLowerCase().includes('already exist')));
+
+      if (!isAlreadyExistsError) {
+        console.error('Mailjet contact creation failed', {
+          status: ensureContactResponse.status,
+          body: responseBody,
+        });
+
+        return NextResponse.json(
+          { ok: false, message: 'Failed to subscribe to the newsletter.' },
+          { status: 500 },
+        );
+      }
+    }
+
+    const manageContactResponse = await fetch(
+      `https://api.mailjet.com/v3/REST/contactslist/${listId}/managecontact`,
+      {
+        method: 'POST',
+        headers: commonHeaders,
+        body: JSON.stringify({
+          Email: email,
+          Action: 'addforce',
+        }),
+      },
+    );
+
+    if (!manageContactResponse.ok) {
+      const responseText = await manageContactResponse.text();
+      let responseBody: unknown = responseText;
+
+      try {
+        responseBody = JSON.parse(responseText);
+      } catch {
+        // Ignore JSON parse errors and use plain text body for logging.
+      }
+
+      console.error('Mailjet list subscription failed', {
+        status: manageContactResponse.status,
+        body: responseBody,
+      });
+
+      return NextResponse.json(
+        { ok: false, message: 'Failed to subscribe to the newsletter.' },
+        { status: 500 },
+      );
+    }
+  } catch (error) {
+    console.error('Mailjet integration request failed', { error });
+
+    return NextResponse.json(
+      { ok: false, message: 'Failed to subscribe to the newsletter.' },
+      { status: 500 },
+    );
+  }
 
   return NextResponse.json({ ok: true });
 }
