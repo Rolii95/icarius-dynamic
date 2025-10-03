@@ -1,8 +1,10 @@
 'use client'
 import { useMemo, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Calculator, CheckCircle2, ChevronDown, Mail, Phone } from 'lucide-react'
+import { Calculator, CheckCircle2, ChevronDown, Phone } from 'lucide-react'
 
+import { AssistantForm } from '@/components/AssistantForm'
 import { BookCTA } from '@/components/BookCTA'
 
 export default function Page(){
@@ -208,19 +210,30 @@ function FAQ(){
 }
 
 function CTA(){
+  const params = useSearchParams()
+  const defaultPlan = params.get('plan')
+
   return (
     <section id="contact" className="py-16">
-      <div className="card text-center p-10">
-        <h2 className="text-3xl font-semibold">Ready to reduce delivery risk?</h2>
-        <p className="text-slate-300 mt-2">Tell us about your goals. We’ll respond within one business day.</p>
-        <div className="mt-6 flex flex-col md:flex-row gap-3 justify-center">
-          <a className="rounded-full bg-[color:var(--primary)] text-slate-900 px-5 py-3 inline-flex items-center gap-2" href="mailto:hello@icarius-consulting.com"><Mail size={18}/> Email us</a>
-          <BookCTA
-            cta="contact"
-            className="rounded-full border px-5 py-3 inline-flex items-center gap-2"
-          >
-            <Phone size={18}/> Book a call
-          </BookCTA>
+      <div className="card p-8 md:p-10">
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr),minmax(0,420px)] lg:items-start">
+          <div className="space-y-4 text-left">
+            <h2 className="text-3xl font-semibold">Ready to reduce delivery risk?</h2>
+            <p className="text-slate-300">Tell us about your goals. We’ll respond within one business day.</p>
+            <p className="text-sm text-slate-400">
+              Prefer to jump straight to a conversation? Use the booking link and we’ll tailor the agenda.
+            </p>
+            <BookCTA
+              cta="contact"
+              className="inline-flex items-center gap-2 rounded-full border px-5 py-3"
+            >
+              <Phone size={18}/> Book a call
+            </BookCTA>
+          </div>
+          <AssistantForm
+            plan={defaultPlan}
+            className="card p-6 shadow-none"
+          />
         </div>
       </div>
     </section>
