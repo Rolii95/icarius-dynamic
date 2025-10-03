@@ -122,6 +122,14 @@ export function AssistantForm({ plan, className }: AssistantFormProps) {
     }
   }
 
+  const nameFieldId = 'assistant-form-name'
+  const nameErrorId = `${nameFieldId}-error`
+  const emailFieldId = 'assistant-form-email'
+  const emailErrorId = `${emailFieldId}-error`
+  const companyFieldId = 'assistant-form-company'
+  const messageFieldId = 'assistant-form-message'
+  const messageErrorId = `${messageFieldId}-error`
+
   return (
     <form onSubmit={handleSubmit} className={className} noValidate>
       <div className="grid gap-4">
@@ -129,47 +137,50 @@ export function AssistantForm({ plan, className }: AssistantFormProps) {
           <p className="text-sm text-slate-300">Interested in the <strong>{planLabel}</strong> plan.</p>
         )}
 
-        <label className="grid gap-1 text-left text-sm">
+        <label htmlFor={nameFieldId} className="grid gap-1 text-left text-sm">
           <span className="text-slate-200">Name</span>
           <input
+            id={nameFieldId}
             type="text"
             name="name"
             value={name}
             onChange={(event) => setName(event.target.value)}
             aria-invalid={errors.name ? 'true' : 'false'}
-            aria-describedby={errors.name ? 'assistant-form-name-error' : undefined}
+            aria-describedby={errors.name ? nameErrorId : undefined}
             className="rounded-md border border-[rgba(255,255,255,.12)] bg-transparent px-3 py-2"
             required
           />
           {errors.name && (
-            <span id="assistant-form-name-error" className="text-xs text-red-400">
+            <span id={nameErrorId} className="text-xs text-red-400">
               {errors.name}
             </span>
           )}
         </label>
 
-        <label className="grid gap-1 text-left text-sm">
+        <label htmlFor={emailFieldId} className="grid gap-1 text-left text-sm">
           <span className="text-slate-200">Email</span>
           <input
+            id={emailFieldId}
             type="email"
             name="email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
             aria-invalid={errors.email ? 'true' : 'false'}
-            aria-describedby={errors.email ? 'assistant-form-email-error' : undefined}
+            aria-describedby={errors.email ? emailErrorId : undefined}
             className="rounded-md border border-[rgba(255,255,255,.12)] bg-transparent px-3 py-2"
             required
           />
           {errors.email && (
-            <span id="assistant-form-email-error" className="text-xs text-red-400">
+            <span id={emailErrorId} className="text-xs text-red-400">
               {errors.email}
             </span>
           )}
         </label>
 
-        <label className="grid gap-1 text-left text-sm">
+        <label htmlFor={companyFieldId} className="grid gap-1 text-left text-sm">
           <span className="text-slate-200">Company (optional)</span>
           <input
+            id={companyFieldId}
             type="text"
             name="company"
             value={company}
@@ -178,19 +189,20 @@ export function AssistantForm({ plan, className }: AssistantFormProps) {
           />
         </label>
 
-        <label className="grid gap-1 text-left text-sm">
+        <label htmlFor={messageFieldId} className="grid gap-1 text-left text-sm">
           <span className="text-slate-200">Message</span>
           <textarea
+            id={messageFieldId}
             name="message"
             value={message}
             onChange={(event) => setMessage(event.target.value)}
             aria-invalid={errors.message ? 'true' : 'false'}
-            aria-describedby={errors.message ? 'assistant-form-message-error' : undefined}
+            aria-describedby={errors.message ? messageErrorId : undefined}
             className="min-h-[120px] resize-y rounded-md border border-[rgba(255,255,255,.12)] bg-transparent px-3 py-2"
             required
           />
           {errors.message && (
-            <span id="assistant-form-message-error" className="text-xs text-red-400">
+            <span id={messageErrorId} className="text-xs text-red-400">
               {errors.message}
             </span>
           )}
