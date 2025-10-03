@@ -33,8 +33,10 @@ export function NewsletterForm({ className }: NewsletterFormProps) {
       })
 
       const payload = await response.json().catch(() => null)
+      const payloadOk =
+        payload && typeof payload.ok === 'boolean' ? payload.ok : response.ok
 
-      if (!response.ok) {
+      if (!payloadOk) {
         const message =
           (payload && typeof payload.message === 'string' && payload.message) ||
           'Something went wrong. Please try again.'
@@ -46,7 +48,8 @@ export function NewsletterForm({ className }: NewsletterFormProps) {
 
       setStatus('success')
       setFeedback(
-        (payload && typeof payload.message === 'string' && payload.message) || 'Thanks for subscribing! We will be in touch soon.'
+        (payload && typeof payload.message === 'string' && payload.message) ||
+          'Thanks for subscribing! We will be in touch soon.'
       )
       setEmail('')
     } catch (error) {
