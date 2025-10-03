@@ -6,9 +6,20 @@ export const metadata = {
   tags: ['Delivery', 'PMO', 'Transformation'],
 }
 
+import { ArticleJsonLd } from '@/components/ArticleJsonLd'
 import { BlogCTA } from '@/components/BlogCTA'
 import { InlineROI } from '@/components/InlineROI'
 import { NewsletterForm } from '@/components/NewsletterForm'
+
+<ArticleJsonLd
+  url={`${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.icarius-consulting.com'}/blog/delivery-jumpstart-30-days`}
+  title={metadata.title}
+  description={metadata.description}
+  datePublished={metadata.date}
+  dateModified={metadata.date}
+  author="Icarius Consulting"
+  image={`${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.icarius-consulting.com'}/blog/delivery-jumpstart-30-days/opengraph-image`}
+/>
 
 # Delivery Jumpstart: 30 Days to Program Momentum
 
