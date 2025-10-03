@@ -1,8 +1,7 @@
 import type { MetadataRoute } from 'next'
-import fs from 'fs/promises'
-import path from 'path'
 
 import { CASE_STUDIES } from './work/case-studies'
+import { POSTS } from './blog/posts'
 
 const FALLBACK_SITE_URL = 'https://www.icarius-consulting.com'
 
@@ -23,32 +22,7 @@ function resolveSiteUrl() {
   }
 }
 
-async function getBlogPostSlugs() {
-  const postsDir = path.join(process.cwd(), 'content/posts')
-
-  try {
-    const entries = await fs.readdir(postsDir)
-
-    return entries
-      .filter((entry) => entry.endsWith('.mdx'))
-      .map((entry) => entry.replace(/\.mdx$/, ''))
-      .sort()
-  } catch (error) {
-    const isMissingDirectory =
-      typeof error === 'object' &&
-      error !== null &&
-      'code' in error &&
-      (error as NodeJS.ErrnoException).code === 'ENOENT'
-
-    if (isMissingDirectory) {
-      return []
-    }
-
-    throw error
-  }
-}
-
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+export default function sitemap(): MetadataRoute.Sitemap {
   const siteUrl = resolveSiteUrl()
 
   const staticRoutes = [
@@ -65,7 +39,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ]
 
   const caseStudyRoutes = CASE_STUDIES.map((study) => `/work/${study.slug}`)
-  const blogPostRoutes = (await getBlogPostSlugs()).map((slug) => `/blog/${slug}`)
+  const blogPostRoutes = POSTS.map((post) => `/blog/${post.slug}`)
 
   return [...staticRoutes, ...caseStudyRoutes, ...blogPostRoutes].map((route) => ({
     url: route === '/' ? siteUrl : `${siteUrl}${route}`,
