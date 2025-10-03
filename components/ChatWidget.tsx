@@ -1,6 +1,6 @@
 'use client'
 
-import { FormEvent, useState } from 'react'
+import { FormEvent, useCallback, useState } from 'react'
 import { bookingUrl } from '@/lib/booking'
 
 const bookingPhrases = [
@@ -42,6 +42,8 @@ const quickReplies: QuickReply[] = [
   { label: 'Case studies', value: 'Can you point me to relevant case studies?' },
 ]
 
+const BOT_RESPONSE_DELAY_MS = 600
+
 export function ChatWidget() {
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -53,9 +55,20 @@ export function ChatWidget() {
   const [input, setInput] = useState('')
   const [showScheduler, setShowScheduler] = useState(false)
 
-  const addMessage = (text: string, author: MessageAuthor) => {
+  const addMessage = useCallback((text: string, author: MessageAuthor) => {
     setMessages((current) => [...current, { id: current.length, author, text }])
-  }
+  }, [])
+
+  const queueAssistantMessage = useCallback(
+    (text: string) => {
+      const schedule = typeof window !== 'undefined' ? window.setTimeout.bind(window) : setTimeout
+
+      schedule(() => {
+        addMessage(text, 'assistant')
+      }, BOT_RESPONSE_DELAY_MS)
+    },
+    [addMessage],
+  )
 
   const handleSend = (text: string) => {
     const normalized = text.trim()
@@ -66,14 +79,17 @@ export function ChatWidget() {
     addMessage(normalized, 'user')
 
     if (openSched.test(normalized)) {
+      if (typeof window !== 'undefined') {
+        window.open(bookingUrl, '_blank', 'noopener,noreferrer')
+      }
+
       setShowScheduler(true)
-      addMessage('Great! You can grab time with us here: ' + bookingUrl, 'assistant')
+      queueAssistantMessage('Great! You can grab time with us here: ' + bookingUrl)
       return
     }
 
-    addMessage(
+    queueAssistantMessage(
       "I'll share links and context based on your question. You can also choose a quick reply below.",
-      'assistant',
     )
   }
 
