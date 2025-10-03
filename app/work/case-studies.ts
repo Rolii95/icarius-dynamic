@@ -2,6 +2,7 @@ export type CaseStudy = {
   slug: string
   title: string
   summary: string
+  resultsSummary: string
   seoTitle: string
   seoDescription: string
   hero: {
@@ -37,6 +38,8 @@ export const CASE_STUDIES: CaseStudy[] = [
     slug: 'global-hcm-replacement',
     title: 'Global HCM replacement',
     summary: 'Vendor selection and readiness for 40k employees.',
+    resultsSummary:
+      'Unified seven regional HR stacks into a single HCM blueprint, unlocking measurable savings, cleaner data, and faster rollouts.',
     seoTitle: 'HRIT advisory HR systems audit HR AI PMO global scale',
     seoDescription:
       'See HRIT advisory direction with HR systems audit rigor, HR AI exploration, and PMO governance combine to unify a hospitality group\'s global HCM landscape.',
@@ -95,6 +98,8 @@ export const CASE_STUDIES: CaseStudy[] = [
     slug: 'payroll-consolidation',
     title: 'Payroll consolidation',
     summary: '12-country integration and control framework.',
+    resultsSummary:
+      'Delivered a consolidated payroll control framework that shrank errors, accelerated onboarding, and tightened financial reporting.',
     seoTitle: 'HRIT advisory HR systems audit HR AI PMO payroll unity',
     seoDescription:
       'Watch HRIT advisory guidance, HR systems audit structure, HR AI experimentation, and PMO cadence consolidate payroll operations into a control framework.',
@@ -148,6 +153,8 @@ export const CASE_STUDIES: CaseStudy[] = [
     slug: 'hr-ops-ai-assistant',
     title: 'HR Ops AI assistant',
     summary: 'Reduced resolution time by 34%.',
+    resultsSummary:
+      'Combined AI guardrails with knowledge modernisation so HR agents could resolve tickets faster and lift service satisfaction.',
     seoTitle: 'HRIT advisory HR systems audit HR AI PMO assistant win',
     seoDescription:
       'Follow how HRIT advisory prioritisation, HR systems audit cleanup, HR AI guardrails, and PMO coaching delivered a compliant assistant that shrank handle times.',
