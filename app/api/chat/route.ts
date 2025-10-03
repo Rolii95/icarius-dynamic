@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server'
 
-import { createDefaultSession, routeChatMessage } from '@/lib/chat/router'
+import { createDefaultSession, routeChatMessage, type ChatSession } from '@/lib/chat/router'
+
+import { getServerSideReplies } from './server-replies'
 
 type ChatRequestBody = {
   message: unknown
@@ -22,7 +24,7 @@ export async function POST(request: Request): Promise<Response> {
 
   const session = typeof payload.session === 'object' && payload.session !== null ? payload.session : undefined
 
-  const safeSession = session
+  const safeSession: ChatSession = session
     ? {
         hasOpenedScheduler: Boolean((session as any).hasOpenedScheduler),
         awaitingContactEmail: Boolean((session as any).awaitingContactEmail),
@@ -33,7 +35,16 @@ export async function POST(request: Request): Promise<Response> {
       }
     : createDefaultSession()
 
-  const result = routeChatMessage({ message: payload.message, session: safeSession })
+  const helperResult = await getServerSideReplies({
+    message: payload.message,
+    session: safeSession,
+  })
 
-  return NextResponse.json(result)
+  if (helperResult) {
+    return NextResponse.json(helperResult)
+  }
+
+  const fallbackResult = routeChatMessage({ message: payload.message, session: safeSession })
+
+  return NextResponse.json(fallbackResult)
 }
