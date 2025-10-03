@@ -80,7 +80,7 @@ type ContactModalTriggerBaseProps = {
   plan?: string
   cta?: string
   children?: ReactNode
-} & Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'href' | 'target' | 'rel'>
+} & Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'href'>
 
 export type ContactModalTriggerProps = ContactModalTriggerBaseProps
 
@@ -90,12 +90,15 @@ export function ContactModalTrigger({
   children = 'Book a call',
   className,
   onClick,
+  target,
+  rel,
   ...rest
 }: ContactModalTriggerProps) {
   const href = buildBookingUrl(plan)
   const dataPlan = plan ?? 'general'
   const triggerRef = useRef<HTMLAnchorElement | null>(null)
   const [modalOpen, setModalOpen] = useState(false)
+  const anchorRel = rel ?? (target === '_blank' ? 'noopener noreferrer' : undefined)
 
   const closeModal = useCallback(() => {
     setModalOpen(false)
@@ -142,6 +145,8 @@ export function ContactModalTrigger({
         ref={triggerRef}
         className={className}
         href={href}
+        target={target}
+        rel={anchorRel}
         data-cta={cta}
         data-plan={dataPlan}
         onClick={handleClick}
