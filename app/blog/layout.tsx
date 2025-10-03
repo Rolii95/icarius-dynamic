@@ -17,13 +17,13 @@ export const metadata: Metadata = {
     title: defaultTitle,
     description: defaultDescription,
     url: '/blog',
-    images: [{ url: '/opengraph-image', width: 1200, height: 630 }],
+    images: [{ url: '/blog/opengraph-image', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
     title: defaultTitle,
     description: defaultDescription,
-    images: [{ url: '/twitter-image', width: 1200, height: 630 }],
+    images: [{ url: '/blog/opengraph-image', width: 1200, height: 630 }],
   },
   robots: { index: true, follow: true },
 }
