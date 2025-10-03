@@ -1,10 +1,9 @@
 import dynamic from 'next/dynamic'
-import { Suspense } from 'react'
 import { CheckCircle2, ChevronDown, Phone } from 'lucide-react'
 import type { Metadata } from 'next'
 
 import { AssistantForm } from '@/components/AssistantForm'
-import type { ContactModalTriggerProps } from '@/components/ContactModal'
+import { BookCTA } from '@/components/BookCTA'
 import { HeroIllustration } from '@/components/HeroIllustration'
 import { Section } from '@/components/Section'
 import { metadata as rootMetadata } from '@/app/layout'
@@ -18,18 +17,6 @@ const DynamicROIWidget = dynamic(() => import('@/components/ROIWidget').then((mo
     </Section>
   ),
 })
-
-const DynamicContactTrigger = dynamic<ContactModalTriggerProps>(
-  () => import('@/components/ContactModal').then((mod) => mod.ContactModalTrigger),
-  {
-    ssr: false,
-    loading: () => (
-      <span className="inline-flex items-center gap-2 rounded-full border border-white/20 px-5 py-3 text-sm text-slate-300 opacity-70">
-        Loading…
-      </span>
-    ),
-  }
-)
 
 type PageProps = {
   searchParams?: Record<string, string | string[] | undefined>
@@ -83,33 +70,8 @@ export default function Page({ searchParams }: PageProps) {
       <Work />
       <Testimonials />
       <FAQ />
-      <Suspense fallback={<CTAFallback />}>
-        <CTA defaultPlan={defaultPlan} />
-      </Suspense>
+      <CTA defaultPlan={defaultPlan} />
     </div>
-  )
-}
-
-function CTAFallback() {
-  return (
-    <Section id="contact" className="py-16">
-      <div className="card p-8 md:p-10 animate-pulse">
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr),minmax(0,420px)] lg:items-start">
-          <div className="space-y-4">
-            <div className="h-8 w-3/4 rounded bg-white/10" />
-            <div className="h-4 w-full rounded bg-white/10" />
-            <div className="h-4 w-2/3 rounded bg-white/10" />
-            <div className="h-10 w-40 rounded-full border border-white/10" />
-          </div>
-          <div className="card p-6 shadow-none space-y-4">
-            <div className="h-4 w-full rounded bg-white/10" />
-            <div className="h-4 w-5/6 rounded bg-white/10" />
-            <div className="h-4 w-2/3 rounded bg-white/10" />
-            <div className="h-10 w-full rounded bg-white/10" />
-          </div>
-        </div>
-      </div>
-    </Section>
   )
 }
 
@@ -126,9 +88,9 @@ function Hero() {
           </p>
           <div className="mt-6 flex gap-3">
             <a href="#pricing" className="rounded-full bg-[color:var(--primary)] text-slate-900 px-5 py-3">View Packages</a>
-            <DynamicContactTrigger cta="hero" className="rounded-full border px-5 py-3">
+            <BookCTA data-cta="hero" className="rounded-full border px-5 py-3">
               Book a call
-            </DynamicContactTrigger>
+            </BookCTA>
           </div>
         </div>
         <HeroIllustration />
@@ -173,13 +135,13 @@ function Pricing() {
               <li className="flex items-center gap-2"><CheckCircle2 size={16} /> Findings &amp; backlog</li>
               <li className="flex items-center gap-2"><CheckCircle2 size={16} /> 30-day support</li>
             </ul>
-            <DynamicContactTrigger
-              cta="pricing"
+            <BookCTA
+              data-cta="pricing"
               plan={card.plan}
               className="mt-4 inline-block rounded-full bg-[color:var(--primary)] text-slate-900 px-4 py-2"
             >
               Book
-            </DynamicContactTrigger>
+            </BookCTA>
           </div>
         ))}
       </div>
@@ -278,13 +240,13 @@ function CTA({ defaultPlan }: { defaultPlan?: string }) {
             <p className="text-sm text-slate-400">
               Prefer to jump straight to a conversation? Use the booking link and we’ll tailor the agenda.
             </p>
-            <DynamicContactTrigger
-              cta="contact"
+            <BookCTA
+              data-cta="contact"
               plan={defaultPlan}
               className="inline-flex items-center gap-2 rounded-full border px-5 py-3"
             >
               <Phone size={18} /> Book a call
-            </DynamicContactTrigger>
+            </BookCTA>
           </div>
           <AssistantForm plan={defaultPlan} className="card p-6 shadow-none" />
         </div>
