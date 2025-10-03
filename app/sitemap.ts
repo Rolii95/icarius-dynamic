@@ -39,7 +39,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ]
 
   const caseStudyRoutes = CASE_STUDIES.map((study) => `/work/${study.slug}`)
-  const blogPostRoutes = POSTS.map((post) => `/blog/${post.slug}`)
+  const blogPostRoutes = POSTS.map(({ slug }) => `/blog/${slug}`)
 
   return [...staticRoutes, ...caseStudyRoutes, ...blogPostRoutes].map((route) => ({
     url: route === '/' ? siteUrl : `${siteUrl}${route}`,
