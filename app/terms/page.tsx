@@ -2,10 +2,27 @@ import type { Metadata } from 'next'
 
 import { Section } from '@/components/Section'
 
+const title = 'HRIT advisory HR systems audit HR AI PMO terms framework'
+const description =
+  'Review the framework guiding our HRIT advisory retainers, HR systems audit diagnostics, HR AI initiatives, and PMO delivery partnerships from scope to success.'
+
 export const metadata: Metadata = {
-  title: 'Terms of service — Icarius Consulting',
-  description: 'Commercial terms governing consulting engagements with Icarius Consulting.',
+  title,
+  description,
   alternates: { canonical: '/terms' },
+  openGraph: {
+    title,
+    description,
+    url: '/terms',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title,
+    description,
+    images: [{ url: '/twitter-image', width: 1200, height: 630 }],
+  },
+  robots: { index: true, follow: true },
 }
 
 export default function TermsPage() {

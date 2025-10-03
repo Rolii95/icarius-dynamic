@@ -2,10 +2,27 @@ import type { Metadata } from 'next'
 
 import { Section } from '@/components/Section'
 
+const title = 'HRIT advisory HR systems audit HR AI PMO privacy guard'
+const description =
+  'See how our HRIT advisory, HR systems audit, HR AI, and PMO engagements handle contact data, protect confidentiality, and honour trust you extend to Icarius.'
+
 export const metadata: Metadata = {
-  title: 'Privacy policy — Icarius Consulting',
-  description: 'How Icarius Consulting handles the personal information you share with us.',
+  title,
+  description,
   alternates: { canonical: '/privacy' },
+  openGraph: {
+    title,
+    description,
+    url: '/privacy',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title,
+    description,
+    images: [{ url: '/twitter-image', width: 1200, height: 630 }],
+  },
+  robots: { index: true, follow: true },
 }
 
 export default function PrivacyPage() {

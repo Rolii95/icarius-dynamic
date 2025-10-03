@@ -6,20 +6,28 @@ import { Footer } from '@/components/footer'
 import { inter } from '@/app/fonts'
 import { ViewObserver } from '@/app/providers'
 
+const fallbackTitle = 'HRIT advisory HR systems audit HR AI PMO experts guide'
+const fallbackDescription =
+  'Navigate HRIT advisory, HR systems audit, HR AI innovation, and PMO delivery with Icarius—boutique consultants keeping people, process, and platforms in sync.'
+
 export const metadata: Metadata = {
-  title: 'Icarius Consulting — HRIT Advisory & Delivery',
-  description: 'HRIT advisory, project delivery, system audits, and AI solutions.',
+  title: fallbackTitle,
+  description: fallbackDescription,
   metadataBase: new URL('https://www.icarius-consulting.com'),
   openGraph: {
     type: 'website',
-    title: 'Icarius Consulting',
-    description: 'HRIT advisory, project delivery, system audits, and AI solutions.',
+    title: fallbackTitle,
+    description: fallbackDescription,
+    url: '/',
     images: [{ url: '/opengraph-image', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
+    title: fallbackTitle,
+    description: fallbackDescription,
     images: [{ url: '/twitter-image', width: 1200, height: 630 }],
   },
+  robots: { index: true, follow: true },
   icons: { icon: '/favicon.ico', shortcut: '/favicon.svg', apple: '/apple-touch-icon.png' },
   alternates: { canonical: '/' },
 }

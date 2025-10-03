@@ -2,10 +2,27 @@ import type { Metadata } from 'next'
 
 import { Section } from '@/components/Section'
 
+const title = 'HRIT advisory HR systems audit HR AI PMO packages catalog'
+const description =
+  'Compare HRIT advisory retainers, HR systems audit sprints, HR AI readiness labs, and PMO accelerators designed to balance rapid value with long-term governance.'
+
 export const metadata: Metadata = {
-  title: 'Packages — Icarius Consulting',
-  description: 'Choose the engagement model that fits your operational goals and pace.',
+  title,
+  description,
   alternates: { canonical: '/packages' },
+  openGraph: {
+    title,
+    description,
+    url: '/packages',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title,
+    description,
+    images: [{ url: '/twitter-image', width: 1200, height: 630 }],
+  },
+  robots: { index: true, follow: true },
 }
 
 const packages = [
