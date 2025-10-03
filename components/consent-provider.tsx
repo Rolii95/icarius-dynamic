@@ -2,30 +2,14 @@
 import { useEffect, useState } from 'react'
 import Script from 'next/script'
 
+import { bookingUrl } from '@/lib/booking'
+
 export function ConsentProvider({ children }: { children: React.ReactNode }) {
   const [consent, setConsent] = useState<'unknown'|'all'|'essential'>(() =>
     typeof window !== 'undefined' ? ((localStorage.getItem('icarius_consent') as any) || 'unknown') : 'unknown'
   )
 
   useEffect(() => { if (consent !== 'unknown') localStorage.setItem('icarius_consent', consent) }, [consent])
-
-  // Global click handler for any [data-book-call] element (works across the whole app)
-  useEffect(() => {
-    const onClick = (e: MouseEvent) => {
-      const target = e.target as HTMLElement
-      const trigger = target?.closest?.('[data-book-call]')
-      if (trigger) {
-        if (e.metaKey || e.ctrlKey || e.button !== 0) {
-          return
-        }
-        e.preventDefault()
-        ;(window as any).plausible?.('BookCallClick')
-        document.getElementById('calendly')?.setAttribute('aria-hidden', 'false')
-      }
-    }
-    document.addEventListener('click', onClick)
-    return () => document.removeEventListener('click', onClick)
-  }, [])
 
   return (
     <>
@@ -71,7 +55,7 @@ export function ConsentProvider({ children }: { children: React.ReactNode }) {
           <div
             id="calendlyInline"
             className="calendly-inline-widget"
-            data-url={process.env.NEXT_PUBLIC_CALENDLY_URL || 'https://calendly.com/icarius/intro-call'}
+            data-url={bookingUrl}
             style={{ minWidth: 320, height: 660 }}
           />
           <button

@@ -12,12 +12,16 @@ const contactMethods = [
     href: bookingUrl,
     description: 'Schedule a 30-minute call to discuss your goals and whether we are the right fit.',
     newTab: true,
+    cta: 'contact-page',
+    plan: 'general',
   },
   {
     label: 'Email the team',
     href: 'mailto:hello@icarius-consulting.com',
     description: 'Share context, RFPs, or supporting information and we will reply within one business day.',
     newTab: false,
+    cta: 'contact-page-email',
+    plan: 'general',
   },
 ]
 
@@ -42,7 +46,9 @@ export default function ContactPage() {
                   href={method.href}
                   className="mt-4 inline-flex text-sm font-medium text-[color:var(--primary)]"
                   target={method.newTab ? '_blank' : undefined}
-                  rel={method.newTab ? 'noreferrer' : undefined}
+                  rel={method.newTab ? 'noreferrer noopener' : undefined}
+                  data-cta={method.cta}
+                  data-plan={method.plan}
                 >
                   {method.label} →
                 </a>
