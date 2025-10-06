@@ -3,6 +3,7 @@ import '@/styles/globals.css'
 import { SiteProviders } from '@/components/consent-provider'
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
+import { ChatWidget } from '@/components/ChatWidget'
 import { inter } from '@/app/fonts'
 import { ViewObserver } from '@/app/providers'
 import { siteOrigin } from '@/lib/config/site'
@@ -83,6 +84,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             {children}
           </main>
           <Footer />
+          <ChatWidget />
         </SiteProviders>
       </body>
     </html>
