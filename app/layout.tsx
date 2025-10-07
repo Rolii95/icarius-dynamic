@@ -21,6 +21,9 @@ const Footer = dynamic(() => import('@/components/footer').then((mod) => ({ defa
 const ChatWidget = dynamic(() => import('@/components/ChatWidget').then((mod) => ({ default: mod.ChatWidget })), {
   ssr: false,
 })
+const BackToTop = dynamic(() => import('@/components/BackToTop').then((mod) => ({ default: mod.BackToTop })), {
+  ssr: false,
+})
 
 const fallbackTitle = 'HRIT advisory HR systems audit HR AI PMO experts guide'
 const fallbackDescription = ORGANIZATION_DESCRIPTION
@@ -92,6 +95,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </main>
           <Footer />
           <ChatWidget />
+          <BackToTop />
         </SiteProviders>
       </body>
     </html>
