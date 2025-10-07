@@ -92,9 +92,10 @@ function Hero() {
           <p className="mt-4 text-lg text-slate-300">
             HRIT Advisory • Project Delivery • System Audits • AI Solutions. We de-risk complex change and ship measurable outcomes.
           </p>
-          <div className="mt-6 flex gap-3">
-            <a href="#pricing" className="rounded-full bg-[color:var(--primary)] text-slate-900 px-5 py-3">View Packages</a>
-            <BookCTA data-cta="hero" className="rounded-full border px-5 py-3">
+          {/* Mobile CTA - Stacked with full width */}
+          <div className="mt-6 flex flex-col sm:flex-row gap-3">
+            <a href="#pricing" className="rounded-full bg-[color:var(--primary)] text-slate-900 px-5 py-3 text-center sm:text-left">View Packages</a>
+            <BookCTA data-cta="hero" className="rounded-full border px-5 py-3 text-center sm:text-left">
               Book a call
             </BookCTA>
           </div>
@@ -109,7 +110,7 @@ function Services() {
   return (
     <Section id="services" className="py-12 border-t border-[rgba(255,255,255,.06)]">
       <h2 className="text-2xl font-semibold">What we do</h2>
-      <ul className="mt-4 grid md:grid-cols-4 gap-4">
+      <ul className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4">
         {coreServices.map((service) => (
           <li key={service.id} className="card">
             <h3 className="font-semibold">{service.name}</h3>
@@ -131,7 +132,7 @@ function Pricing() {
   return (
     <Section id="pricing" className="py-12 border-t border-[rgba(255,255,255,.06)]">
       <h2 className="text-2xl font-semibold">Packages</h2>
-      <div className="mt-4 grid md:grid-cols-3 gap-4">
+      <div className="mt-4 grid sm:grid-cols-2 md:grid-cols-3 gap-4">
         {cards.map((card) => (
           <div key={card.name} className="card">
             <h3 className="font-semibold">{card.name}</h3>
@@ -144,7 +145,7 @@ function Pricing() {
             <BookCTA
               data-cta="pricing"
               plan={card.plan}
-              className="mt-4 inline-block rounded-full bg-[color:var(--primary)] text-slate-900 px-4 py-2"
+              className="mt-4 w-full sm:w-auto inline-block text-center sm:text-left rounded-full bg-[color:var(--primary)] text-slate-900 px-4 py-2"
             >
               Book
             </BookCTA>
@@ -159,7 +160,7 @@ function Work() {
   return (
     <Section id="work" className="py-12 border-t border-[rgba(255,255,255,.06)]">
       <h2 className="text-2xl font-semibold">Selected Work</h2>
-      <ul className="mt-4 grid md:grid-cols-3 gap-4">
+      <ul className="mt-4 grid sm:grid-cols-2 md:grid-cols-3 gap-4">
         <li id="cs-hcm" className="card"><h3 className="font-semibold">Global HCM replacement</h3><p className="text-sm text-slate-300 mt-1">Vendor selection and readiness for 40k employees.</p></li>
         <li id="cs-payroll" className="card"><h3 className="font-semibold">Payroll consolidation</h3><p className="text-sm text-slate-300 mt-1">12‑country integration and control framework.</p></li>
         <li id="cs-ai" className="card"><h3 className="font-semibold">HR Ops AI assistant</h3><p className="text-sm text-slate-300 mt-1">Reduced resolution time by 34%.</p></li>
@@ -172,28 +173,28 @@ function Testimonials() {
   return (
     <Section className="py-12 border-t border-[rgba(255,255,255,.06)]">
       <h2 className="text-2xl font-semibold">What clients say</h2>
-      <ul className="mt-4 grid md:grid-cols-3 gap-4">
-        <li className="card grid md:grid-cols-[auto,1fr] gap-3 items-start">
-          <div className="h-14 w-14 rounded-full border" />
-          <div>
+      <ul className="mt-4 grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+        <li className="card grid grid-cols-1 sm:grid-cols-[auto,1fr] gap-3 items-start">
+          <div className="h-14 w-14 rounded-full border mx-auto sm:mx-0" />
+          <div className="text-center sm:text-left">
             <blockquote className="text-base">“Icarius brought clarity and pace to a complex HCM migration.”</blockquote>
             <p className="text-sm text-slate-300">— CIO, FTSE250</p>
             <div className="stars" aria-label="5 out of 5">★★★★★</div>
             <a className="mini-link" href="/work/global-hris-audit">View full case study →</a>
           </div>
         </li>
-        <li className="card grid md:grid-cols-[auto,1fr] gap-3 items-start">
-          <div className="h-14 w-14 rounded-full border" />
-          <div>
+        <li className="card grid grid-cols-1 sm:grid-cols-[auto,1fr] gap-3 items-start">
+          <div className="h-14 w-14 rounded-full border mx-auto sm:mx-0" />
+          <div className="text-center sm:text-left">
             <blockquote className="text-base">“The audit sprint gave us a pragmatic backlog we actually shipped.”</blockquote>
             <p className="text-sm text-slate-300">— HR Director, Retail</p>
             <div className="stars" aria-label="5 out of 5">★★★★★</div>
             <a className="mini-link" href="/work/pmo-reboot">View full case study →</a>
           </div>
         </li>
-        <li className="card grid md:grid-cols-[auto,1fr] gap-3 items-start">
-          <div className="h-14 w-14 rounded-full border" />
-          <div>
+        <li className="card grid grid-cols-1 sm:grid-cols-[auto,1fr] gap-3 items-start">
+          <div className="h-14 w-14 rounded-full border mx-auto sm:mx-0" />
+          <div className="text-center sm:text-left">
             <blockquote className="text-base">“Our HR Ops assistant cut average handle time dramatically.”</blockquote>
             <p className="text-sm text-slate-300">— Shared Services Lead</p>
             <div className="stars" aria-label="5 out of 5">★★★★★</div>
@@ -238,10 +239,10 @@ function FAQ() {
 function CTA({ defaultPlan }: { defaultPlan?: string }) {
   return (
     <Section id="contact" className="py-16">
-      <div className="card p-8 md:p-10">
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr),minmax(0,420px)] lg:items-start">
+      <div className="card p-6 sm:p-8 md:p-10">
+        <div className="grid gap-6 sm:gap-8 lg:grid-cols-[minmax(0,1fr),minmax(0,420px)] lg:items-start">
           <div className="space-y-4 text-left">
-            <h2 className="text-3xl font-semibold">Ready to reduce delivery risk?</h2>
+            <h2 className="text-2xl sm:text-3xl font-semibold">Ready to reduce delivery risk?</h2>
             <p className="text-slate-300">Tell us about your goals. We’ll respond within one business day.</p>
             <p className="text-sm text-slate-400">
               Prefer to jump straight to a conversation? Use the booking link and we’ll tailor the agenda.
@@ -249,12 +250,12 @@ function CTA({ defaultPlan }: { defaultPlan?: string }) {
             <BookCTA
               data-cta="contact"
               plan={defaultPlan}
-              className="inline-flex items-center gap-2 rounded-full border px-5 py-3"
+              className="inline-flex items-center gap-2 rounded-full border px-4 sm:px-5 py-2.5 sm:py-3 text-sm sm:text-base"
             >
               <Phone size={18} /> Book a call
             </BookCTA>
           </div>
-          <AssistantForm plan={defaultPlan} className="card p-6 shadow-none" />
+          <AssistantForm plan={defaultPlan} className="card p-4 sm:p-6 shadow-none" />
         </div>
       </div>
     </Section>
