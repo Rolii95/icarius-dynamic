@@ -29,12 +29,10 @@ export const metadata: Metadata = {
 export default function TermsPage() {
   return (
     <Section className="py-12">
-      <div className="prose prose-invert max-w-3xl mx-auto">
+      <div className="prose prose-invert mx-auto max-w-3xl">
         <div className="mb-6 not-prose">
-          <div className="-ml-2 mb-2">
-            <ConditionalGoBackButton />
-          </div>
-          <h1 className="text-4xl font-semibold tracking-tight m-0">Terms of service</h1>
+          <ConditionalGoBackButton />
+          <h1 className="m-0 text-4xl font-semibold tracking-tight">Terms of service</h1>
         </div>
         <p>
           These terms outline the basis on which Icarius Consulting delivers advisory and project
