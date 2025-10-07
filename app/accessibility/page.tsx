@@ -30,8 +30,10 @@ export default function AccessibilityPage() {
   return (
     <Section className="py-12">
       <div className="prose prose-invert max-w-3xl mx-auto">
-        <div className="flex items-center mb-6 not-prose">
-          <ConditionalGoBackButton className="mr-3" />
+        <div className="mb-6 not-prose">
+          <div className="ml-8 mb-2">
+            <ConditionalGoBackButton />
+          </div>
           <h1 className="text-4xl font-semibold tracking-tight m-0">Accessibility statement</h1>
         </div>
         <p>

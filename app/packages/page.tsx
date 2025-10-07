@@ -56,8 +56,10 @@ export default function PackagesPage() {
   return (
     <Section className="py-16">
       <div className="container mx-auto max-w-4xl px-4">
-        <div className="flex items-center mb-6">
-          <ConditionalGoBackButton className="mr-3" />
+        <div className="mb-6">
+          <div className="ml-8 mb-2">
+            <ConditionalGoBackButton />
+          </div>
           <h1 className="text-4xl font-semibold tracking-tight">Packages</h1>
         </div>
         <div className="space-y-10">
