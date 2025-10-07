@@ -80,11 +80,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <a href="#main" className="skip-link">Skip to content</a>
         <SiteProviders>
           <Header />
-          <main id="main" tabIndex={-1} className="container mx-auto px-4">
+          <main id="main" tabIndex={-1} className="container mx-auto px-4 pb-32">
             {children}
           </main>
           <Footer />
-          <ChatWidget />
+          <div className="pointer-events-auto fixed bottom-6 right-6 z-50 w-full max-w-sm">
+            <ChatWidget />
+          </div>
         </SiteProviders>
       </body>
     </html>
