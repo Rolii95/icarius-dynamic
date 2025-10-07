@@ -32,14 +32,18 @@ export default function WorkPage() {
   return (
     <Section className="py-16">
       <div className="container mx-auto px-4 md:px-6">
-        <ConditionalGoBackButton />
-        <div className="mx-auto max-w-3xl text-center">
-          <p className="text-sm font-medium uppercase tracking-[0.2em] text-sky-300/80">Selected work</p>
-          <h1 className="mt-4 text-4xl font-semibold tracking-tight text-white">Outcomes our clients trust us to deliver</h1>
-          <p className="mt-4 text-lg text-slate-300">
-            Every engagement balances operational rigour with change empathy. Explore a few recent programmes and the
-            impact they created across HR and finance operations.
-          </p>
+        <div className="mx-auto max-w-3xl">
+          <div className="flex items-center justify-center mb-6">
+            <ConditionalGoBackButton className="mr-3" />
+            <p className="text-sm font-medium uppercase tracking-[0.2em] text-sky-300/80">Selected work</p>
+          </div>
+          <div className="text-center">
+            <h1 className="mt-4 text-4xl font-semibold tracking-tight text-white">Outcomes our clients trust us to deliver</h1>
+            <p className="mt-4 text-lg text-slate-300">
+              Every engagement balances operational rigour with change empathy. Explore a few recent programmes and the
+              impact they created across HR and finance operations.
+            </p>
+          </div>
         </div>
         <div className="mt-12 grid gap-6 md:grid-cols-2">
           {CASE_STUDIES.map((study) => (

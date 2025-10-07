@@ -50,10 +50,12 @@ export default function ContactPage() {
   return (
     <Section className="py-16">
       <div className="container mx-auto max-w-3xl px-4">
-        <ConditionalGoBackButton />
+        <div className="flex items-center mb-6">
+          <ConditionalGoBackButton className="mr-3" />
+          <h1 className="text-4xl font-semibold tracking-tight">Contact</h1>
+        </div>
         <div className="space-y-6">
           <header className="space-y-4">
-            <h1 className="text-4xl font-semibold tracking-tight">Contact</h1>
             <p className="text-lg text-slate-300">
               We would love to learn about the challenges in front of you. Choose the option below that
               suits you best and we will respond quickly.

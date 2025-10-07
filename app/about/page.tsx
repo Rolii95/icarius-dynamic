@@ -30,9 +30,11 @@ export default function AboutPage() {
   return (
     <Section className="py-16">
       <div className="container mx-auto max-w-3xl px-4">
-        <ConditionalGoBackButton />
-        <div className="space-y-6">
+        <div className="flex items-center mb-6">
+          <ConditionalGoBackButton className="mr-3" />
           <h1 className="text-4xl font-semibold tracking-tight">About Icarius Consulting</h1>
+        </div>
+        <div className="space-y-6">
           <p className="text-lg text-slate-300">
             Icarius Consulting partners with finance and operations leaders who need a pragmatic
             guide through complex transformation. We blend enterprise experience with the agility of a

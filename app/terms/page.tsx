@@ -30,8 +30,10 @@ export default function TermsPage() {
   return (
     <Section className="py-12">
       <div className="prose prose-invert max-w-3xl mx-auto">
-        <ConditionalGoBackButton />
-        <h1>Terms of service</h1>
+        <div className="flex items-center mb-6 not-prose">
+          <ConditionalGoBackButton className="mr-3" />
+          <h1 className="text-4xl font-semibold tracking-tight m-0">Terms of service</h1>
+        </div>
         <p>
           These terms outline the basis on which Icarius Consulting delivers advisory and project
           services. We aim to keep them concise and human readable. For any engagement, we will provide

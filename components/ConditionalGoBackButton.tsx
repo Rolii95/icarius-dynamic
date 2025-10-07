@@ -3,7 +3,7 @@
 import { usePathname } from 'next/navigation'
 import { GoBackButton } from '@/components/GoBackButton'
 
-export function ConditionalGoBackButton() {
+export function ConditionalGoBackButton({ className }: { className?: string }) {
   const pathname = usePathname()
 
   // Show Go back button on all pages except:
@@ -15,5 +15,5 @@ export function ConditionalGoBackButton() {
     return null
   }
 
-  return <GoBackButton />
+  return <GoBackButton className={className} />
 }

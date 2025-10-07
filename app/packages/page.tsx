@@ -56,10 +56,12 @@ export default function PackagesPage() {
   return (
     <Section className="py-16">
       <div className="container mx-auto max-w-4xl px-4">
-        <ConditionalGoBackButton />
+        <div className="flex items-center mb-6">
+          <ConditionalGoBackButton className="mr-3" />
+          <h1 className="text-4xl font-semibold tracking-tight">Packages</h1>
+        </div>
         <div className="space-y-10">
           <header className="space-y-4">
-            <h1 className="text-4xl font-semibold tracking-tight">Packages</h1>
             <p className="text-lg text-slate-300">
               These outlines show how we typically partner with clients. Every package can be adjusted
               to match your stage, geography, and team structure.

@@ -62,10 +62,12 @@ export default function ServicesPage() {
   return (
     <Section className="py-16">
       <div className="container mx-auto max-w-4xl px-4">
-        <ConditionalGoBackButton />
+        <div className="flex items-center mb-6">
+          <ConditionalGoBackButton className="mr-3" />
+          <h1 className="text-4xl font-semibold tracking-tight">Services</h1>
+        </div>
         <div className="space-y-10">
           <header className="space-y-4">
-            <h1 className="text-4xl font-semibold tracking-tight">Services</h1>
             <p className="text-lg text-slate-300">
               Each engagement is tailored to your stage of growth, but the pillars below outline how
               we typically help founders and operators remove operational friction.
