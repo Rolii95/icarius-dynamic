@@ -192,21 +192,21 @@ export function ChatWidget() {
   }
 
   return (
-    <div data-chat-widget className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-4">
+    <div data-chat-widget className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col items-end gap-4">
       {isOpen ? (
         <section
           role="dialog"
           aria-modal="false"
           aria-labelledby={titleId}
           aria-describedby={descriptionId}
-          className="w-80 sm:w-96 rounded-2xl border border-white/20 bg-slate-950/90 shadow-2xl backdrop-blur-lg"
+          className="w-[calc(100vw-2rem)] sm:w-80 md:w-96 rounded-2xl border border-white/20 bg-slate-950/90 shadow-2xl backdrop-blur-lg"
         >
-          <div className="flex items-start justify-between gap-4 border-b border-white/10 px-5 py-4">
+          <div className="flex items-start justify-between gap-4 border-b border-white/10 px-4 sm:px-5 py-3 sm:py-4">
             <div>
-              <h2 id={titleId} className="text-lg font-semibold text-white">
+              <h2 id={titleId} className="text-base sm:text-lg font-semibold text-white">
                 Ask Icarius
               </h2>
-              <p id={descriptionId} className="text-sm text-slate-300">
+              <p id={descriptionId} className="text-xs sm:text-sm text-slate-300">
                 Real-time answers about our services and how we work.
               </p>
             </div>
@@ -220,7 +220,7 @@ export function ChatWidget() {
             </button>
           </div>
 
-          <div className="flex max-h-[22rem] flex-col gap-4 px-5 py-4">
+          <div className="flex max-h-[18rem] sm:max-h-[22rem] flex-col gap-3 sm:gap-4 px-4 sm:px-5 py-3 sm:py-4">
             <div
               role="log"
               aria-live="polite"
@@ -235,7 +235,7 @@ export function ChatWidget() {
                   }`}
                 >
                   <div
-                    className={`max-w-[80%] rounded-2xl px-4 py-2 text-sm leading-relaxed shadow-sm ${
+                    className={`max-w-[85%] sm:max-w-[80%] rounded-2xl px-3 sm:px-4 py-2 text-xs sm:text-sm leading-relaxed shadow-sm ${
                       message.role === 'user'
                         ? 'bg-emerald-500 text-slate-950'
                         : 'bg-white/5 text-slate-100'
@@ -247,7 +247,7 @@ export function ChatWidget() {
               ))}
               {isSending && (
                 <div className="flex justify-start">
-                  <div className="max-w-[80%] rounded-2xl bg-white/5 px-4 py-2 text-sm text-slate-200">
+                  <div className="max-w-[85%] sm:max-w-[80%] rounded-2xl bg-white/5 px-3 sm:px-4 py-2 text-xs sm:text-sm text-slate-200">
                     Thinking…
                   </div>
                 </div>
@@ -262,9 +262,9 @@ export function ChatWidget() {
             )}
 
             {hasSuggestedScheduler && (
-              <div className="rounded-xl border border-emerald-500/40 bg-emerald-500/10 p-4 text-sm text-emerald-100">
-                <p className="mb-3 font-medium text-emerald-200">{schedulerCtaCopy}</p>
-                <ContactModalTrigger className="inline-flex items-center justify-center rounded-full bg-emerald-500 px-4 py-2 text-sm font-semibold text-slate-950 transition hover:bg-emerald-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-300">
+              <div className="rounded-xl border border-emerald-500/40 bg-emerald-500/10 p-3 sm:p-4 text-xs sm:text-sm text-emerald-100">
+                <p className="mb-2 sm:mb-3 font-medium text-emerald-200">{schedulerCtaCopy}</p>
+                <ContactModalTrigger className="inline-flex items-center justify-center rounded-full bg-emerald-500 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-950 transition hover:bg-emerald-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-300">
                   Book a call
                 </ContactModalTrigger>
               </div>
@@ -282,16 +282,17 @@ export function ChatWidget() {
                 onKeyDown={handleTextareaKeyDown}
                 placeholder="Ask about services, pricing, or timelines…"
                 rows={2}
-                className="w-full resize-none rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-slate-400 focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/60"
+                className="w-full resize-none rounded-xl border border-white/10 bg-white/5 px-3 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm text-white placeholder:text-slate-400 focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/60"
               />
-              <div className="flex items-center justify-between">
-                <span className="text-xs text-slate-400">Press Enter to send · Shift + Enter for a new line</span>
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-[10px] sm:text-xs text-slate-400 hidden sm:inline">Press Enter to send · Shift + Enter for a new line</span>
+                <span className="text-[10px] text-slate-400 sm:hidden">Enter to send</span>
                 <button
                   type="submit"
                   disabled={isSending}
-                  className="inline-flex items-center gap-2 rounded-full bg-emerald-500 px-4 py-2 text-sm font-semibold text-slate-950 transition hover:bg-emerald-400 disabled:cursor-not-allowed disabled:opacity-70"
+                  className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full bg-emerald-500 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-950 transition hover:bg-emerald-400 disabled:cursor-not-allowed disabled:opacity-70"
                 >
-                  <Send className="h-4 w-4" aria-hidden="true" />
+                  <Send className="h-3 w-3 sm:h-4 sm:w-4" aria-hidden="true" />
                   Send
                 </button>
               </div>
@@ -304,12 +305,13 @@ export function ChatWidget() {
         ref={triggerButtonRef}
         type="button"
         onClick={handleToggle}
-        className="flex items-center gap-2 rounded-full bg-emerald-500 px-5 py-3 text-sm font-semibold text-slate-950 shadow-lg transition hover:bg-emerald-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-300"
+        className="flex items-center gap-1.5 sm:gap-2 rounded-full bg-emerald-500 px-3 sm:px-5 py-2 sm:py-3 text-xs sm:text-sm font-semibold text-slate-950 shadow-lg transition hover:bg-emerald-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-300"
         aria-expanded={isOpen}
         aria-controls={isOpen ? titleId : undefined}
       >
-        <MessageCircle className="h-5 w-5" aria-hidden="true" />
-        Chat with us
+        <MessageCircle className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" />
+        <span className="hidden sm:inline">Chat with us</span>
+        <span className="sm:hidden">Chat</span>
       </button>
     </div>
   )
