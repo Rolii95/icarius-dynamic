@@ -2,6 +2,11 @@ import createMDX from '@next/mdx'
 import remarkGfm from 'remark-gfm'
 import rehypeSlug from 'rehype-slug'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
+import bundleAnalyzer from '@next/bundle-analyzer'
+
+const withBundleAnalyzer = bundleAnalyzer({
+  enabled: process.env.ANALYZE === 'true',
+})
 
 const withMDX = createMDX({
   extension: /\.mdx?$/,
@@ -14,6 +19,17 @@ const withMDX = createMDX({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
+  // Enable webpack bundle analyzer in development
+  webpack: (config, { isServer }) => {
+    // Optimize for production
+    if (!isServer) {
+      config.optimization = {
+        ...config.optimization,
+        usedExports: true,
+      }
+    }
+    return config
+  },
   async headers() {
     return [
       {
@@ -47,4 +63,4 @@ const nextConfig = {
   },
 }
 
-export default withMDX(nextConfig)
+export default withBundleAnalyzer(withMDX(nextConfig))

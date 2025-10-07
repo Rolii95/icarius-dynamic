@@ -10,6 +10,7 @@ import { metadata as rootMetadata } from '@/app/layout'
 import { buildFaqPageSchema, coreServices, type FAQItem, stringifyJsonLd } from '@/lib/structured-data'
 import { siteOrigin } from '@/lib/config/site'
 
+// Lazy load ROI widget (interactive component, below fold)
 const DynamicROIWidget = dynamic(() => import('@/components/ROIWidget').then((mod) => mod.ROIWidget), {
   ssr: false,
   loading: () => (
@@ -18,6 +19,11 @@ const DynamicROIWidget = dynamic(() => import('@/components/ROIWidget').then((mo
     </Section>
   ),
 })
+
+// Lazy load below-the-fold sections for better initial load
+const DynamicWork = dynamic(() => Promise.resolve(Work), { ssr: true })
+const DynamicTestimonials = dynamic(() => Promise.resolve(Testimonials), { ssr: true })
+const DynamicFAQ = dynamic(() => Promise.resolve(FAQ), { ssr: true })
 
 type PageProps = {
   searchParams?: Record<string, string | string[] | undefined>
@@ -73,9 +79,9 @@ export default function Page({ searchParams }: PageProps) {
       <Services />
       <Pricing />
       <DynamicROIWidget />
-      <Work />
-      <Testimonials />
-      <FAQ />
+      <DynamicWork />
+      <DynamicTestimonials />
+      <DynamicFAQ />
       <CTA defaultPlan={defaultPlan} />
     </div>
   )
