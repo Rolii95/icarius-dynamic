@@ -58,7 +58,11 @@ export function Header() {
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-6 text-sm">
           {primaryNavLinks.map((link) => (
-            <Link key={link.href} href={link.href} className="hover:underline">
+            <Link 
+              key={link.href} 
+              href={link.href} 
+              className="text-[var(--text)] hover:bg-[var(--primary-2)] hover:text-[var(--bg)] rounded px-3 py-2 transition-colors focus-visible:outline-[var(--primary-2)]"
+            >
               {link.label}
             </Link>
           ))}
@@ -73,7 +77,7 @@ export function Header() {
         {/* Mobile Menu Button */}
         <button
           type="button"
-          className="md:hidden p-2 rounded-lg hover:bg-white/10 transition-colors"
+          className="md:hidden p-2 rounded-lg text-[var(--text)] hover:bg-[var(--primary-2)] hover:text-[var(--bg)] transition-colors focus-visible:outline-[var(--primary-2)]"
           onClick={() => setMobileMenuOpen(true)}
           aria-label="Open navigation menu"
           aria-expanded={mobileMenuOpen}
@@ -93,14 +97,14 @@ export function Header() {
           />
 
           {/* Mobile Menu */}
-          <div className="fixed top-0 right-0 bottom-0 w-[280px] bg-[var(--surface)] z-[60] md:hidden shadow-2xl">
+          <div className="fixed top-0 right-0 bottom-0 w-[280px] bg-[var(--surface)] border-l border-[var(--surface-2)] z-[60] md:hidden shadow-2xl">
             <div className="flex flex-col h-full">
               {/* Header */}
-              <div className="flex items-center justify-between p-4 border-b border-white/10">
-                <span className="text-lg font-semibold">Menu</span>
+              <div className="flex items-center justify-between p-4 border-b border-[var(--surface-2)]">
+                <span className="text-lg font-semibold text-[var(--text)]">Menu</span>
                 <button
                   type="button"
-                  className="p-2 rounded-lg hover:bg-white/10 transition-colors"
+                  className="p-2 rounded-lg text-[var(--text)] hover:bg-[var(--primary-2)] hover:text-[var(--bg)] transition-colors focus-visible:outline-[var(--primary-2)]"
                   onClick={closeMobileMenu}
                   aria-label="Close navigation menu"
                 >
@@ -115,7 +119,7 @@ export function Header() {
                     <li key={link.href}>
                       <Link
                         href={link.href}
-                        className="block px-4 py-3 text-base rounded-lg hover:bg-white/10 transition-colors"
+                        className="block px-4 py-3 text-base text-[var(--text)] rounded-lg hover:bg-[var(--primary-2)] hover:text-[var(--bg)] transition-colors focus-visible:outline-[var(--primary-2)]"
                         onClick={closeMobileMenu}
                       >
                         {link.label}
@@ -126,10 +130,10 @@ export function Header() {
               </nav>
 
               {/* CTA Button */}
-              <div className="p-4 border-t border-white/10">
+              <div className="p-4 border-t border-[var(--surface-2)]">
                 <BookCTA
                   data-cta="header-mobile"
-                  className="w-full inline-flex items-center justify-center gap-2 rounded-full border px-4 py-3"
+                  className="w-full inline-flex items-center justify-center gap-2 rounded-full border border-[var(--primary)] px-4 py-3 focus-visible:outline-[var(--primary-2)]"
                   onClick={closeMobileMenu}
                 >
                   Book a call
