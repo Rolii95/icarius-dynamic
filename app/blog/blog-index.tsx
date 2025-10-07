@@ -59,7 +59,11 @@ export function BlogIndex({ posts, heading, description }: BlogIndexProps) {
   return (
     <div className="not-prose">
       <Section className="py-12">
-        <ConditionalGoBackButton />
+        <div className="mb-6">
+          <div className="ml-8 mb-2">
+            <ConditionalGoBackButton />
+          </div>
+        </div>
         <header className="flex flex-col gap-4">
           <p className="text-sm font-medium uppercase tracking-[0.3em] text-indigo-300/80">
             Insights
