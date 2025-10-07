@@ -6,6 +6,7 @@ import { Footer } from '@/components/footer'
 import { inter } from '@/app/fonts'
 import { ViewObserver } from '@/app/providers'
 import { siteOrigin } from '@/lib/config/site'
+import { ChatWidget } from '@/components/ChatWidget'
 import {
   buildCoreServiceSchemas,
   buildLocalBusinessSchema,
@@ -83,6 +84,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             {children}
           </main>
           <Footer />
+          <ChatWidget />
         </SiteProviders>
       </body>
     </html>
