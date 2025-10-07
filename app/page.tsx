@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic'
-import { CheckCircle2, ChevronDown, Phone } from 'lucide-react'
+import { CheckCircle2, ChevronDown, Phone, Lightbulb, Rocket, Search, Sparkles } from 'lucide-react'
 import type { Metadata } from 'next'
 
 import { AssistantForm } from '@/components/AssistantForm'
@@ -113,16 +113,27 @@ function Hero() {
 }
 
 function Services() {
+  const serviceIcons = {
+    'hrit-advisory': Lightbulb,
+    'pmo-delivery': Rocket,
+    'hr-systems-audit': Search,
+    'hr-ai': Sparkles,
+  }
+
   return (
     <Section id="services" className="py-12 border-t border-[rgba(255,255,255,.06)]">
       <h2 className="text-2xl font-semibold">What we do</h2>
       <ul className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4">
-        {coreServices.map((service) => (
-          <li key={service.id} className="card">
-            <h3 className="font-semibold">{service.name}</h3>
-            <p className="text-slate-300 text-sm mt-1">{service.description}</p>
-          </li>
-        ))}
+        {coreServices.map((service) => {
+          const Icon = serviceIcons[service.id as keyof typeof serviceIcons]
+          return (
+            <li key={service.id} className="card p-6 min-h-[200px] flex flex-col">
+              <Icon className="text-[color:var(--primary-2)] mb-3" size={24} />
+              <h3 className="text-lg font-semibold">{service.name}</h3>
+              <p className="text-slate-300 text-base mt-2">{service.description}</p>
+            </li>
+          )
+        })}
       </ul>
     </Section>
   )
