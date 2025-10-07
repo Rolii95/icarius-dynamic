@@ -1,12 +1,11 @@
 import type { Metadata } from 'next'
+import dynamic from 'next/dynamic'
 import '@/styles/globals.css'
 import { SiteProviders } from '@/components/consent-provider'
 import { Header } from '@/components/header'
-import { Footer } from '@/components/footer'
 import { inter } from '@/app/fonts'
 import { ViewObserver } from '@/app/providers'
 import { siteOrigin } from '@/lib/config/site'
-import { ChatWidget } from '@/components/ChatWidget'
 import {
   buildCoreServiceSchemas,
   buildLocalBusinessSchema,
@@ -14,6 +13,14 @@ import {
   ORGANIZATION_DESCRIPTION,
   stringifyJsonLd,
 } from '@/lib/structured-data'
+
+// Lazy load components below the fold for better initial page load
+const Footer = dynamic(() => import('@/components/footer').then((mod) => ({ default: mod.Footer })), {
+  ssr: true,
+})
+const ChatWidget = dynamic(() => import('@/components/ChatWidget').then((mod) => ({ default: mod.ChatWidget })), {
+  ssr: false,
+})
 
 const fallbackTitle = 'HRIT advisory HR systems audit HR AI PMO experts guide'
 const fallbackDescription = ORGANIZATION_DESCRIPTION
