@@ -370,7 +370,12 @@ export function ChatWidget() {
 
   return (
     <div className="flex flex-col gap-4 rounded-2xl border border-slate-800 bg-slate-950/60 p-4 text-left">
-      <div className="space-y-3 text-sm text-slate-200">
+      <div
+        role="log"
+        aria-live={hydrated ? 'polite' : 'off'}
+        aria-relevant="additions"
+        className="space-y-3 text-sm text-slate-200"
+      >
         {messages.map((message, index) => (
           <p key={`${message.createdAt}-${index}`} className={message.role === 'assistant' ? 'text-slate-300' : 'text-white'}>
             {message.content}
