@@ -173,7 +173,7 @@ function Testimonials() {
     <Section className="py-12 border-t border-[rgba(255,255,255,.06)]">
       <h2 className="text-2xl font-semibold">What clients say</h2>
       <ul className="mt-4 grid md:grid-cols-3 gap-4">
-        <li className="card grid grid-cols-[auto,1fr] gap-3 items-start">
+        <li className="card grid md:grid-cols-[auto,1fr] gap-3 items-start">
           <div className="h-14 w-14 rounded-full border" />
           <div>
             <blockquote className="text-base">“Icarius brought clarity and pace to a complex HCM migration.”</blockquote>
@@ -182,7 +182,7 @@ function Testimonials() {
             <a className="mini-link" href="/work/global-hris-audit">View full case study →</a>
           </div>
         </li>
-        <li className="card grid grid-cols-[auto,1fr] gap-3 items-start">
+        <li className="card grid md:grid-cols-[auto,1fr] gap-3 items-start">
           <div className="h-14 w-14 rounded-full border" />
           <div>
             <blockquote className="text-base">“The audit sprint gave us a pragmatic backlog we actually shipped.”</blockquote>
@@ -191,7 +191,7 @@ function Testimonials() {
             <a className="mini-link" href="/work/pmo-reboot">View full case study →</a>
           </div>
         </li>
-        <li className="card grid grid-cols-[auto,1fr] gap-3 items-start">
+        <li className="card grid md:grid-cols-[auto,1fr] gap-3 items-start">
           <div className="h-14 w-14 rounded-full border" />
           <div>
             <blockquote className="text-base">“Our HR Ops assistant cut average handle time dramatically.”</blockquote>
