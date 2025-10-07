@@ -74,9 +74,10 @@ body::before {
   z-index: -1;
   background-color: var(--bg);
   background-image:
-    radial-gradient(900px 600px at 20% -10%, rgba(107,140,255,0.08), transparent 40%),
-    radial-gradient(800px 500px at 80% 110%, rgba(142,235,255,0.06), transparent 42%),
-    linear-gradient(180deg, #070b18, var(--bg) 30%, var(--bg) 70%, #070b18);
+    radial-gradient(1000px 700px at 15% -10%, rgba(107,140,255,0.13), transparent 50%), /* blue highlight */
+    radial-gradient(900px 600px at 85% 120%, rgba(142,235,255,0.10), transparent 55%), /* cyan highlight */
+    radial-gradient(700px 500px at 80% 10%, rgba(140,107,255,0.10), transparent 60%), /* subtle purple accent */
+    linear-gradient(180deg, #070b18 0%, #181c2e 40%, #1a1e38 60%, #0b1020 100%); /* black to deep blue */
 }
 .container {
   max-width: 1100px;
