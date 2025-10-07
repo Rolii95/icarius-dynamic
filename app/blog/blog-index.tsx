@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react'
 import Link from 'next/link'
 
 import { Section } from '@/components/Section'
+import { ConditionalGoBackButton } from '@/components/ConditionalGoBackButton'
 
 import type { Post } from './posts'
 
@@ -58,6 +59,7 @@ export function BlogIndex({ posts, heading, description }: BlogIndexProps) {
   return (
     <div className="not-prose">
       <Section className="py-12">
+        <ConditionalGoBackButton />
         <header className="flex flex-col gap-4">
           <p className="text-sm font-medium uppercase tracking-[0.3em] text-indigo-300/80">
             Insights

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 
 import { Section } from '@/components/Section'
+import { ConditionalGoBackButton } from '@/components/ConditionalGoBackButton'
 
 const title = 'HRIT advisory HR systems audit HR AI PMO leadership'
 const description =
@@ -29,6 +30,7 @@ export default function AboutPage() {
   return (
     <Section className="py-16">
       <div className="container mx-auto max-w-3xl px-4">
+        <ConditionalGoBackButton />
         <div className="space-y-6">
           <h1 className="text-4xl font-semibold tracking-tight">About Icarius Consulting</h1>
           <p className="text-lg text-slate-300">

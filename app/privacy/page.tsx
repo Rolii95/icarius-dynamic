@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 
 import { Section } from '@/components/Section'
+import { ConditionalGoBackButton } from '@/components/ConditionalGoBackButton'
 
 const title = 'HRIT advisory HR systems audit HR AI PMO privacy guard'
 const description =
@@ -29,6 +30,7 @@ export default function PrivacyPage() {
   return (
     <Section className="py-12">
       <div className="prose prose-invert max-w-3xl mx-auto">
+        <ConditionalGoBackButton />
         <h1>Privacy policy</h1>
         <p>
           Icarius Consulting operates as a boutique advisory firm. We only collect the personal
