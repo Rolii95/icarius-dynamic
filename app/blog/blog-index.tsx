@@ -60,7 +60,7 @@ export function BlogIndex({ posts, heading, description }: BlogIndexProps) {
     <div className="not-prose">
       <Section className="py-12">
         <div className="mb-6">
-          <div className="ml-8 mb-2">
+          <div className="-ml-2 mb-2">
             <ConditionalGoBackButton />
           </div>
         </div>
