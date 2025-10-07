@@ -34,13 +34,13 @@ export default function WorkPage() {
       <div className="container mx-auto px-4 md:px-6">
         <div className="mx-auto max-w-3xl">
           <div className="flex flex-col items-center gap-4 text-center">
-            <div className="mb-2">
-              <ConditionalGoBackButton className="inline-block" />
-              <p className="text-sm font-medium uppercase tracking-[0.2em] text-sky-300/80">Selected work</p>
+            <div className="flex items-center justify-center gap-2">
+              <ConditionalGoBackButton />
+              <h1 className="min-w-0 text-center text-4xl font-semibold tracking-tight text-white">
+                Outcomes our clients trust us to deliver
+              </h1>
             </div>
-            <h1 className="text-center text-4xl font-semibold tracking-tight text-white">
-              Outcomes our clients trust us to deliver
-            </h1>
+            <p className="text-sm font-medium uppercase tracking-[0.2em] text-sky-300/80">Selected work</p>
             <p className="text-lg text-slate-300">
               Every engagement balances operational rigour with change empathy. Explore a few recent programmes and the
               impact they created across HR and finance operations.

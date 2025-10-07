@@ -30,9 +30,9 @@ export default function AboutPage() {
   return (
     <Section className="py-16">
       <div className="container mx-auto max-w-3xl px-4">
-        <div className="mb-6">
+        <div className="mb-6 flex items-center gap-2">
           <ConditionalGoBackButton />
-          <h1 className="text-4xl font-semibold tracking-tight">About Icarius Consulting</h1>
+          <h1 className="min-w-0 text-4xl font-semibold tracking-tight">About Icarius Consulting</h1>
         </div>
         <div className="space-y-6">
           <p className="text-lg text-slate-300">

@@ -15,11 +15,9 @@ export function ConditionalGoBackButton({ className }: { className?: string }) {
     return null
   }
 
-  const wrapperClassName = ['mb-3 -ml-3 sm:-ml-4 w-fit', className].filter(Boolean).join(' ')
+  const combinedClassName = ['shrink-0 -translate-x-1 sm:-translate-x-1.5', className]
+    .filter(Boolean)
+    .join(' ')
 
-  return (
-    <div className={wrapperClassName}>
-      <GoBackButton />
-    </div>
-  )
+  return <GoBackButton className={combinedClassName} />
 }
