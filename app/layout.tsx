@@ -3,7 +3,6 @@ import '@/styles/globals.css'
 import { SiteProviders } from '@/components/consent-provider'
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
-import { ChatWidget } from '@/components/ChatWidget'
 import { inter } from '@/app/fonts'
 import { ViewObserver } from '@/app/providers'
 import { siteOrigin } from '@/lib/config/site'
@@ -84,9 +83,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             {children}
           </main>
           <Footer />
-          <div className="pointer-events-auto fixed bottom-6 right-6 z-50 w-full max-w-sm">
-            <ChatWidget />
-          </div>
         </SiteProviders>
       </body>
     </html>
