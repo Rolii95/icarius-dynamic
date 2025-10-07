@@ -75,7 +75,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
       </head>
-      <body className={`${inter.className} bg-transparent text-slate-100`}>
+      <body className={`${inter.className} text-slate-100`}>
         <ViewObserver />
         <a href="#main" className="skip-link">Skip to content</a>
         <SiteProviders>
