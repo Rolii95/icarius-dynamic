@@ -45,6 +45,72 @@ function parseChatSession(input: unknown): ChatSession | undefined {
   }
 }
 
+function parseStoredMessages(input: unknown): ChatMessage[] | undefined {
+  if (!Array.isArray(input)) {
+    return undefined
+  }
+
+  const sanitized: ChatMessage[] = []
+  let discardedCount = 0
+  let sanitizedCount = 0
+
+  input.forEach((entry) => {
+    if (typeof entry !== 'object' || entry === null) {
+      discardedCount += 1
+      return
+    }
+
+    const candidate = entry as Record<string, unknown>
+    const role = candidate.role
+    const content = candidate.content
+    const createdAt = candidate.createdAt
+
+    if (role !== 'assistant' && role !== 'user') {
+      discardedCount += 1
+      return
+    }
+
+    if (typeof content !== 'string') {
+      discardedCount += 1
+      return
+    }
+
+    const roleValue: ChatMessage['role'] = role
+    let timestamp: number | undefined
+
+    if (typeof createdAt === 'number' && Number.isFinite(createdAt)) {
+      timestamp = createdAt
+    } else if (typeof createdAt === 'string') {
+      const parsed = Number(createdAt)
+      if (Number.isFinite(parsed)) {
+        timestamp = parsed
+        sanitizedCount += 1
+      }
+    }
+
+    if (typeof timestamp !== 'number') {
+      timestamp = Date.now()
+      sanitizedCount += 1
+    }
+
+    sanitized.push({
+      role: roleValue,
+      content,
+      createdAt: timestamp,
+    })
+  })
+
+  if (discardedCount > 0) {
+    console.warn(`Discarded ${discardedCount} malformed chat message(s) from storage`)
+  }
+
+  if (sanitizedCount > 0) {
+    console.warn(`Sanitized ${sanitizedCount} chat message(s) from storage`)
+  }
+
+  return sanitized
+}
+
 function parseReplies(input: unknown): string[] | undefined {
   if (!Array.isArray(input)) {
     return undefined
@@ -99,19 +165,26 @@ export function ChatWidget() {
           messages?: ChatMessage[]
           session?: unknown
         }
-        const restoredMessages = Array.isArray(parsed.messages) && parsed.messages.length > 0 ? parsed.messages : undefined
+        const restoredMessages = parseStoredMessages(parsed.messages)
         const restoredSession = parseChatSession(parsed.session)
 
+        let usedFallback = false
+
         if (restoredMessages) {
-          setMessages(
-            restoredMessages.map((message) => ({
-              ...message,
-              createdAt: typeof message.createdAt === 'number' ? message.createdAt : Date.now(),
-            })),
-          )
+          if (restoredMessages.length > 0) {
+            setMessages(restoredMessages)
+          } else {
+            usedFallback = true
+            console.warn('No valid chat messages found in storage. Resetting to defaults.')
+            const fallbackSession = createDefaultSession()
+            setMessages([INITIAL_MESSAGE])
+            setSession(fallbackSession)
+            sessionRef.current = fallbackSession
+            setQuickReplies(getQuickReplies(fallbackSession))
+          }
         }
 
-        if (restoredSession) {
+        if (!usedFallback && restoredSession) {
           setSession(restoredSession)
           sessionRef.current = restoredSession
           setQuickReplies(getQuickReplies(restoredSession))
