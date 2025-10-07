@@ -24,9 +24,6 @@ const ChatWidget = dynamic(() => import('@/components/ChatWidget').then((mod) =>
 const BackToTop = dynamic(() => import('@/components/BackToTop').then((mod) => ({ default: mod.BackToTop })), {
   ssr: false,
 })
-const ConditionalGoBackButton = dynamic(() => import('@/components/ConditionalGoBackButton').then((mod) => ({ default: mod.ConditionalGoBackButton })), {
-  ssr: false,
-})
 
 const fallbackTitle = 'HRIT advisory HR systems audit HR AI PMO experts guide'
 const fallbackDescription = ORGANIZATION_DESCRIPTION
@@ -93,7 +90,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <a href="#main" className="skip-link">Skip to content</a>
         <SiteProviders>
           <Header />
-          <ConditionalGoBackButton />
           <main id="main" tabIndex={-1} className="container mx-auto px-4 pb-32">
             {children}
           </main>

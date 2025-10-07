@@ -4,6 +4,7 @@ import Link from 'next/link'
 
 import { CASE_STUDIES } from '@/app/work/case-studies'
 import { Section } from '@/components/Section'
+import { ConditionalGoBackButton } from '@/components/ConditionalGoBackButton'
 
 const title = 'HRIT advisory HR systems audit HR AI PMO services playbooks'
 const description =
@@ -61,6 +62,7 @@ export default function ServicesPage() {
   return (
     <Section className="py-16">
       <div className="container mx-auto max-w-4xl px-4">
+        <ConditionalGoBackButton />
         <div className="space-y-10">
           <header className="space-y-4">
             <h1 className="text-4xl font-semibold tracking-tight">Services</h1>

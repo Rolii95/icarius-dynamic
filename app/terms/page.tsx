@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 
 import { Section } from '@/components/Section'
+import { ConditionalGoBackButton } from '@/components/ConditionalGoBackButton'
 
 const title = 'HRIT advisory HR systems audit HR AI PMO terms framework'
 const description =
@@ -29,6 +30,7 @@ export default function TermsPage() {
   return (
     <Section className="py-12">
       <div className="prose prose-invert max-w-3xl mx-auto">
+        <ConditionalGoBackButton />
         <h1>Terms of service</h1>
         <p>
           These terms outline the basis on which Icarius Consulting delivers advisory and project

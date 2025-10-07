@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 
 import { Section } from '@/components/Section'
+import { ConditionalGoBackButton } from '@/components/ConditionalGoBackButton'
 
 const title = 'HRIT advisory HR systems audit HR AI PMO access pledge'
 const description =
@@ -29,6 +30,7 @@ export default function AccessibilityPage() {
   return (
     <Section className="py-12">
       <div className="prose prose-invert max-w-3xl mx-auto">
+        <ConditionalGoBackButton />
         <h1>Accessibility statement</h1>
         <p>
           We want everyone to be able to browse icarius-consulting.com without barriers. This statement

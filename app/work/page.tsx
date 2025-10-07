@@ -3,6 +3,7 @@ import Link from 'next/link'
 
 import { CASE_STUDIES } from './case-studies'
 import { Section } from '@/components/Section'
+import { ConditionalGoBackButton } from '@/components/ConditionalGoBackButton'
 
 const title = 'HRIT advisory HR systems audit HR AI PMO outcomes portfolio'
 const description =
@@ -31,6 +32,7 @@ export default function WorkPage() {
   return (
     <Section className="py-16">
       <div className="container mx-auto px-4 md:px-6">
+        <ConditionalGoBackButton />
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-sm font-medium uppercase tracking-[0.2em] text-sky-300/80">Selected work</p>
           <h1 className="mt-4 text-4xl font-semibold tracking-tight text-white">Outcomes our clients trust us to deliver</h1>
