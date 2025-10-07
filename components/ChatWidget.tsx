@@ -379,8 +379,12 @@ export function ChatWidget() {
       </div>
 
       <form onSubmit={handleSubmit} className="flex gap-2">
+        <label htmlFor="chat-widget-message" className="sr-only">
+          Message Icarius Assistant
+        </label>
         <input
           type="text"
+          id="chat-widget-message"
           value={input}
           onChange={(event) => setInput(event.target.value)}
           placeholder="Type a message"
