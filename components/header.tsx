@@ -3,7 +3,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { Menu, X } from 'lucide-react'
+import { usePathname, useRouter } from 'next/navigation'
+import { Menu, X, ArrowLeft } from 'lucide-react'
 
 import { BookCTA } from '@/components/BookCTA'
 import { primaryNavLinks } from '@/lib/navigation'
@@ -11,6 +12,12 @@ import { primaryNavLinks } from '@/lib/navigation'
 export function Header() {
   const [solid, setSolid] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const pathname = usePathname()
+  const router = useRouter()
+
+  // Determine if the "Go back" button should be shown
+  // Don't show on homepage or any /services routes (including nested routes)
+  const shouldShowGoBack = pathname !== '/' && pathname !== '/services' && !pathname.startsWith('/services/')
 
   useEffect(() => {
     const onScroll = () => setSolid(window.scrollY > 8)
@@ -33,6 +40,10 @@ export function Header() {
 
   const closeMobileMenu = () => setMobileMenuOpen(false)
 
+  const handleGoBack = () => {
+    router.back()
+  }
+
   return (
     <header
       className={`sticky top-0 z-40 transition-colors border-b ${
@@ -54,6 +65,17 @@ export function Header() {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-6 text-sm">
+          {shouldShowGoBack && (
+            <button
+              type="button"
+              onClick={handleGoBack}
+              className="inline-flex items-center gap-2 hover:underline transition-colors"
+              aria-label="Go back to previous page"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              <span>Go back</span>
+            </button>
+          )}
           {primaryNavLinks.map((link) => (
             <Link key={link.href} href={link.href} className="hover:underline">
               {link.label}
