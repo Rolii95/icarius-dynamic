@@ -30,8 +30,10 @@ export default function PrivacyPage() {
   return (
     <Section className="py-12">
       <div className="prose prose-invert max-w-3xl mx-auto">
-        <ConditionalGoBackButton />
-        <h1>Privacy policy</h1>
+        <div className="flex items-center mb-6 not-prose">
+          <ConditionalGoBackButton className="mr-3" />
+          <h1 className="text-4xl font-semibold tracking-tight m-0">Privacy policy</h1>
+        </div>
         <p>
           Icarius Consulting operates as a boutique advisory firm. We only collect the personal
           information that you choose to share with us—typically when you book a call, subscribe to
