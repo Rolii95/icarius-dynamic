@@ -30,11 +30,9 @@ export default function PrivacyPage() {
   return (
     <Section className="py-12">
       <div className="prose prose-invert max-w-3xl mx-auto">
-        <div className="mb-6 not-prose">
-          <div className="-ml-2 mb-2">
-            <ConditionalGoBackButton />
-          </div>
-          <h1 className="text-4xl font-semibold tracking-tight m-0">Privacy policy</h1>
+        <div className="mb-6 flex items-center gap-2 not-prose">
+          <ConditionalGoBackButton />
+          <h1 className="m-0 min-w-0 text-4xl font-semibold tracking-tight">Privacy policy</h1>
         </div>
         <p>
           Icarius Consulting operates as a boutique advisory firm. We only collect the personal

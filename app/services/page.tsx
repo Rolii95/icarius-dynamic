@@ -62,11 +62,9 @@ export default function ServicesPage() {
   return (
     <Section className="py-16">
       <div className="container mx-auto max-w-4xl px-4">
-        <div className="mb-6">
-          <div className="-ml-2 mb-2">
-            <ConditionalGoBackButton />
-          </div>
-          <h1 className="text-4xl font-semibold tracking-tight">Services</h1>
+        <div className="mb-6 flex items-center gap-2">
+          <ConditionalGoBackButton />
+          <h1 className="min-w-0 text-4xl font-semibold tracking-tight">Services</h1>
         </div>
         <div className="space-y-10">
           <header className="space-y-4">
