@@ -33,15 +33,15 @@ export default function WorkPage() {
     <Section className="py-16">
       <div className="container mx-auto px-4 md:px-6">
         <div className="mx-auto max-w-3xl">
-          <div className="mb-6 text-center">
-            <div className="-ml-2 mb-2 flex justify-center">
+          <div className="flex flex-col items-center gap-4 text-center">
+            <div className="flex items-center justify-center gap-2">
               <ConditionalGoBackButton />
+              <h1 className="min-w-0 text-center text-4xl font-semibold tracking-tight text-white">
+                Outcomes our clients trust us to deliver
+              </h1>
             </div>
             <p className="text-sm font-medium uppercase tracking-[0.2em] text-sky-300/80">Selected work</p>
-          </div>
-          <div className="text-center">
-            <h1 className="mt-4 text-4xl font-semibold tracking-tight text-white">Outcomes our clients trust us to deliver</h1>
-            <p className="mt-4 text-lg text-slate-300">
+            <p className="text-lg text-slate-300">
               Every engagement balances operational rigour with change empathy. Explore a few recent programmes and the
               impact they created across HR and finance operations.
             </p>
