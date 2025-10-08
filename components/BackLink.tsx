@@ -62,6 +62,14 @@ const getSectionFromPath = (path: string | undefined): string => {
   return normaliseSection(first)
 }
 
+export const __BACKLINK_INTERNALS__ = {
+  SECTION_LABELS,
+  SECTION_FALLBACKS,
+  SECTION_ALIASES,
+  normaliseSection,
+  getSectionFromPath,
+} as const
+
 // Preserve history back when the user came from the same origin.
 const hasSameOriginReferrer = () => {
   if (typeof window === 'undefined' || typeof document === 'undefined') {
@@ -145,6 +153,11 @@ export function BackLink({
     return SECTION_FALLBACKS[section] ?? '/'
   }, [href, section])
 
+  const debugAttributes =
+    process.env.NODE_ENV !== 'production'
+      ? { 'data-back-label': computedLabel, 'data-back-href': computedHref }
+      : undefined
+
   const handleClick = useCallback(
     (event: MouseEvent<HTMLAnchorElement>) => {
       emitBackLinkEvent()
@@ -214,6 +227,7 @@ export function BackLink({
       aria-label={computedLabel}
       className={classes}
       onClick={handleClick}
+      {...debugAttributes}
     >
       <span aria-hidden="true">←</span>
       <span>{computedLabel}</span>
