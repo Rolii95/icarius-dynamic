@@ -1,9 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname, useRouter } from 'next/navigation'
-import type { MouseEvent } from 'react'
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { usePathname } from 'next/navigation'
+import { useEffect, useMemo, useRef } from 'react'
 
 type BackLinkProps = {
   label?: string
@@ -13,53 +12,39 @@ type BackLinkProps = {
   overlapPx?: number
 }
 
-type SectionKey = keyof typeof SECTION_LABELS
+type SectionKey = keyof typeof SECTION_CONFIG
 
-type ReferrerState = {
-  sameOrigin: boolean
-  path?: string
-  section?: SectionKey
-}
+const HOME_LABEL = 'Back to home'
+const HOME_HREF = '/'
 
-declare global {
-  interface Window {
-    __debugEvents?: { type: string; payload: Record<string, unknown> }[]
-  }
-}
-
-const SECTION_LABELS = {
-  work: 'Back to work',
-  insights: 'Back to insights',
-  packages: 'Back to packages',
-  services: 'Back to services',
-  contact: 'Back to contact',
-  about: 'Back to about',
+const SECTION_CONFIG = {
+  work: { label: 'Back to work', href: '/work' },
+  blog: { label: 'Back to insights', href: '/insights' },
+  insights: { label: 'Back to insights', href: '/insights' },
+  packages: { label: 'Back to packages', href: '/packages' },
+  services: { label: 'Back to services', href: '/services' },
+  contact: { label: 'Back to contact', href: '/contact' },
+  about: { label: 'Back to about', href: '/about' },
+  'case-studies': { label: 'Back to work', href: '/work' },
 } as const
 
 const SECTION_ALIASES: Record<string, SectionKey> = {
-  blog: 'insights',
-  'case-studies': 'work',
+  'case-studies': 'case-studies',
 }
 
-const DEFAULT_LABEL = SECTION_LABELS.work
-const DEFAULT_HREF = '/work'
-
-function normaliseSection(segment: string | undefined): SectionKey | undefined {
+function normaliseSegment(segment: string | undefined): SectionKey | undefined {
   if (!segment) {
     return undefined
   }
 
-  const cleaned = segment.replace(/^\//, '').split('/').filter(Boolean)[0]
-  if (!cleaned) {
-    return undefined
+  const lower = segment.toLowerCase()
+
+  if (lower in SECTION_CONFIG) {
+    return lower as SectionKey
   }
 
-  if (cleaned in SECTION_ALIASES) {
-    return SECTION_ALIASES[cleaned]
-  }
-
-  if (cleaned in SECTION_LABELS) {
-    return cleaned as SectionKey
+  if (lower in SECTION_ALIASES) {
+    return SECTION_ALIASES[lower]
   }
 
   return undefined
@@ -67,50 +52,63 @@ function normaliseSection(segment: string | undefined): SectionKey | undefined {
 
 export function BackLink({
   label,
-  href = DEFAULT_HREF,
+  href,
   contextualLabel = true,
   className,
   overlapPx = 4,
 }: BackLinkProps) {
-  const router = useRouter()
   const pathname = usePathname()
   const linkRef = useRef<HTMLAnchorElement | null>(null)
-  const [referrer, setReferrer] = useState<ReferrerState>({ sameOrigin: false })
 
-  useEffect(() => {
-    if (typeof window === 'undefined') {
-      return
+  const segments = useMemo(() => {
+    if (!pathname) {
+      return []
     }
 
-    window.__debugEvents = window.__debugEvents ?? []
-  }, [])
-
-  useEffect(() => {
-    if (typeof window === 'undefined') {
-      return
-    }
-
-    const ref = document.referrer
-
-    if (!ref) {
-      setReferrer({ sameOrigin: false })
-      return
-    }
-
-    try {
-      const refUrl = new URL(ref)
-      const sameOrigin = refUrl.origin === window.location.origin
-
-      if (sameOrigin) {
-        const section = normaliseSection(refUrl.pathname)
-        setReferrer({ sameOrigin: true, path: refUrl.pathname, section })
-      } else {
-        setReferrer({ sameOrigin: false })
-      }
-    } catch {
-      setReferrer({ sameOrigin: false })
-    }
+    return pathname
+      .split('/')
+      .filter(Boolean)
+      .map((segment) => segment.toLowerCase())
   }, [pathname])
+
+  const section = useMemo(() => normaliseSegment(segments[0]), [segments])
+  const isDetailRoute = segments.length >= 2
+
+  const contextualTarget = useMemo(() => {
+    if (!isDetailRoute || !section) {
+      return undefined
+    }
+
+    return SECTION_CONFIG[section]
+  }, [isDetailRoute, section])
+
+  const computedLabel = useMemo(() => {
+    if (label) {
+      return label
+    }
+
+    if (!contextualLabel) {
+      return HOME_LABEL
+    }
+
+    if (!isDetailRoute || !contextualTarget) {
+      return HOME_LABEL
+    }
+
+    return contextualTarget.label
+  }, [contextualLabel, contextualTarget, isDetailRoute, label])
+
+  const computedHref = useMemo(() => {
+    if (href) {
+      return href
+    }
+
+    if (!isDetailRoute || !contextualTarget) {
+      return HOME_HREF
+    }
+
+    return contextualTarget.href
+  }, [contextualTarget, href, isDetailRoute])
 
   useEffect(() => {
     if (typeof window === 'undefined') {
@@ -139,7 +137,7 @@ export function BackLink({
     updateMetrics()
 
     if (typeof ResizeObserver !== 'undefined') {
-      const observer = new ResizeObserver(() => updateMetrics())
+      const observer = new ResizeObserver(updateMetrics)
       observer.observe(element)
 
       return () => {
@@ -153,42 +151,7 @@ export function BackLink({
     return () => {
       window.removeEventListener('resize', handleResize)
     }
-  }, [overlapPx])
-
-  const currentSection = useMemo(() => normaliseSection(pathname), [pathname])
-
-  const computedLabel = useMemo(() => {
-    if (label) {
-      return label
-    }
-
-    if (contextualLabel) {
-      const section = referrer.sameOrigin && referrer.section ? referrer.section : currentSection
-      if (section && SECTION_LABELS[section]) {
-        return SECTION_LABELS[section]
-      }
-    }
-
-    return DEFAULT_LABEL
-  }, [label, contextualLabel, referrer, currentSection])
-
-  const handleClick = useCallback(
-    (event: MouseEvent<HTMLAnchorElement>) => {
-      if (typeof window !== 'undefined') {
-        const fromPath = window.location.pathname
-        const targetPath = referrer.sameOrigin && referrer.path ? referrer.path : href
-
-        window.__debugEvents = window.__debugEvents ?? []
-        window.__debugEvents.push({ type: 'BackLinkClick', payload: { path: targetPath, from: fromPath } })
-      }
-
-      if (referrer.sameOrigin) {
-        event.preventDefault()
-        router.back()
-      }
-    },
-    [href, referrer, router],
-  )
+  }, [overlapPx, computedLabel])
 
   const classes = [
     'inline-flex items-center gap-2 text-sm font-medium text-sky-300 transition hover:text-sky-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-300/60',
@@ -198,7 +161,7 @@ export function BackLink({
     .join(' ')
 
   return (
-    <Link ref={linkRef} href={href} onClick={handleClick} aria-label={computedLabel} className={classes}>
+    <Link ref={linkRef} href={computedHref} aria-label={computedLabel} className={classes}>
       <span aria-hidden="true">←</span>
       <span>{computedLabel}</span>
     </Link>

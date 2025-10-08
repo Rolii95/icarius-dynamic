@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 import { Section } from '@/components/Section'
-import { ConditionalGoBackButton } from '@/components/ConditionalGoBackButton'
+import { PageHeader } from '@/components/PageHeader'
 
 const title = 'HRIT advisory HR systems audit HR AI PMO leadership'
 const description =
@@ -29,31 +29,28 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <Section className="py-16">
-      <div className="container mx-auto max-w-3xl px-4">
-        <div className="mb-6 flex items-center gap-2">
-          <ConditionalGoBackButton />
-          <h1 className="min-w-0 text-4xl font-semibold tracking-tight">About Icarius Consulting</h1>
-        </div>
-        <div className="space-y-6">
-          <p className="text-lg text-slate-300">
-            Icarius Consulting partners with finance and operations leaders who need a pragmatic
-            guide through complex transformation. We blend enterprise experience with the agility of a
-            boutique firm, helping clients modernise processes without losing momentum.
-          </p>
-          <p className="text-slate-300">
-            Our team has implemented global back-office platforms, optimised service delivery models,
-            and steered change programmes in highly regulated industries. Every engagement pairs
-            strategic thinking with hands-on delivery support so initiatives launch quickly and land
-            successfully.
-          </p>
-          <p className="text-slate-300">
-            We operate as an embedded partner, collaborating directly with your team, technology
-            stack, and stakeholders. That proximity lets us uncover the friction that slows teams down
-            and design interventions that stick. The result is measurable improvement, faster decision
-            cycles, and a calmer path to scale.
-          </p>
-        </div>
-      </div>
+      <PageHeader
+        title="About Icarius Consulting"
+        headingClassName="text-4xl font-semibold tracking-tight"
+        contentClassName="max-w-3xl space-y-6"
+      >
+        <p className="text-lg text-slate-300">
+          Icarius Consulting partners with finance and operations leaders who need a pragmatic guide
+          through complex transformation. We blend enterprise experience with the agility of a boutique
+          firm, helping clients modernise processes without losing momentum.
+        </p>
+        <p className="text-slate-300">
+          Our team has implemented global back-office platforms, optimised service delivery models, and
+          steered change programmes in highly regulated industries. Every engagement pairs strategic
+          thinking with hands-on delivery support so initiatives launch quickly and land successfully.
+        </p>
+        <p className="text-slate-300">
+          We operate as an embedded partner, collaborating directly with your team, technology stack,
+          and stakeholders. That proximity lets us uncover the friction that slows teams down and design
+          interventions that stick. The result is measurable improvement, faster decision cycles, and a
+          calmer path to scale.
+        </p>
+      </PageHeader>
     </Section>
   )
 }

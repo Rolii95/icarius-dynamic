@@ -35,31 +35,38 @@ export function PageHeader({
   ]
     .filter(Boolean)
     .join(' ')
-  const innerClassName = ['mx-auto max-w-4xl space-y-4', contentClassName].filter(Boolean).join(' ')
-  const headingClasses = ['text-3xl font-semibold tracking-tight text-white', headingClassName]
+
+  const contentClasses = ['mx-auto max-w-4xl space-y-4', contentClassName]
+    .filter(Boolean)
+    .join(' ')
+
+  const headingClasses = [
+    'text-3xl font-semibold tracking-tight text-white sm:text-4xl',
+    headingClassName,
+  ]
     .filter(Boolean)
     .join(' ')
 
   return (
     <header className={containerClassName} data-backlink-container>
-      <div className="mb-2">
-        <BackLink
-          label={label}
-          href={href}
-          contextualLabel={contextualLabel}
-          className={backLinkClassName}
-          overlapPx={overlapPx}
-        />
-      </div>
-      <div className={innerClassName}>
-        {eyebrow}
-        <h1
-          className={headingClasses}
-          style={{ marginLeft: 'calc(var(--back-w, 0px) - var(--overlap, 4px))' }}
+      <div className="mx-auto max-w-4xl">
+        <div className="mb-4">
+          <BackLink
+            label={label}
+            href={href}
+            contextualLabel={contextualLabel}
+            className={backLinkClassName}
+            overlapPx={overlapPx}
+          />
+        </div>
+        <div
+          className={contentClasses}
+          style={{ marginLeft: 'max(calc(var(--back-w, 12ch) - var(--overlap, 4px)), 0px)' }}
         >
-          {title}
-        </h1>
-        {children}
+          {eyebrow}
+          <h1 className={headingClasses}>{title}</h1>
+          {children}
+        </div>
       </div>
     </header>
   )
