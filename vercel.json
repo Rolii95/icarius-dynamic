@@ -31,6 +31,12 @@
   ],
   "redirects": [
     {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "ww.icarius-consulting.com" }],
+      "destination": "https://www.icarius-consulting.com/:path*",
+      "permanent": true
+    },
+    {
       "source": "/index.html",
       "destination": "/",
       "permanent": true
