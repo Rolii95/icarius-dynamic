@@ -1,0 +1,20 @@
+<svg width="512" height="512" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg" aria-labelledby="title">
+  <title>Icarius — Interlock IC (dark badge)</title>
+
+  <defs>
+    <linearGradient id="gIC" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2FD4FF"/>
+      <stop offset="100%" stop-color="#17D1B5"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="8" y="8" width="112" height="112" rx="24" fill="#0E1525"/>
+  
+    <!-- I -->
+    <rect x="36" y="32" width="10" height="64" rx="5" fill="url(#gIC)"/>
+    <!-- C -->
+    <path d="M90 40 A24 24 0 1 0 90 88" fill="none" stroke="url(#gIC)" stroke-width="10" stroke-linecap="round"/>
+    <!-- interlock bar -->
+    <rect x="46" y="60" width="28" height="8" rx="4" fill="#7C8CFF"/>
+
+</svg>
