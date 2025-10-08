@@ -1,0 +1,23 @@
+import { test, expect } from "@playwright/test";
+
+const links = [
+  "/case-studies/hcm-migration",
+  "/case-studies/retail-audit-sprint",
+  "/case-studies/hr-ops-assistant",
+];
+
+test("testimonial links navigate and render an H1", async ({ page }) => {
+  await page.goto("/");
+  for (const href of links) {
+    const link = page.locator(`a[href="${href}"]`).first();
+    if (await link.count()) {
+      const [nav] = await Promise.all([
+        page.waitForNavigation(),
+        link.click(),
+      ]);
+      expect(nav?.ok()).toBeTruthy();
+      await expect(page.locator("h1")).toBeVisible();
+      await page.goBack();
+    }
+  }
+});
