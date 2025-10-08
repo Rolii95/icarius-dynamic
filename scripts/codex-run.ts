@@ -10,7 +10,7 @@ import fs from "fs";
 import path from "path";
 import readline from "readline";
 
-type Profile = Partial<{ temperature: number; top_p: number; max_tokens: number }>;
+type Profile = Partial<{ temperature: number; top_p: number; max_tokens: number }>; 
 type Cfg = {
   default: { temperature: number; top_p?: number; max_tokens?: number };
   profiles: Record<string, Profile>;
@@ -36,7 +36,7 @@ const cfg = readConfig(cfgPath);
 
 const title = process.argv.slice(2).join(" ").trim();
 if (!title) {
-  console.error("Usage: codex-run "<task title or brief>"");
+  console.error('Usage: codex-run "<task title or brief>"');
   process.exit(1);
 }
 
