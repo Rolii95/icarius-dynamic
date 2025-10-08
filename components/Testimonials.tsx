@@ -28,14 +28,16 @@ const testimonials: Testimonial[] = [
 export default function Testimonials() {
   return (
     <section aria-labelledby="what-clients-say" className="mx-auto max-w-5xl px-4">
-      <h2 id="what-clients-say" className="mb-4 text-2xl font-semibold">
+      <h2 id="what-clients-say" className="text-2xl font-semibold mb-4">
         What clients say
       </h2>
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <ul role="list" className="grid list-none gap-6 md:grid-cols-2 lg:grid-cols-3">
         {testimonials.map((testimonial) => (
-          <TestimonialCard key={testimonial.href ?? testimonial.author} {...testimonial} />
+          <li key={testimonial.href ?? testimonial.author} className="h-full">
+            <TestimonialCard {...testimonial} />
+          </li>
         ))}
-      </div>
+      </ul>
     </section>
   );
 }
