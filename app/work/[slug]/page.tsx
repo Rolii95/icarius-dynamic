@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Fragment } from 'react'
 
 import { CASE_STUDIES } from '../case-studies'
 import { Section } from '@/components/Section'
+import { PageHeader } from '@/components/PageHeader'
 
 type Params = {
   params: {
@@ -82,19 +82,18 @@ export default function CaseStudyPage({ params }: Params) {
   return (
     <article className="py-16">
       <div className="container mx-auto max-w-4xl px-4 md:px-6">
-        <Link
-          href="/work"
-          className="inline-flex items-center text-sm font-medium text-sky-300 transition hover:text-sky-200"
+        <PageHeader
+          title={study.hero.title}
+          className="mt-8"
+          headingClassName="text-4xl font-semibold tracking-tight text-white"
+          eyebrow={
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-300/80">
+              {study.hero.eyebrow}
+            </p>
+          }
         >
-          <span aria-hidden className="mr-2">←</span>
-          Back to work
-        </Link>
-
-        <header className="mt-8 space-y-4">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-300/80">{study.hero.eyebrow}</p>
-          <h1 className="text-4xl font-semibold tracking-tight text-white">{study.hero.title}</h1>
           <p className="text-lg text-slate-300">{study.hero.description}</p>
-        </header>
+        </PageHeader>
 
         <Section className="mt-10 grid gap-6 md:grid-cols-2">
           <div className="rounded-3xl border border-[rgba(255,255,255,0.08)] bg-slate-950/40 p-6">

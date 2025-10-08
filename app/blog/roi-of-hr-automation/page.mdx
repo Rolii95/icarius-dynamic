@@ -23,6 +23,7 @@ import { ArticleJsonLd } from '@/components/ArticleJsonLd'
 import { BlogCTA } from '@/components/BlogCTA'
 import { InlineROI } from '@/components/InlineROI'
 import { NewsletterForm } from '@/components/NewsletterForm'
+import { PageHeader } from '@/components/PageHeader'
 
 <ArticleJsonLd
   url={`${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.icarius-consulting.com'}/blog/roi-of-hr-automation`}
@@ -34,7 +35,13 @@ import { NewsletterForm } from '@/components/NewsletterForm'
   image={`${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.icarius-consulting.com'}/blog/roi-of-hr-automation/opengraph-image`}
 />
 
-# Calculating the ROI of HR Automation
+<PageHeader
+  title={metadata.title}
+  href="/blog"
+  className="not-prose mb-10"
+  headingClassName="text-4xl font-semibold tracking-tight text-white"
+  contentClassName="space-y-3"
+/>
 
 Automation can transform the HR service experience, but executives demand proof that investment is worthwhile. This guide explains how to capture the total value of automation so finance, HR, and IT align on the business case.
 

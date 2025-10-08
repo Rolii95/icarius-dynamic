@@ -23,6 +23,7 @@ import { ArticleJsonLd } from '@/components/ArticleJsonLd'
 import { BlogCTA } from '@/components/BlogCTA'
 import { InlineROI } from '@/components/InlineROI'
 import { NewsletterForm } from '@/components/NewsletterForm'
+import { PageHeader } from '@/components/PageHeader'
 
 <ArticleJsonLd
   url={`${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.icarius-consulting.com'}/blog/ai-readiness-for-hr`}
@@ -34,7 +35,13 @@ import { NewsletterForm } from '@/components/NewsletterForm'
   image={`${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.icarius-consulting.com'}/blog/ai-readiness-for-hr/opengraph-image`}
 />
 
-# AI Readiness for HR
+<PageHeader
+  title={metadata.title}
+  href="/blog"
+  className="not-prose mb-10"
+  headingClassName="text-4xl font-semibold tracking-tight text-white"
+  contentClassName="space-y-3"
+/>
 
 HR leaders are under pressure to “do something with AI,” yet many organisations lack the foundations that keep pilots compliant and credible. Use this readiness checklist to make sure your next experiment is safe, ethical, and business-aligned.
 
