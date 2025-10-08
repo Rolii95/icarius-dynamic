@@ -10,38 +10,46 @@ export type Testimonial = {
   quote: string;
   author: string;
   role?: string;
-  href?: string;
-  avatarSrc?: string;
+  href?: string; // "/case-studies/slug" or full https:// URL
+  avatarSrc?: string; // may be data: URL or /img/...
 };
 
 const FALLBACK_AVATAR_SRC = "/img/avatar-fallback.webp";
 
+const isInternal = (url?: string) => typeof url === "string" && url.trim().startsWith("/");
+const isExternalHttp = (url?: string) =>
+  typeof url === "string" && /^(https?:)?\/\//i.test(url.trim());
+
 export default function TestimonialCard({ quote, author, role, href, avatarSrc }: Testimonial) {
   const placeholder = useMemo(() => createInitialsAvatar(author), [author]);
-  const normalizedAvatarSrc = useMemo(() => {
-    if (!avatarSrc) {
-      return undefined;
-    }
 
-    const trimmed = avatarSrc.trim();
+  const normalizedAvatarSrc = useMemo(() => {
+    const trimmed = (avatarSrc ?? "").trim();
     return trimmed.length > 0 ? trimmed : undefined;
   }, [avatarSrc]);
+
   const [currentSrc, setCurrentSrc] = useState<string>(normalizedAvatarSrc ?? FALLBACK_AVATAR_SRC);
 
   useEffect(() => {
     setCurrentSrc(normalizedAvatarSrc ?? FALLBACK_AVATAR_SRC);
   }, [normalizedAvatarSrc]);
 
-  const handleImageError = (event: SyntheticEvent<HTMLImageElement>) => {
-    if (currentSrc === FALLBACK_AVATAR_SRC) {
-      return;
+  const handleImageError = (e: SyntheticEvent<HTMLImageElement>) => {
+    if (currentSrc !== FALLBACK_AVATAR_SRC) {
+      e.preventDefault();
+      setCurrentSrc(FALLBACK_AVATAR_SRC);
     }
-
-    event.preventDefault();
-    setCurrentSrc(FALLBACK_AVATAR_SRC);
   };
 
-  return (
+  const internal = isInternal(href);
+  const external = isExternalHttp(href);
+
+  if (process.env.NODE_ENV !== "production" && href && !internal && !external) {
+    // eslint-disable-next-line no-console
+    console.warn(`[TestimonialCard] Invalid href: "${href}". Use "/path" or a full http(s) URL.`);
+  }
+
+  const Content = (
     <figure className="rounded-2xl border p-6 shadow-sm bg-white/70 dark:bg-zinc-900/60">
       <div className="flex items-center gap-4">
         <div className="h-14 w-14 shrink-0 overflow-hidden rounded-full bg-zinc-200">
@@ -68,14 +76,30 @@ export default function TestimonialCard({ quote, author, role, href, avatarSrc }
         <p>“{quote}”</p>
       </blockquote>
 
-      {href && (
+      {internal && (
         <Link
-          href={href}
+          href={href!}
+          prefetch={false}
           className="mt-4 inline-block text-sm underline decoration-dotted underline-offset-4 text-zinc-600 hover:text-zinc-900"
+          aria-label="View full case study"
         >
           View full case study →
         </Link>
       )}
+
+      {external && (
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-4 inline-block text-sm underline decoration-dotted underline-offset-4 text-zinc-600 hover:text-zinc-900"
+          aria-label="Open external case study"
+        >
+          View full case study ↗
+        </a>
+      )}
     </figure>
   );
+
+  return Content;
 }
