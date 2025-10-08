@@ -45,4 +45,12 @@
     "typescript": "^5.6.2",
     "vitest": "^3.2.4"
   }
+"scripts": {
+    "codex": "ts-node scripts/codex-run.ts",
+    "codex:links": "ts-node scripts/codex-run.ts \"fix case-study links 404\"",
+    "codex:sitemap": "ts-node scripts/codex-run.ts \"sitemap.xml generation\"",
+    "codex:avatars": "ts-node scripts/codex-run.ts \"avatar webp materialize\"",
+    "codex:chatbot": "ts-node scripts/codex-run.ts \"chatbot popover draggable minimise\"",
+    "codex:analytics": "ts-node scripts/codex-run.ts \"analytics gtag BookCallClick LeadMagnetSubmit ContactSubmit\""
+  }
 }
