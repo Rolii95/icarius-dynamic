@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react'
 import Link from 'next/link'
 
 import { Section } from '@/components/Section'
-import { ConditionalGoBackButton } from '@/components/ConditionalGoBackButton'
+import { PageHeader } from '@/components/PageHeader'
 
 import type { Post } from './posts'
 
@@ -59,20 +59,23 @@ export function BlogIndex({ posts, heading, description }: BlogIndexProps) {
   return (
     <div className="not-prose">
       <Section className="py-12">
-        <header className="mb-6 flex flex-col gap-4">
-          <p className="text-sm font-medium uppercase tracking-[0.3em] text-indigo-300/80">
-            Insights
-          </p>
-          <div className="flex items-center gap-2">
-            <ConditionalGoBackButton />
-            <h1 className="min-w-0 text-3xl font-semibold md:text-4xl">{heading}</h1>
-          </div>
-          <p className="max-w-3xl text-base text-slate-300 md:text-lg">
-            {description}
-          </p>
-        </header>
+        <PageHeader
+          title={heading}
+          className="mb-8 not-prose"
+          headingClassName="md:text-4xl"
+          contentClassName="max-w-3xl space-y-3"
+          backLinkClassName="text-indigo-300 transition hover:text-indigo-200 focus-visible:outline-indigo-300/60"
+          eyebrow={
+            <p className="text-sm font-medium uppercase tracking-[0.3em] text-indigo-300/80">Insights</p>
+          }
+          href="/"
+          label="Back to home"
+          contextualLabel={false}
+        >
+          <p className="text-base text-slate-300 md:text-lg">{description}</p>
+        </PageHeader>
 
-        <div className="mt-8 flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+        <div className="container mx-auto mt-8 flex flex-col gap-6 px-4 md:px-6 lg:flex-row lg:items-center lg:justify-between">
           <label className="relative flex-1 lg:max-w-md">
             <span className="sr-only">Search articles</span>
             <input
@@ -124,7 +127,7 @@ export function BlogIndex({ posts, heading, description }: BlogIndexProps) {
           </div>
         </div>
 
-        <div className="mt-10 grid gap-6 md:grid-cols-2">
+        <div className="container mx-auto mt-10 grid gap-6 px-4 md:grid-cols-2 md:px-6">
           {filteredPosts.map((post) => (
             <Link
               key={post.slug}
@@ -152,9 +155,8 @@ export function BlogIndex({ posts, heading, description }: BlogIndexProps) {
         </div>
 
         {filteredPosts.length === 0 ? (
-          <p className="mt-10 text-sm text-slate-400">
-            No articles match your filters yet. Try clearing the search or
-            choosing a different topic.
+          <p className="container mx-auto mt-10 px-4 text-sm text-slate-400 md:px-6">
+            No articles match your filters yet. Try clearing the search or choosing a different topic.
           </p>
         ) : null}
       </Section>

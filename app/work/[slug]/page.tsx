@@ -81,21 +81,22 @@ export default function CaseStudyPage({ params }: Params) {
 
   return (
     <article className="py-16">
-      <div className="container mx-auto max-w-4xl px-4 md:px-6">
-        <PageHeader
-          title={study.hero.title}
-          className="mt-8"
-          headingClassName="text-4xl font-semibold tracking-tight text-white"
-          eyebrow={
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-300/80">
-              {study.hero.eyebrow}
-            </p>
-          }
-        >
-          <p className="text-lg text-slate-300">{study.hero.description}</p>
-        </PageHeader>
+      <PageHeader
+        title={study.hero.title}
+        className="mb-10"
+        headingClassName="text-4xl font-semibold tracking-tight text-white"
+        contentClassName="max-w-3xl space-y-4"
+        eyebrow={
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-300/80">
+            {study.hero.eyebrow}
+          </p>
+        }
+      >
+        <p className="text-lg text-slate-300">{study.hero.description}</p>
+      </PageHeader>
 
-        <Section className="mt-10 grid gap-6 md:grid-cols-2">
+      <div className="container mx-auto max-w-4xl px-4 md:px-6">
+        <Section className="grid gap-6 md:grid-cols-2">
           <div className="rounded-3xl border border-[rgba(255,255,255,0.08)] bg-slate-950/40 p-6">
             <h2 className="text-base font-semibold text-white">Project snapshot</h2>
             <dl className="mt-4 text-sm text-slate-300">

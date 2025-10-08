@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 import { CASE_STUDIES } from '@/app/work/case-studies'
 import { Section } from '@/components/Section'
-import { ConditionalGoBackButton } from '@/components/ConditionalGoBackButton'
+import { PageHeader } from '@/components/PageHeader'
 
 const title = 'HRIT advisory HR systems audit HR AI PMO services playbooks'
 const description =
@@ -61,18 +61,19 @@ export default function ServicesPage() {
 
   return (
     <Section className="py-16">
+      <PageHeader
+        title="Services"
+        className="mb-10"
+        headingClassName="text-4xl font-semibold tracking-tight"
+        contentClassName="max-w-3xl space-y-4"
+      >
+        <p className="text-lg text-slate-300">
+          Each engagement is tailored to your stage of growth, but the pillars below outline how we typically help founders and
+          operators remove operational friction.
+        </p>
+      </PageHeader>
       <div className="container mx-auto max-w-4xl px-4">
-        <div className="mb-6 flex items-center gap-2">
-          <ConditionalGoBackButton />
-          <h1 className="min-w-0 text-4xl font-semibold tracking-tight">Services</h1>
-        </div>
         <div className="space-y-10">
-          <header className="space-y-4">
-            <p className="text-lg text-slate-300">
-              Each engagement is tailored to your stage of growth, but the pillars below outline how
-              we typically help founders and operators remove operational friction.
-            </p>
-          </header>
           <dl className="grid gap-8 md:grid-cols-2">
             {services.map((service) => (
               <div key={service.title} className="rounded-xl border border-slate-800 bg-slate-950/40 p-6">

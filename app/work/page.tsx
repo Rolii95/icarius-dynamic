@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 import { CASE_STUDIES } from './case-studies'
 import { Section } from '@/components/Section'
-import { ConditionalGoBackButton } from '@/components/ConditionalGoBackButton'
+import { PageHeader } from '@/components/PageHeader'
 
 const title = 'HRIT advisory HR systems audit HR AI PMO outcomes portfolio'
 const description =
@@ -31,23 +31,22 @@ export const metadata: Metadata = {
 export default function WorkPage() {
   return (
     <Section className="py-16">
+      <PageHeader
+        title="Outcomes our clients trust us to deliver"
+        className="mb-12"
+        headingClassName="text-4xl font-semibold tracking-tight text-white"
+        contentClassName="max-w-3xl space-y-4"
+        eyebrow={
+          <p className="text-sm font-medium uppercase tracking-[0.2em] text-sky-300/80">Selected work</p>
+        }
+      >
+        <p className="text-lg text-slate-300">
+          Every engagement balances operational rigour with change empathy. Explore a few recent programmes and the impact they
+          created across HR and finance operations.
+        </p>
+      </PageHeader>
       <div className="container mx-auto px-4 md:px-6">
-        <div className="mx-auto max-w-3xl">
-          <div className="flex flex-col items-center gap-4 text-center">
-            <div className="flex items-center justify-center gap-2">
-              <ConditionalGoBackButton />
-              <h1 className="min-w-0 text-center text-4xl font-semibold tracking-tight text-white">
-                Outcomes our clients trust us to deliver
-              </h1>
-            </div>
-            <p className="text-sm font-medium uppercase tracking-[0.2em] text-sky-300/80">Selected work</p>
-            <p className="text-lg text-slate-300">
-              Every engagement balances operational rigour with change empathy. Explore a few recent programmes and the
-              impact they created across HR and finance operations.
-            </p>
-          </div>
-        </div>
-        <div className="mt-12 grid gap-6 md:grid-cols-2">
+        <div className="grid gap-6 md:grid-cols-2">
           {CASE_STUDIES.map((study) => (
             <Link
               key={study.slug}
