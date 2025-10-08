@@ -1,26 +1,26 @@
 import TestimonialCard, { Testimonial } from "@/components/TestimonialCard";
-import { CASE_STUDIES } from "@/data/caseStudies";
+import { CASE_STUDIES } from "@/app/work/case-studies";
 
 const testimonials: Testimonial[] = [
   {
     quote: "Icarius brought clarity and pace to a complex HCM migration.",
     author: "CIO, FTSE250",
     role: "Global HR transformation lead",
-    href: "/case-studies/hcm-migration",
+    href: "/work/global-hcm-replacement",
     avatarSrc: "/img/testimonials/cio-ftse250",
   },
   {
     quote: "The audit sprint gave us a pragmatic backlog we actually shipped.",
     author: "HR Director, Retail",
     role: "National retail group",
-    href: "/case-studies/retail-audit-sprint",
+    href: "/work/payroll-consolidation",
     avatarSrc: "/img/testimonials/hr-director-retail",
   },
   {
     quote: "Our HR Ops assistant cut average handle time dramatically.",
     author: "Shared Services Lead",
     role: "Global HR operations",
-    href: "/case-studies/hr-ops-assistant",
+    href: "/work/hr-ops-ai-assistant",
     avatarSrc: "/img/testimonials/shared-services-lead",
   },
 ];
@@ -29,7 +29,8 @@ export default function Testimonials() {
   if (process.env.NODE_ENV !== "production") {
     for (const t of testimonials) {
       const slug = t.href?.split("/").pop() ?? "";
-      if (!(slug in CASE_STUDIES)) {
+      const validSlugs = CASE_STUDIES.map(s => s.slug);
+      if (!validSlugs.includes(slug)) {
         // eslint-disable-next-line no-console
         console.warn(`[Testimonials] Unknown case study slug in href: ${t.href}`);
       }

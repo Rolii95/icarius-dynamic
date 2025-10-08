@@ -1,9 +1,9 @@
 import { test, expect } from "@playwright/test";
 
 const links = [
-  "/case-studies/hcm-migration",
-  "/case-studies/retail-audit-sprint",
-  "/case-studies/hr-ops-assistant",
+  "/work/global-hcm-replacement",
+  "/work/payroll-consolidation",
+  "/work/hr-ops-ai-assistant",
 ];
 
 test("testimonial links open case study pages", async ({ page }) => {
