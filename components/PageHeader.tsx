@@ -29,8 +29,13 @@ export function PageHeader({
   eyebrow,
   children,
 }: PageHeaderProps) {
-  const containerClassName = ['[--overlap:2px] sm:[--overlap:4px]', className].filter(Boolean).join(' ')
-  const innerClassName = ['space-y-4', contentClassName].filter(Boolean).join(' ')
+  const containerClassName = [
+    'container mx-auto px-4 md:px-6 [--overlap:2px] sm:[--overlap:4px]',
+    className,
+  ]
+    .filter(Boolean)
+    .join(' ')
+  const innerClassName = ['mx-auto max-w-4xl space-y-4', contentClassName].filter(Boolean).join(' ')
   const headingClasses = ['text-3xl font-semibold tracking-tight text-white', headingClassName]
     .filter(Boolean)
     .join(' ')
