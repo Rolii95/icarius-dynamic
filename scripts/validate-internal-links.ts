@@ -18,6 +18,23 @@ if (unknown.length) {
   process.exit(1);
 }
 
+// Also validate homepage testimonials
+const homepageFile = path.join(process.cwd(), "app", "page.tsx");
+const homepageSrc = fs.readFileSync(homepageFile, "utf8");
+const homepageHrefs = Array.from(
+  homepageSrc.matchAll(/href="(\/work\/[a-z0-9-]+)">View full case study/g)
+).map((m) => m[1]);
+
+const unknownHomepage = homepageHrefs.filter((href) => {
+  const slug = href.split("/").pop()!;
+  return !validSlugs.includes(slug);
+});
+
+if (unknownHomepage.length) {
+  console.error("❌ Homepage testimonials reference unknown slugs:", unknownHomepage.join(", "));
+  process.exit(1);
+}
+
 const hasAppRouter = fs.existsSync(path.join(process.cwd(), "app"));
 if (hasAppRouter) {
   const route = path.join(process.cwd(), "app", "work", "[slug]", "page.tsx");

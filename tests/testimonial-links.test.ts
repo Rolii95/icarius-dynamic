@@ -1,5 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { CASE_STUDIES } from "../app/work/case-studies";
+import fs from "node:fs";
+import path from "node:path";
 
 // Manually extract testimonial data to avoid importing React components
 const testimonialsData = [
@@ -59,5 +61,26 @@ describe("Testimonial Links Validation", () => {
     testimonialsData.forEach((testimonial) => {
       expect(testimonial.href).not.toMatch(/^\/case-studies\//);
     });
+  });
+
+  it("should have matching links in homepage testimonials", () => {
+    const homepageFile = path.join(process.cwd(), "app", "page.tsx");
+    const content = fs.readFileSync(homepageFile, "utf8");
+    
+    // Extract hrefs from homepage testimonials section
+    const homepageHrefs = Array.from(
+      content.matchAll(/href="(\/work\/[a-z0-9-]+)">View full case study/g)
+    ).map((m) => m[1]);
+
+    // Verify all homepage hrefs are valid
+    homepageHrefs.forEach((href) => {
+      const slug = href.split("/").pop()!;
+      expect(validSlugs).toContain(slug);
+    });
+
+    // Verify we have the expected testimonials on homepage
+    expect(homepageHrefs).toContain("/work/global-hcm-replacement");
+    expect(homepageHrefs).toContain("/work/payroll-consolidation");
+    expect(homepageHrefs).toContain("/work/hr-ops-ai-assistant");
   });
 });
