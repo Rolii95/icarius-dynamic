@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { bookingUrl } from '@/lib/booking'
 import { Section } from '@/components/Section'
 import { BUSINESS_ADDRESS, CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_URI } from '@/lib/structured-data'
-import { ConditionalGoBackButton } from '@/components/ConditionalGoBackButton'
+import { BackLink } from '@/components/BackLink'
 
 const title = 'HRIT advisory HR systems audit HR AI PMO contact team'
 const description =
@@ -50,8 +50,8 @@ export default function ContactPage() {
   return (
     <Section className="py-16">
       <div className="container mx-auto max-w-3xl px-4">
-        <div className="mb-6 flex items-center gap-2">
-          <ConditionalGoBackButton />
+        <div className="mb-6 space-y-2">
+          <BackLink className="inline-flex -translate-x-1 sm:-translate-x-1.5" />
           <h1 className="min-w-0 text-4xl font-semibold tracking-tight">Contact</h1>
         </div>
         <div className="space-y-6">
