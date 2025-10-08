@@ -1,5 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+
+import { PageHeader } from "@/components/PageHeader";
 import { CASE_STUDIES, type CaseStudySlug } from "@/data/caseStudies";
 
 export function generateStaticParams() {
@@ -16,7 +18,13 @@ export default function Page({ params }: { params: { slug: string } }) {
   if (!data) return notFound();
   return (
     <main className="prose p-8">
-      <h1>{data.title}</h1>
+      <PageHeader
+        title={data.title}
+        className="not-prose mb-6"
+        headingClassName="text-4xl font-semibold tracking-tight text-white"
+        contentClassName="space-y-2"
+        href="/case-studies"
+      />
       <p>{data.excerpt}</p>
     </main>
   );

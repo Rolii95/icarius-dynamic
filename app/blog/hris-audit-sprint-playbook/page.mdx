@@ -23,6 +23,7 @@ import { ArticleJsonLd } from '@/components/ArticleJsonLd'
 import { BlogCTA } from '@/components/BlogCTA'
 import { InlineROI } from '@/components/InlineROI'
 import { NewsletterForm } from '@/components/NewsletterForm'
+import { PageHeader } from '@/components/PageHeader'
 
 <ArticleJsonLd
   url={`${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.icarius-consulting.com'}/blog/hris-audit-sprint-playbook`}
@@ -34,7 +35,13 @@ import { NewsletterForm } from '@/components/NewsletterForm'
   image={`${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.icarius-consulting.com'}/blog/hris-audit-sprint-playbook/opengraph-image`}
 />
 
-# HRIS Audit Sprint Playbook
+<PageHeader
+  title={metadata.title}
+  href="/blog"
+  className="not-prose mb-10"
+  headingClassName="text-4xl font-semibold tracking-tight text-white"
+  contentClassName="space-y-3"
+/>
 
 A focused HRIS audit sprint lets people, process, and platform leaders align around facts fast. This playbook breaks the sprint into pragmatic milestones that your PMO can slot directly into a delivery plan.
 

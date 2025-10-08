@@ -23,6 +23,7 @@ import { ArticleJsonLd } from '@/components/ArticleJsonLd'
 import { BlogCTA } from '@/components/BlogCTA'
 import { InlineROI } from '@/components/InlineROI'
 import { NewsletterForm } from '@/components/NewsletterForm'
+import { PageHeader } from '@/components/PageHeader'
 
 <ArticleJsonLd
   url={`${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.icarius-consulting.com'}/blog/delivery-jumpstart-30-days`}
@@ -34,7 +35,13 @@ import { NewsletterForm } from '@/components/NewsletterForm'
   image={`${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.icarius-consulting.com'}/blog/delivery-jumpstart-30-days/opengraph-image`}
 />
 
-# Delivery Jumpstart: 30 Days to Program Momentum
+<PageHeader
+  title={metadata.title}
+  href="/blog"
+  className="not-prose mb-10"
+  headingClassName="text-4xl font-semibold tracking-tight text-white"
+  contentClassName="space-y-3"
+/>
 
 When HR technology programmes stall, executives lose confidence fast. This 30-day jumpstart framework resets cadence, rebuilds trust, and positions your transformation to deliver recognisable wins before the next steering committee.
 
