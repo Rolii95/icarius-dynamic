@@ -1,0 +1,20 @@
+{
+  "default": { "temperature": 0.1, "top_p": 1, "max_tokens": 2000 },
+  "profiles": {
+    "code.safe":        { "temperature": 0.1 },
+    "code.strict":      { "temperature": 0.0 },
+    "code.refactor":    { "temperature": 0.4 },
+    "ui.experimental":  { "temperature": 0.5 },
+    "copy.ideate":      { "temperature": 0.8 },
+    "analysis.review":  { "temperature": 0.2 }
+  },
+  "routing": [
+    { "match": "fix case-study links|case study|404", "use": "code.safe" },
+    { "match": "sitemap|robots",                       "use": "code.strict" },
+    { "match": "avatar|webp|materialize",              "use": "code.safe" },
+    { "match": "chatbot|popover|drag|minimi",          "use": "ui.experimental" },
+    { "match": "analytics|gtag|events",                "use": "code.strict" },
+    { "match": "copy|cta|hero text|headline",          "use": "copy.ideate" },
+    { "match": "architecture review|risk|regression",  "use": "analysis.review" }
+  ]
+}
