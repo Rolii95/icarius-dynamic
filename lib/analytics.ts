@@ -4,7 +4,7 @@ import { hasAnalyticsConsent } from "@/app/consent/ConsentBanner";
 
 declare global {
   interface Window {
-    dataLayer?: Array<Record<string, unknown>>;
+    dataLayer?: unknown[];
     gtag?: (...args: unknown[]) => void;
   }
 }
@@ -28,7 +28,8 @@ export const track = (eventName: TrackEventName, payload: TrackEventPayload = {}
     window.dataLayer = [];
   }
 
-  window.dataLayer.push(eventPayload);
+  const dataLayer = window.dataLayer as Array<Record<string, unknown>>;
+  dataLayer.push(eventPayload);
 
   const gtag = window.gtag;
   if (typeof gtag === "function") {
