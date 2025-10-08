@@ -1,33 +1,106 @@
 import fs from "node:fs";
 import path from "node:path";
 
-const root = process.cwd();
-const appDir = path.join(root, "app");
+const rootDir = process.cwd();
+const appDir = path.join(rootDir, "app");
 
-// Mirror the testimonial hrefs here (source of truth for CI)
 const testimonialLinks = [
   "/case-studies/hcm-migration",
   "/case-studies/retail-audit-sprint",
   "/case-studies/hr-ops-assistant",
 ];
 
+const pageFileNames = [
+  "page.tsx",
+  "page.ts",
+  "page.jsx",
+  "page.js",
+  "page.mdx",
+  "page.md",
+];
+
+function hasPageFile(dir: string) {
+  return pageFileNames.some((file) =>
+    fs.existsSync(path.join(dir, file))
+  );
+}
+
+function listDirEntries(dir: string) {
+  try {
+    return fs.readdirSync(dir, { withFileTypes: true });
+  } catch (error) {
+    return [];
+  }
+}
+
+function findRoute(dir: string, segments: string[]): boolean {
+  const entries = listDirEntries(dir);
+
+  // Allow traversing through route groups, e.g. (marketing)
+  for (const entry of entries) {
+    if (entry.isDirectory() && /^\(.+\)$/.test(entry.name)) {
+      if (findRoute(path.join(dir, entry.name), segments)) {
+        return true;
+      }
+    }
+  }
+
+  if (segments.length === 0) {
+    return hasPageFile(dir);
+  }
+
+  const [current, ...rest] = segments;
+
+  // Exact segment match
+  const exact = entries.find(
+    (entry) => entry.isDirectory() && entry.name === current
+  );
+  if (exact && findRoute(path.join(dir, exact.name), rest)) {
+    return true;
+  }
+
+  // Dynamic segment match like [slug] or [...slug]
+  for (const entry of entries) {
+    if (entry.isDirectory() && entry.name.startsWith("[")) {
+      if (findRoute(path.join(dir, entry.name), rest)) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+}
+
+function sanitizeHref(href: string) {
+  const withoutHash = href.split("#")[0];
+  const withoutQuery = withoutHash.split("?")[0];
+  return withoutQuery.replace(/\/+$/, "");
+}
+
 const missing: string[] = [];
 
 for (const href of testimonialLinks) {
-  const parts = href.replace(/^\//, "").split("/");
-  const pagePathTSX = path.join(appDir, ...parts, "page.tsx");
-  const pagePathJSX = path.join(appDir, ...parts, "page.jsx");
-  if (!fs.existsSync(pagePathTSX) && !fs.existsSync(pagePathJSX)) {
+  const sanitized = sanitizeHref(href);
+  if (!sanitized || !sanitized.startsWith("/")) {
+    continue;
+  }
+
+  const segments = sanitized
+    .replace(/^\//, "")
+    .split("/")
+    .filter(Boolean);
+
+  if (!findRoute(appDir, segments)) {
     missing.push(href);
   }
 }
 
-if (missing.length) {
+if (missing.length > 0) {
   console.error(
-    "Broken internal testimonial links (no page.tsx found):",
+    "Broken internal testimonial links (no matching page found):",
     missing.join(", ")
   );
   process.exit(1);
-} else {
-  console.log("All testimonial links resolve to pages.");
 }
+
+console.log("All testimonial links resolve to routes.");
