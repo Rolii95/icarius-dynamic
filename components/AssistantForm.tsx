@@ -2,6 +2,8 @@
 
 import { FormEvent, useMemo, useState } from 'react'
 
+import { track } from '@/lib/analytics'
+
 type AssistantFormProps = {
   plan?: string | null
   className?: string
@@ -115,6 +117,7 @@ export function AssistantForm({ plan, className }: AssistantFormProps) {
       setFeedback('Thanks! We will be in touch shortly.')
       setErrors({})
       resetForm()
+      track('ContactSubmit', { plan: computedPlan ?? 'general' })
     } catch (error) {
       console.error('Failed to submit contact form', error)
       setStatus('error')

@@ -13,8 +13,8 @@ import {
   useState,
 } from 'react'
 
-import { hasAnalyticsConsent } from '@/app/consent/ConsentBanner'
 import { buildBookingUrl } from '@/lib/booking'
+import { track } from '@/lib/analytics'
 
 import { AccessibleModal } from './AccessibleModal'
 
@@ -120,20 +120,7 @@ export function ContactModalTrigger({
 
     event.preventDefault()
 
-    if (typeof window !== 'undefined' && hasAnalyticsConsent()) {
-      ;(window as any).dataLayer?.push({
-        event: 'book_call_click',
-        cta,
-        plan: dataPlan,
-      })
-      if (typeof (window as any).gtag === 'function') {
-        ;(window as any).gtag('event', 'book_call_click', {
-          event_category: 'engagement',
-          event_label: cta,
-          plan: dataPlan,
-        })
-      }
-    }
+    track('BookCallClick', { cta, plan: dataPlan })
 
     setModalOpen(true)
   }

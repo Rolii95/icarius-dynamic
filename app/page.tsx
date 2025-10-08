@@ -187,9 +187,17 @@ function Work() {
 }
 
 function Testimonials() {
+  const headingId = 'testimonials-heading'
+
   return (
-    <Section className="py-12 border-t border-[rgba(255,255,255,.06)]">
-      <h2 className="text-2xl font-semibold">What clients say</h2>
+    <Section
+      className="py-12 border-t border-[rgba(255,255,255,.06)]"
+      aria-labelledby={headingId}
+      role="region"
+    >
+      <h2 id={headingId} className="text-2xl font-semibold">
+        What clients say
+      </h2>
       <ul className="mt-4 grid sm:grid-cols-2 md:grid-cols-3 gap-4">
         <li className="card grid grid-cols-1 sm:grid-cols-[auto,1fr] gap-3 items-start">
           <div className="h-14 w-14 rounded-full border mx-auto sm:mx-0" />

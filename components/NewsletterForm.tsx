@@ -2,6 +2,8 @@
 
 import { FormEvent, useState } from 'react'
 
+import { track } from '@/lib/analytics'
+
 export type NewsletterFormProps = {
   className?: string
 }
@@ -52,6 +54,7 @@ export function NewsletterForm({ className }: NewsletterFormProps) {
           'Thanks for subscribing! We will be in touch soon.'
       )
       setEmail('')
+      track('LeadMagnetSubmit', { source: 'newsletter_form' })
     } catch (error) {
       console.error('Failed to submit newsletter form', error)
       setStatus('error')
