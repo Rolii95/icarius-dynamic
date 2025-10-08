@@ -1,86 +1,129 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { useEffect, useMemo, useRef } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
+import type { MouseEvent } from 'react'
+import { useCallback, useEffect, useMemo, useRef } from 'react'
 
 type BackLinkProps = {
   label?: string
+  /** Where to go if history/back is not safe (omit to use smart fallback) */
   href?: string
   contextualLabel?: boolean
   className?: string
   overlapPx?: number
 }
 
-type SectionKey = keyof typeof SECTION_CONFIG
-
-const HOME_LABEL = 'Back to home'
-const HOME_HREF = '/'
-
-const SECTION_CONFIG = {
-  work: { label: 'Back to work', href: '/work' },
-  blog: { label: 'Back to insights', href: '/insights' },
-  insights: { label: 'Back to insights', href: '/insights' },
-  packages: { label: 'Back to packages', href: '/packages' },
-  services: { label: 'Back to services', href: '/services' },
-  contact: { label: 'Back to contact', href: '/contact' },
-  about: { label: 'Back to about', href: '/about' },
-  'case-studies': { label: 'Back to work', href: '/work' },
-} as const
-
-const SECTION_ALIASES: Record<string, SectionKey> = {
-  'case-studies': 'case-studies',
+// Label/fallback maps keep contextual copy aligned with their section roots.
+const SECTION_LABELS: Record<string, string> = {
+  work: 'Back to work',
+  insights: 'Back to insights',
+  blog: 'Back to insights',
+  packages: 'Back to packages',
+  services: 'Back to services',
+  contact: 'Back to home',
+  about: 'Back to home',
+  'case-studies': 'Back to work',
+  '': 'Back to home',
 }
 
-function normaliseSegment(segment: string | undefined): SectionKey | undefined {
-  if (!segment) {
-    return undefined
+const SECTION_FALLBACKS: Record<string, string> = {
+  work: '/work',
+  insights: '/insights',
+  blog: '/insights',
+  packages: '/packages',
+  services: '/services',
+  contact: '/',
+  about: '/',
+  'case-studies': '/work',
+  '': '/',
+}
+
+const SECTION_ALIASES: Record<string, string> = {
+  blog: 'insights',
+  'case-studies': 'work',
+}
+
+const normaliseSection = (value: string | undefined): string => {
+  if (!value) {
+    return ''
   }
 
-  const lower = segment.toLowerCase()
+  const lower = value.toLowerCase()
+  return SECTION_ALIASES[lower] ?? lower
+}
 
-  if (lower in SECTION_CONFIG) {
-    return lower as SectionKey
+const getSectionFromPath = (path: string | undefined): string => {
+  if (!path) {
+    return ''
   }
 
-  if (lower in SECTION_ALIASES) {
-    return SECTION_ALIASES[lower]
+  const [first] = path.split('/').filter(Boolean)
+  return normaliseSection(first)
+}
+
+// Preserve history back when the user came from the same origin.
+const hasSameOriginReferrer = () => {
+  if (typeof window === 'undefined' || typeof document === 'undefined') {
+    return false
   }
 
-  return undefined
+  const { referrer } = document
+  if (!referrer) {
+    return false
+  }
+
+  try {
+    const refUrl = new URL(referrer)
+    return refUrl.origin === window.location.origin
+  } catch {
+    return false
+  }
+}
+
+const emitBackLinkEvent = () => {
+  if (typeof window === 'undefined') {
+    return
+  }
+
+  const win = window as Window & {
+    dataLayer?: Array<Record<string, unknown>>
+    gtag?: (...args: unknown[]) => void
+  }
+
+  const payload = { event: 'BackLinkClick' }
+
+  if (!Array.isArray(win.dataLayer)) {
+    win.dataLayer = []
+  }
+
+  win.dataLayer.push(payload)
+  win.gtag?.('event', 'BackLinkClick', { event_category: 'engagement' })
 }
 
 export function BackLink({
   label,
   href,
   contextualLabel = true,
-  className,
+  className = '',
   overlapPx = 4,
 }: BackLinkProps) {
   const pathname = usePathname()
+  const router = useRouter()
   const linkRef = useRef<HTMLAnchorElement | null>(null)
 
-  const segments = useMemo(() => {
-    if (!pathname) {
-      return []
+  const section = useMemo(() => {
+    if (typeof window !== 'undefined' && hasSameOriginReferrer()) {
+      try {
+        const refPath = new URL(document.referrer).pathname
+        return getSectionFromPath(refPath)
+      } catch {
+        return getSectionFromPath(pathname ?? '')
+      }
     }
 
-    return pathname
-      .split('/')
-      .filter(Boolean)
-      .map((segment) => segment.toLowerCase())
+    return getSectionFromPath(pathname ?? '')
   }, [pathname])
-
-  const section = useMemo(() => normaliseSegment(segments[0]), [segments])
-  const isDetailRoute = segments.length >= 2
-
-  const contextualTarget = useMemo(() => {
-    if (!isDetailRoute || !section) {
-      return undefined
-    }
-
-    return SECTION_CONFIG[section]
-  }, [isDetailRoute, section])
 
   const computedLabel = useMemo(() => {
     if (label) {
@@ -88,27 +131,31 @@ export function BackLink({
     }
 
     if (!contextualLabel) {
-      return HOME_LABEL
+      return 'Back'
     }
 
-    if (!isDetailRoute || !contextualTarget) {
-      return HOME_LABEL
-    }
-
-    return contextualTarget.label
-  }, [contextualLabel, contextualTarget, isDetailRoute, label])
+    return SECTION_LABELS[section] ?? 'Back'
+  }, [contextualLabel, label, section])
 
   const computedHref = useMemo(() => {
     if (href) {
       return href
     }
 
-    if (!isDetailRoute || !contextualTarget) {
-      return HOME_HREF
-    }
+    return SECTION_FALLBACKS[section] ?? '/'
+  }, [href, section])
 
-    return contextualTarget.href
-  }, [contextualTarget, href, isDetailRoute])
+  const handleClick = useCallback(
+    (event: MouseEvent<HTMLAnchorElement>) => {
+      emitBackLinkEvent()
+
+      if (hasSameOriginReferrer()) {
+        event.preventDefault()
+        router.back()
+      }
+    },
+    [router],
+  )
 
   useEffect(() => {
     if (typeof window === 'undefined') {
@@ -161,7 +208,13 @@ export function BackLink({
     .join(' ')
 
   return (
-    <Link ref={linkRef} href={computedHref} aria-label={computedLabel} className={classes}>
+    <Link
+      ref={linkRef}
+      href={computedHref}
+      aria-label={computedLabel}
+      className={classes}
+      onClick={handleClick}
+    >
       <span aria-hidden="true">←</span>
       <span>{computedLabel}</span>
     </Link>
