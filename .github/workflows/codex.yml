@@ -1,0 +1,100 @@
+name: codex-auto
+on:
+  workflow_dispatch:
+    inputs:
+      task:
+        description: "Brief task name or PR title (used for routing)"
+        required: true
+
+jobs:
+  route-and-verify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Read Codex config
+        id: cfg
+        run: echo "CFG=$(cat codex.config.json | tr -d '\n')" >> $GITHUB_OUTPUT
+
+      - name: Decide profile and temperature
+        id: route
+        env:
+          TASK: "${{ github.event.inputs.task }}"
+          CFG: ${{ steps.cfg.outputs.CFG }}
+        run: |
+          node -e '
+          const cfg=JSON.parse(process.env.CFG);
+          const task=(process.env.TASK||"").toLowerCase();
+          let profile="default";
+          for (const r of cfg.routing)
+            if (new RegExp(r.match,"i").test(task)) { profile=r.use; break; }
+          const params={...cfg.default, ...(cfg.profiles[profile]||{})};
+          console.log("PROFILE="+profile);
+          console.log("TEMP="+params.temperature);
+          ' >> $GITHUB_OUTPUT
+
+      - name: Enforce strict temperature policy
+        env:
+          PROFILE: ${{ steps.route.outputs.PROFILE }}
+          TEMP: ${{ steps.route.outputs.TEMP }}
+        run: |
+          echo "Profile=$PROFILE Temp=$TEMP"
+          bc_installed=$(command -v bc || true)
+          if [ -z "$bc_installed" ]; then
+            sudo apt-get update -y >/dev/null
+            sudo apt-get install -y bc >/dev/null
+          fi
+          is_over=$(echo "$TEMP > 0.2" | bc -l)
+          if [ "$PROFILE" = "code.strict" ] && [ "$is_over" -eq 1 ]; then
+            echo "::error::Strict profile requires temperature ≤ 0.2 (got $TEMP)."
+            exit 1
+          fi
+          echo "Temperature policy OK ✅"
+
+      # ---- Quality gates below ----
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Install dependencies
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci
+          else
+            npm i
+          fi
+
+      - name: Ensure required scripts exist
+        run: |
+          node -e "
+            const fs=require('fs');
+            const pkg=JSON.parse(fs.readFileSync('package.json','utf8'));
+            const need=['lint','typecheck','test','build'];
+            const missing=need.filter(s=>!pkg.scripts || !pkg.scripts[s]);
+            if (missing.length){
+              console.error('Missing npm scripts in package.json:', missing.join(', '));
+              process.exit(1);
+            } else {
+              console.log('All required scripts present.');
+            }
+          "
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Typecheck
+        # expects:  "typecheck": "tsc --noEmit"  (or your equivalent)
+        run: npm run typecheck
+
+      - name: Test
+        env:
+          CI: "true"
+        run: npm run test
+
+      - name: Build
+        run: npm run build
