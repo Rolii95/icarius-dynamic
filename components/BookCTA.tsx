@@ -5,6 +5,7 @@ import { forwardRef, useEffect, useState } from 'react'
 import type { AnchorHTMLAttributes } from 'react'
 
 import { buildBookingUrl } from '@/lib/booking'
+import { track } from '@/lib/analytics'
 import type { ContactModalTriggerProps } from './ContactModal'
 
 const ContactModalTrigger = dynamic<ContactModalTriggerProps>(
@@ -50,7 +51,33 @@ export const BookCTA = forwardRef<HTMLAnchorElement, BookCTAProps>(
     }
 
     return (
-      <a {...props} ref={ref} href={href} target={target} rel={computedRel}>
+      <a
+        {...props}
+        ref={ref}
+        href={href}
+        target={target}
+        rel={computedRel}
+        onClick={(event) => {
+          props.onClick?.(event)
+
+          if (
+            event.defaultPrevented ||
+            event.button !== 0 ||
+            event.metaKey ||
+            event.ctrlKey ||
+            event.altKey ||
+            event.shiftKey
+          ) {
+            return
+          }
+
+          const { cta, plan: planDataset } = event.currentTarget.dataset
+          track('BookCallClick', {
+            cta: cta ?? 'book-cta',
+            plan: planDataset ?? plan ?? 'general',
+          })
+        }}
+      >
         {children}
       </a>
     )
