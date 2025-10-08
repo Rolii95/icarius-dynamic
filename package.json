@@ -9,7 +9,7 @@
     "lint": "next lint",
     "test": "vitest run",
     "analyze": "ANALYZE=true npm run build",
-    "prebuild": "tsx scripts/validate-internal-links.ts"
+    "prebuild": "tsx scripts/validate-internal-links.ts && tsx scripts/generate-sitemap.ts"
   },
   "engines": {
     "node": "22.x"
