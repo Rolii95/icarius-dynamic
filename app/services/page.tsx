@@ -66,6 +66,7 @@ export default function ServicesPage() {
         className="mb-10"
         headingClassName="text-4xl font-semibold tracking-tight"
         contentClassName="max-w-3xl space-y-4"
+        showBack={false}
       >
         <p className="text-lg text-slate-300">
           Each engagement is tailored to your stage of growth, but the pillars below outline how we typically help founders and
