@@ -5,9 +5,9 @@ import { BUSINESS_ADDRESS, CONTACT_PHONE, CONTACT_PHONE_URI } from '@/lib/struct
 import { siteConfig } from '@/lib/siteConfig'
 import { BackLink } from '@/components/BackLink'
 
-const title = 'HRIT advisory HR systems audit HR AI PMO contact team'
+const title = 'Contact Icarius Consulting | Book a fit call'
 const description =
-  'Connect with HRIT advisory leads to scope HR systems audit support, HR AI pilots, and PMO engagements shaped around your timelines, stakeholders, and goals.'
+  'Connect with HR technology specialists to scope HRIT, payroll, or AI programmes shaped around your stakeholders, timelines, and outcomes.'
 
 export const metadata: Metadata = {
   title,
@@ -30,9 +30,9 @@ export const metadata: Metadata = {
 
 const contactMethods = [
   {
-    label: 'Book an intro call',
+    label: 'Book a 15-min fit call',
     href: bookingUrl,
-    description: 'Schedule a 30-minute call to discuss your goals and whether we are the right fit.',
+    description: 'Schedule a 15-minute fit call to confirm goals, timelines, and whether we are the right partner.',
     newTab: true,
     cta: 'contact-page',
     plan: 'general',
@@ -40,7 +40,7 @@ const contactMethods = [
   {
     label: 'Email the team',
     href: `mailto:${siteConfig.contactEmail}`,
-    description: 'Share context, RFPs, or supporting information and we will reply within one business day.',
+    description: 'Share context, RFPs, or supporting information and we will respond within one business day.',
     newTab: false,
     cta: 'contact-page-email',
     plan: 'general',
@@ -53,13 +53,13 @@ export default function ContactPage() {
       <div className="container mx-auto max-w-3xl px-4">
         <div className="mb-6 space-y-2">
           <BackLink className="inline-flex -translate-x-1 sm:-translate-x-1.5" />
-          <h1 className="min-w-0 text-4xl font-semibold tracking-tight">Contact</h1>
+          <h1 className="min-w-0 text-4xl font-semibold tracking-tight heading-underline">Contact</h1>
         </div>
         <div className="space-y-6">
           <header className="space-y-4">
             <p className="text-lg text-slate-300">
-              We would love to learn about the challenges in front of you. Choose the option below that
-              suits you best and we will respond quickly.
+              Let’s discuss the change you need to land—platform replacement, payroll clean-up, or AI enablement. Choose the
+              option that fits and we’ll respond quickly with next steps.
             </p>
             <p className="text-sm text-slate-400">
               Based in {BUSINESS_ADDRESS.addressLocality} {BUSINESS_ADDRESS.postalCode}, {BUSINESS_ADDRESS.addressRegion}, we partner with
@@ -72,7 +72,10 @@ export default function ContactPage() {
           </header>
           <ul className="space-y-4">
             {contactMethods.map((method) => (
-              <li key={method.label} className="rounded-2xl border border-slate-800 bg-slate-950/40 p-6">
+              <li
+                key={method.label}
+                className="rounded-2xl border border-slate-800 bg-slate-950/40 p-6 transition hover:border-[color:var(--primary)]/40 hover:bg-slate-900/60"
+              >
                 <h2 className="text-xl font-semibold text-white">{method.label}</h2>
                 <p className="mt-2 text-sm text-slate-300">{method.description}</p>
                 <a

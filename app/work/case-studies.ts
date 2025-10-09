@@ -37,12 +37,12 @@ export const CASE_STUDIES: CaseStudy[] = [
   {
     slug: 'global-hcm-replacement',
     title: 'Global HCM replacement',
-    summary: 'Vendor selection and readiness for 40k employees.',
+    summary: 'Global HCM blueprint and rollout readiness for 40k colleagues.',
     resultsSummary:
-      'Unified seven regional HR stacks into a single HCM blueprint, unlocking measurable savings, cleaner data, and faster rollouts.',
-    seoTitle: 'HRIT advisory HR systems audit HR AI PMO global scale',
+      'Unified seven regional HR stacks, staged a 40k-colleague rollout, and unlocked measurable savings, cleaner data, and faster releases.',
+    seoTitle: 'Global HCM replacement case study | Icarius Consulting',
     seoDescription:
-      'See HRIT advisory direction with HR systems audit rigor, HR AI exploration, and PMO governance combine to unify a hospitality group\'s global HCM landscape.',
+      'Discover how Icarius combined HRIT advisory, audit rigor, and programme leadership to unify a hospitality group\'s global HCM landscape.',
     hero: {
       eyebrow: 'FTSE250 hospitality group',
       title: 'Replacing fragmented HR platforms with a single global HCM',
@@ -97,12 +97,12 @@ export const CASE_STUDIES: CaseStudy[] = [
   {
     slug: 'payroll-consolidation',
     title: 'Payroll consolidation',
-    summary: '12-country integration and control framework.',
+    summary: '12-country payroll control framework with automated reconciliations.',
     resultsSummary:
-      'Delivered a consolidated payroll control framework that shrank errors, accelerated onboarding, and tightened financial reporting.',
-    seoTitle: 'HRIT advisory HR systems audit HR AI PMO payroll unity',
+      'Delivered a consolidated control framework that shrank errors, accelerated onboarding, and tightened finance reporting cadences.',
+    seoTitle: 'Payroll consolidation case study | Icarius Consulting',
     seoDescription:
-      'Watch HRIT advisory guidance, HR systems audit structure, HR AI experimentation, and PMO cadence consolidate payroll operations into a control framework.',
+      'See how HRIT advisory guidance and audit-driven controls consolidated payroll operations into a compliant, insight-rich framework.',
     hero: {
       eyebrow: 'Retail & eCommerce group',
       title: 'Creating a single payroll control framework across 12 countries',
@@ -152,12 +152,12 @@ export const CASE_STUDIES: CaseStudy[] = [
   {
     slug: 'hr-ops-ai-assistant',
     title: 'HR Ops AI assistant',
-    summary: 'Reduced resolution time by 34%.',
+    summary: 'AI assistant that reduced handle time by 34% and lifted satisfaction.',
     resultsSummary:
-      'Combined AI guardrails with knowledge modernisation so HR agents could resolve tickets faster and lift service satisfaction.',
-    seoTitle: 'HRIT advisory HR systems audit HR AI PMO assistant win',
+      'Combined AI guardrails with knowledge modernisation to shrink handle time by 34% and lift satisfaction 18 points.',
+    seoTitle: 'HR operations AI assistant case study | Icarius Consulting',
     seoDescription:
-      'Follow how HRIT advisory prioritisation, HR systems audit cleanup, HR AI guardrails, and PMO coaching delivered a compliant assistant that shrank handle times.',
+      'Learn how HRIT advisory prioritisation, audit-driven cleanup, and AI guardrails delivered a compliant assistant that sped up HR case resolution.',
     hero: {
       eyebrow: 'Global professional services firm',
       title: 'Deploying an AI assistant to accelerate HR case resolution',

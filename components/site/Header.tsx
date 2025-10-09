@@ -47,7 +47,7 @@ export default function Header() {
               Contact
             </Link>
             <Link className="text-sky-300 hover:text-sky-200" href="https://calendly.com/">
-              Book a call
+              Book a 15-min fit call
             </Link>
           </nav>
           <button
@@ -86,7 +86,7 @@ export default function Header() {
           Contact
         </Link>
         <Link className="py-2 text-lg text-sky-300" href="https://calendly.com/" onClick={close}>
-          Book a call
+          Book a 15-min fit call
         </Link>
       </MobileMenu>
     </>

@@ -84,7 +84,7 @@ export default function CaseStudyPage({ params }: Params) {
       <PageHeader
         title={study.hero.title}
         className="mb-10"
-        headingClassName="text-4xl font-semibold tracking-tight text-white"
+        headingClassName="text-4xl font-semibold tracking-tight text-white heading-underline"
         contentClassName="max-w-3xl space-y-4"
         eyebrow={
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-300/80">
