@@ -10,6 +10,7 @@ import {
   useState,
 } from 'react'
 import { createPortal } from 'react-dom'
+import { lockBodyScroll, unlockBodyScroll } from '@/lib/scroll-lock'
 
 const FOCUSABLE_SELECTORS = [
   'a[href]',
@@ -75,6 +76,8 @@ export function AccessibleModal({
       lastFocusedElementRef.current = null
       return
     }
+    // Lock body scroll while modal is open
+    lockBodyScroll()
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
@@ -116,7 +119,11 @@ export function AccessibleModal({
     }
 
     document.addEventListener('keydown', handleKeyDown)
-    return () => document.removeEventListener('keydown', handleKeyDown)
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+      // Ensure unlock when modal closes/unmounts
+      unlockBodyScroll()
+    }
   }, [open, onClose])
 
   const handleOverlayClick = useCallback(

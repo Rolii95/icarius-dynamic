@@ -98,8 +98,9 @@ export function ConsentBanner() {
     if (consent !== 'unknown') return null
 
     return (
-      <div className="fixed inset-0 flex items-end justify-center p-4 z-50">
-        <div className="bg-[linear-gradient(160deg,var(--surface),var(--surface-2))] border border-[rgba(255,255,255,.12)] rounded-2xl p-4 w-full max-w-xl shadow-lg">
+      // Limit overlay to the bottom area and allow page behind to scroll
+      <div className="fixed inset-x-0 bottom-0 z-50 p-4 pointer-events-none">
+        <div className="pointer-events-auto bg-[linear-gradient(160deg,var(--surface),var(--surface-2))] border border-[rgba(255,255,255,.12)] rounded-2xl p-4 w-full max-w-xl mx-auto shadow-lg">
           <p className="text-sm">
             <strong>Cookies & analytics</strong>
             <br />
