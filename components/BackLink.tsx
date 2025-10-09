@@ -120,17 +120,24 @@ export function BackLink({
   const router = useRouter()
   const linkRef = useRef<HTMLAnchorElement | null>(null)
 
-  const section = useMemo(() => {
+  const { autoLabel, fallbackHref } = useMemo(() => {
+    let currentSection = getSectionFromPath(pathname ?? '')
+
     if (typeof window !== 'undefined' && hasSameOriginReferrer()) {
       try {
         const refPath = new URL(document.referrer).pathname
-        return getSectionFromPath(refPath)
+        currentSection = getSectionFromPath(refPath)
       } catch {
-        return getSectionFromPath(pathname ?? '')
+        currentSection = getSectionFromPath(pathname ?? '')
       }
     }
 
-    return getSectionFromPath(pathname ?? '')
+    const normalised = normaliseSection(currentSection)
+
+    return {
+      autoLabel: SECTION_LABELS[normalised] ?? 'Back',
+      fallbackHref: SECTION_FALLBACKS[normalised] ?? '/',
+    }
   }, [pathname])
 
   const computedLabel = useMemo(() => {
@@ -142,16 +149,16 @@ export function BackLink({
       return 'Back'
     }
 
-    return SECTION_LABELS[section] ?? 'Back'
-  }, [contextualLabel, label, section])
+    return autoLabel
+  }, [autoLabel, contextualLabel, label])
 
   const computedHref = useMemo(() => {
     if (href) {
       return href
     }
 
-    return SECTION_FALLBACKS[section] ?? '/'
-  }, [href, section])
+    return fallbackHref
+  }, [fallbackHref, href])
 
   const debugAttributes =
     process.env.NODE_ENV !== 'production'
@@ -161,6 +168,12 @@ export function BackLink({
   const handleClick = useCallback(
     (event: MouseEvent<HTMLAnchorElement>) => {
       emitBackLinkEvent()
+      const isMainButton = event.button === 0
+      const hasModifier = event.metaKey || event.ctrlKey || event.altKey || event.shiftKey
+
+      if (!isMainButton || hasModifier || event.defaultPrevented) {
+        return
+      }
 
       if (hasSameOriginReferrer()) {
         event.preventDefault()
@@ -214,7 +227,7 @@ export function BackLink({
   }, [overlapPx, computedLabel])
 
   const classes = [
-    'inline-flex items-center gap-2 text-sm font-medium text-sky-300 transition hover:text-sky-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-300/60',
+    'relative z-10 inline-flex min-h-[44px] items-center gap-2 -mx-2 -my-2 rounded-full px-3 py-2 text-sm font-medium text-sky-300 pointer-events-auto touch-[manipulation] transition-colors hover:text-sky-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-300/60',
     className,
   ]
     .filter(Boolean)

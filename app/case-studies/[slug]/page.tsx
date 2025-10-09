@@ -23,7 +23,6 @@ export default function Page({ params }: { params: { slug: string } }) {
         className="not-prose mb-6"
         headingClassName="text-4xl font-semibold tracking-tight text-white"
         contentClassName="space-y-2"
-        href="/case-studies"
       />
       <p>{data.excerpt}</p>
     </main>
