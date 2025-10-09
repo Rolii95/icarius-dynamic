@@ -28,7 +28,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <Section className="py-16">
+    <Section className="py-16" style={{ minHeight: '400px' }}>
       <PageHeader
         title="About Icarius Consulting"
         headingClassName="text-4xl font-semibold tracking-tight"

@@ -54,7 +54,7 @@ export default function PackagesPage() {
   const caseStudyMap = new Map(CASE_STUDIES.map((study) => [study.slug, study]))
 
   return (
-    <Section className="py-16">
+    <Section className="py-16" style={{ minHeight: '500px' }}>
       <PageHeader
         title="Packages"
         className="mb-10"

@@ -1,5 +1,6 @@
 // components/site/Brand.tsx
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Brand() {
   return (
@@ -10,13 +11,14 @@ export default function Brand() {
       data-brand-scale="2"
     >
       {/* mark: 56x56 (was 28x28) */}
-      <img
+      <Image
         src="/brand/icarius_interlock_mark.svg"
         width={56}
         height={56}
         alt=""
         aria-hidden="true"
         className="w-[56px] h-[56px]"
+        priority
       />
       <div className="leading-none">
         {/* name: ~32px (was ~16px) */}

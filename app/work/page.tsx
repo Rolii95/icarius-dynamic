@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 
 export default function WorkPage() {
   return (
-    <Section className="py-16">
+    <Section className="py-16" style={{ minHeight: '600px' }}>
       <PageHeader
         title="Outcomes our clients trust us to deliver"
         className="mb-12"
