@@ -39,7 +39,7 @@ export function Header() {
         solid ? 'backdrop-blur bg-[rgba(11,16,32,.7)]' : 'bg-transparent'
       }`}
     >
-      <div className="container mx-auto flex items-center justify-between py-3 px-4">
+      <div className="container mx-auto flex items-center justify-between py-5 px-4">
         <Brand />
 
         {/* Desktop Navigation */}
