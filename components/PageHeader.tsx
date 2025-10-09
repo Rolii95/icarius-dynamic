@@ -14,6 +14,7 @@ type PageHeaderProps = {
   overlapPx?: number
   eyebrow?: ReactNode
   children?: ReactNode
+  showBack?: boolean
 }
 
 export function PageHeader({
@@ -28,6 +29,7 @@ export function PageHeader({
   overlapPx,
   eyebrow,
   children,
+  showBack = true,
 }: PageHeaderProps) {
   const containerClassName = [
     'container relative mx-auto px-4 md:px-6 [--overlap:2px] sm:[--overlap:4px]',
@@ -48,20 +50,29 @@ export function PageHeader({
     .join(' ')
 
   return (
-    <header className={containerClassName} data-backlink-container>
+    <header
+      className={containerClassName}
+      data-backlink-container={showBack ? '' : undefined}
+    >
       <div className="mx-auto max-w-4xl">
-        <div className="relative z-50 mb-4 w-fit isolate pointer-events-auto">
-          <BackLink
-            label={label}
-            href={href}
-            contextualLabel={contextualLabel}
-            className={backLinkClassName}
-            overlapPx={overlapPx}
-          />
-        </div>
+        {showBack && (
+          <div className="relative z-50 mb-4 w-fit isolate pointer-events-auto">
+            <BackLink
+              label={label}
+              href={href}
+              contextualLabel={contextualLabel}
+              className={backLinkClassName}
+              overlapPx={overlapPx}
+            />
+          </div>
+        )}
         <div
           className={contentClasses}
-          style={{ marginLeft: 'max(calc(var(--back-w, 12ch) - var(--overlap, 4px)), 0px)' }}
+          style={
+            showBack
+              ? { marginLeft: 'max(calc(var(--back-w, 12ch) - var(--overlap, 4px)), 0px)' }
+              : undefined
+          }
         >
           {eyebrow}
           <h1 className={headingClasses}>{title}</h1>
