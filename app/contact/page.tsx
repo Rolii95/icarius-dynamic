@@ -49,7 +49,7 @@ const contactMethods = [
 
 export default function ContactPage() {
   return (
-    <Section className="py-16">
+    <Section className="py-16" style={{ minHeight: '500px' }}>
       <div className="container mx-auto max-w-3xl px-4">
         <div className="mb-6 space-y-2">
           <BackLink className="inline-flex -translate-x-1 sm:-translate-x-1.5" />

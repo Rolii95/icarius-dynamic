@@ -66,9 +66,21 @@
   }
   
   /* Optimize scrolling performance on mobile */
+  html {
+    overflow-x: hidden;
+    overscroll-behavior-y: none;
+    /* Prevent pull-to-refresh and overscroll bounce */
+    overscroll-behavior-x: none;
+  }
+  
   body {
     -webkit-overflow-scrolling: touch;
     overscroll-behavior-y: none;
+    overscroll-behavior-x: none;
+    /* Prevent horizontal scroll bounce */
+    overflow-x: hidden;
+    /* Optimize touch interactions */
+    touch-action: pan-y pinch-zoom;
   }
   
   /* Prevent hover effects from triggering on touch */
@@ -99,6 +111,17 @@ body::before {
     radial-gradient(900px 600px at 85% 120%, rgba(142,235,255,0.10), transparent 55%), /* cyan highlight */
     radial-gradient(700px 500px at 80% 10%, rgba(140,107,255,0.10), transparent 60%), /* subtle purple accent */
     linear-gradient(180deg, #070b18 0%, #181c2e 40%, #1a1e38 60%, #0b1020 100%); /* black to deep blue */
+}
+
+@media (max-width: 767.98px) {
+  body::before {
+    /* Optimize fixed background for mobile - reduce complexity and use will-change for GPU acceleration */
+    will-change: auto;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
 }
 .container {
   max-width: 1100px;
@@ -187,5 +210,18 @@ body::before {
   .contain-layout {
     /* More aggressive containment on mobile */
     contain: layout style paint;
+  }
+  
+  /* Optimize main container for scroll performance */
+  main {
+    /* Ensure smooth scrolling with GPU acceleration */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+  }
+  
+  /* Prevent layout shifts in sections */
+  section {
+    /* Isolate section rendering to prevent cascading reflows */
+    will-change: auto;
   }
 }
