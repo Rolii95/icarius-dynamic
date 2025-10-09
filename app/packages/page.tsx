@@ -60,6 +60,7 @@ export default function PackagesPage() {
         className="mb-10"
         headingClassName="text-4xl font-semibold tracking-tight"
         contentClassName="max-w-3xl space-y-4"
+        showBack={false}
       >
         <p className="text-lg text-slate-300">
           These outlines show how we typically partner with clients. Every package can be adjusted to match your stage,
