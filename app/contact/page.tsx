@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 import { bookingUrl } from '@/lib/booking'
 import { Section } from '@/components/Section'
-import { BUSINESS_ADDRESS, CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_URI } from '@/lib/structured-data'
+import { BUSINESS_ADDRESS, CONTACT_PHONE, CONTACT_PHONE_URI } from '@/lib/structured-data'
+import { siteConfig } from '@/lib/siteConfig'
 import { BackLink } from '@/components/BackLink'
 
 const title = 'HRIT advisory HR systems audit HR AI PMO contact team'
@@ -38,7 +39,7 @@ const contactMethods = [
   },
   {
     label: 'Email the team',
-    href: `mailto:${CONTACT_EMAIL}`,
+    href: `mailto:${siteConfig.contactEmail}`,
     description: 'Share context, RFPs, or supporting information and we will reply within one business day.',
     newTab: false,
     cta: 'contact-page-email',
