@@ -121,3 +121,7 @@ body::before {
   transform: translateY(0);
 }
 
+.overscroll-contain {
+  overscroll-behavior: contain;
+}
+
