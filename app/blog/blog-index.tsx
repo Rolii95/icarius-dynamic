@@ -58,7 +58,7 @@ export function BlogIndex({ posts, heading, description }: BlogIndexProps) {
 
   return (
     <div className="not-prose">
-      <Section className="py-12">
+      <Section className="py-12" style={{ minHeight: '400px' }}>
         <PageHeader
           title={heading}
           className="mb-8 not-prose"
