@@ -18,8 +18,10 @@ export default function Header() {
     <>
       <header
         className={[
-          "sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-[#0E1525]/60",
-          "transition-[padding,background-color] duration-200",
+          "sticky-header sticky top-0 z-50",
+          "bg-[#0E1525]/85",
+          "md:backdrop-blur supports-[backdrop-filter]:md:bg-[#0E1525]/60",
+          "transition-colors",
           shrunk ? "py-3" : "py-5",
         ].join(" ")}
       >

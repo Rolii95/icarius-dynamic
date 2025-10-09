@@ -13,11 +13,13 @@ export default function MobileMenu({ open, onClose, id = "mobile-menu", children
   const panelRef = useRef<HTMLDivElement>(null);
   const firstFocusRef = useRef<HTMLButtonElement>(null);
 
-  // Body scroll lock + focus handling
   useEffect(() => {
-    if (!open) { unlockBodyScroll(); return; }
+    if (!open) {
+      unlockBodyScroll();
+      return;
+    }
+
     lockBodyScroll();
-    // focus first focusable or panel
     setTimeout(() => (firstFocusRef.current ?? panelRef.current)?.focus(), 0);
 
     const onKey = (e: KeyboardEvent) => {
@@ -29,16 +31,28 @@ export default function MobileMenu({ open, onClose, id = "mobile-menu", children
           'a[href],button:not([disabled]),[tabindex]:not([tabindex="-1"])'
         );
         if (!f.length) return;
-        const first = f[0], last = f[f.length - 1];
-        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+        const first = f[0];
+        const last = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
       }
     };
+
     document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      unlockBodyScroll();
+    };
   }, [open, onClose]);
 
-  const backdropClick = (e: React.MouseEvent) => { if (e.target === e.currentTarget) onClose(); };
+  const onBackdrop = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) onClose();
+  };
 
   return (
     <div
@@ -48,20 +62,19 @@ export default function MobileMenu({ open, onClose, id = "mobile-menu", children
         open ? "pointer-events-auto" : "pointer-events-none",
       ].join(" ")}
       aria-hidden={open ? "false" : "true"}
-      onMouseDown={backdropClick}
+      onMouseDown={onBackdrop}
       style={{ contain: "layout paint size" }}
     >
       {/* Backdrop */}
       <div
         className={[
-          "absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity",
+          "absolute inset-0 bg-black/50 transition-opacity md:backdrop-blur-sm",
           open ? "opacity-100" : "opacity-0",
         ].join(" ")}
       />
 
       {/* Panel wrapper uses FLEX to anchor at top; no absolute math */}
-      <div className="relative z-10 flex w-full h-full items-start justify-center">
-        {/* Slide-down panel (full width on mobile) */}
+      <div className="relative z-10 flex h-full w-full items-start justify-end">
         <div
           ref={panelRef}
           id={id}
@@ -69,22 +82,17 @@ export default function MobileMenu({ open, onClose, id = "mobile-menu", children
           aria-modal="true"
           tabIndex={-1}
           className={[
-            "w-full max-w-screen-sm",
-            // Make it truly fill the viewport vertically on mobile
+            "w-[88vw] max-w-sm",
+            "mr-4 pr-[env(safe-area-inset-right)]",
             "h-screen",
             "bg-[#0E1525] border-b border-white/10 shadow-xl",
-            // Vertical slide animation only
-            "transform-gpu transition-transform duration-200",
+            "transform-gpu transition-transform duration-200 origin-top-right",
             open ? "translate-y-0" : "-translate-y-full",
-            // Scrollable content inside; prevent rubber-band behind
             "overflow-y-auto overscroll-contain",
-            // Safe-area top padding for notches
             "pt-[env(safe-area-inset-top)]",
           ].join(" ")}
-          // Strong fallback for older browsers: force dvh height when available
           style={{ height: "100dvh", WebkitTapHighlightColor: "transparent" }}
         >
-          {/* Header row inside the panel */}
           <div className="p-4 flex items-center justify-between">
             <span className="text-white/70 text-sm">Menu</span>
             <button
@@ -96,15 +104,7 @@ export default function MobileMenu({ open, onClose, id = "mobile-menu", children
             </button>
           </div>
 
-          {/* FORCE vertical list; block-level links; full width */}
-          <nav
-            className={[
-              "px-4 pb-6",
-              "grid grid-cols-1 gap-1",           // <- never horizontal
-              "[&>*]:block [&>*]:w-full [&>*]:text-left", // <- force block anchors
-              "[&>*]:text-lg [&>*]:py-2",         // touch target sizing
-            ].join(" ")}
-          >
+          <nav className="px-4 pb-6 grid grid-cols-1 gap-1 [&>*]:block [&>*]:w-full [&>*]:text-left [&>*]:text-lg [&>*]:py-2">
             {children}
           </nav>
         </div>
