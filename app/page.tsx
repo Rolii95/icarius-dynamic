@@ -67,20 +67,26 @@ type PageProps = {
 }
 
 const homepageFaqItems = [
-  { question: 'How quickly can we start?', answer: 'We can kick off within 2 weeks, often faster for audits.' },
   {
-    question: 'Do you work globally?',
-    answer: 'Yes, we deliver across EMEA/NA with remote-first governance.',
+    question: 'What outcomes do you deliver in the first month?',
+    answer:
+      'Within 30 days you receive a quantified current-state assessment, risk heatmap, and prioritised backlog so leadership can fund the right changes immediately.',
   },
   {
-    question: 'What systems do you cover?',
-    answer: 'Workday, SuccessFactors, Dayforce, Oracle, plus payroll/ATS/IDM.',
+    question: 'How do you work with our internal team?',
+    answer:
+      'We embed into your ceremonies, co-lead stand-ups, and mentor internal owners so capability and context stay with your team after go-live.',
+  },
+  {
+    question: 'Which platforms and regions do you cover?',
+    answer:
+      'Workday, SuccessFactors, Dayforce, Oracle, UKG, and surrounding payroll, ATS, and IDM estates across the UK, EMEA, and North America.',
   },
 ] satisfies readonly FAQItem[]
 
-const title = 'HRIT advisory HR systems audit HR AI PMO experts guide'
+const title = 'HR technology change that lands and lasts | Icarius Consulting'
 const description =
-  'Navigate HRIT advisory, HR systems audit, HR AI innovation, and PMO delivery with Icarius—boutique consultants keeping people, process, and platforms in sync.'
+  'Icarius Consulting helps HR, finance, and operations leaders deliver HR technology programmes that pay back fast—HRIT advisory, delivery leadership, audits, and pragmatic AI enablement.'
 
 export const metadata: Metadata = {
   title,
@@ -126,22 +132,33 @@ export default function Page({ searchParams }: PageProps) {
 
 function Hero() {
   return (
-    <Section className="py-16 md:py-24">
+    <Section className="py-16 md:py-24 hero-watermark">
       <div className="grid md:grid-cols-2 gap-10 items-center">
         <div>
-          <h1 className="text-4xl md:text-6xl font-semibold tracking-tight">
-            Transform your <span className="bg-gradient-to-r from-[color:var(--primary)] to-[color:var(--primary-2)] bg-clip-text text-transparent">HR Technology</span>
+          <h1 className="text-4xl md:text-6xl font-semibold tracking-tight heading-underline">
+            Lead <span className="bg-gradient-to-r from-[color:var(--primary)] to-[color:var(--primary-2)] bg-clip-text text-transparent">HR technology change</span> that lands and lasts
           </h1>
-          <p className="mt-4 text-lg text-slate-300">
-            HRIT Advisory • Project Delivery • System Audits • AI Solutions. We de-risk complex change and ship measurable outcomes.
+          <p className="mt-5 max-w-xl text-lg text-slate-300">
+            Boutique HRIT advisors who turn complex roadmaps into measurable outcomes—delivery leadership, platform audits, and AI enablement tuned to your timeline.
           </p>
           {/* Mobile CTA - Stacked with full width */}
-          <div className="mt-6 flex flex-col sm:flex-row gap-3">
-            <a href="#pricing" className="rounded-full bg-[color:var(--primary)] text-slate-900 px-5 py-3 text-center sm:text-left">View Packages</a>
-            <BookCTA data-cta="hero" className="rounded-full border px-5 py-3 text-center sm:text-left">
-              Book a call
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:gap-4">
+            <BookCTA
+              data-cta="hero"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[color:var(--primary)] to-[color:var(--primary-2)] px-6 py-3 text-base font-semibold text-slate-950 shadow-[0_18px_45px_rgba(12,18,30,0.35)] transition hover:-translate-y-0.5 hover:shadow-[0_24px_55px_rgba(12,18,30,0.45)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--primary)]/60 sm:w-auto"
+            >
+              Book a 15-min fit call
             </BookCTA>
+            <a
+              href="#pricing"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/20 px-6 py-3 text-base font-semibold text-slate-100 transition hover:-translate-y-0.5 hover:border-[color:var(--primary)]/60 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--primary)]/60 sm:w-auto"
+            >
+              See packages →
+            </a>
           </div>
+          <p className="mt-4 text-sm text-slate-400">
+            Trusted by FTSE 250 brands, PE-backed scale-ups, and global shared services teams.
+          </p>
         </div>
         <HeroIllustration />
       </div>
@@ -159,12 +176,18 @@ function Services() {
 
   return (
     <Section id="services" className="py-12 border-t border-[rgba(255,255,255,.06)]">
-      <h2 className="text-2xl font-semibold">What we do</h2>
-      <ul className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4">
+      <h2 className="text-2xl font-semibold heading-underline">Where we accelerate value</h2>
+      <p className="mt-3 max-w-2xl text-sm text-slate-400">
+        Targeted interventions that keep strategy, delivery, and run-state operations in lockstep.
+      </p>
+      <ul className="mt-6 grid grid-cols-2 gap-4 md:grid-cols-4">
         {coreServices.map((service) => {
           const Icon = serviceIcons[service.id as keyof typeof serviceIcons]
           return (
-            <li key={service.id} className="card p-6 min-h-[200px] flex flex-col">
+            <li
+              key={service.id}
+              className="card flex min-h-[200px] flex-col border-white/10 bg-slate-950/50 p-6 transition hover:border-[color:var(--primary)]/40 hover:bg-slate-900/60"
+            >
               <Icon className="text-[color:var(--primary-2)] mb-3" size={24} />
               <h3 className="text-lg font-semibold">{service.name}</h3>
               <p className="text-slate-300 text-base mt-2">{service.description}</p>
@@ -178,30 +201,55 @@ function Services() {
 
 function Pricing() {
   const cards = [
-    { name: 'Audit Sprint', price: 6000, plan: 'audit-sprint' },
-    { name: 'Delivery Jumpstart', price: 12000, plan: 'delivery-jumpstart' },
-    { name: 'AI Readiness', price: 9000, plan: 'ai-readiness' },
+    {
+      name: 'Audit sprint',
+      price: 6000,
+      plan: 'audit-sprint',
+      tagline: 'Three-week diagnostic that quantifies risk, value, and the roadmap to unlock both.',
+    },
+    {
+      name: 'Delivery jumpstart',
+      price: 12000,
+      plan: 'delivery-jumpstart',
+      tagline: 'Embedded delivery leadership to stand up cadence, cutover, and stakeholder confidence fast.',
+    },
+    {
+      name: 'AI readiness',
+      price: 9000,
+      plan: 'ai-readiness',
+      tagline: 'Design safe, compliant AI pilots that reduce handling time without compromising governance.',
+    },
   ] as const
 
   return (
     <Section id="pricing" className="py-12 border-t border-[rgba(255,255,255,.06)]">
-      <h2 className="text-2xl font-semibold">Packages</h2>
+      <h2 className="text-2xl font-semibold heading-underline">Packages</h2>
       <div className="mt-4 grid sm:grid-cols-2 md:grid-cols-3 gap-4">
         {cards.map((card) => (
-          <div key={card.name} className="card">
-            <h3 className="font-semibold">{card.name}</h3>
-            <p className="text-3xl font-bold mt-2">£{card.price}</p>
-            <ul className="mt-3 text-sm text-slate-300 space-y-1">
-              <li className="flex items-center gap-2"><CheckCircle2 size={16} /> Executive readout</li>
-              <li className="flex items-center gap-2"><CheckCircle2 size={16} /> Findings &amp; backlog</li>
-              <li className="flex items-center gap-2"><CheckCircle2 size={16} /> 30-day support</li>
+          <div
+            key={card.name}
+            className="card flex h-full flex-col border-white/10 bg-slate-950/50 p-6 hover:border-[color:var(--primary)]/40 hover:bg-slate-900/60"
+          >
+            <h3 className="text-xl font-semibold capitalize">{card.name}</h3>
+            <p className="mt-2 text-sm text-slate-400">{card.tagline}</p>
+            <p className="mt-4 text-3xl font-bold tracking-tight text-white">£{card.price.toLocaleString('en-GB')}</p>
+            <ul className="mt-4 space-y-1 text-sm text-slate-300">
+              <li className="flex items-center gap-2">
+                <CheckCircle2 size={16} /> Board-ready findings deck
+              </li>
+              <li className="flex items-center gap-2">
+                <CheckCircle2 size={16} /> Prioritised backlog with owners
+              </li>
+              <li className="flex items-center gap-2">
+                <CheckCircle2 size={16} /> 30-day co-pilot support
+              </li>
             </ul>
             <BookCTA
               data-cta="pricing"
               plan={card.plan}
-              className="mt-4 w-full sm:w-auto inline-block text-center sm:text-left rounded-full bg-[color:var(--primary)] text-slate-900 px-4 py-2"
+              className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/20 px-5 py-2.5 text-sm font-semibold text-slate-100 transition hover:border-[color:var(--primary)]/60 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--primary)]/60"
             >
-              Book
+              Book a 15-min fit call
             </BookCTA>
           </div>
         ))}
@@ -213,11 +261,29 @@ function Pricing() {
 function Work() {
   return (
     <Section id="work" className="py-12 border-t border-[rgba(255,255,255,.06)]">
-      <h2 className="text-2xl font-semibold">Selected Work</h2>
-      <ul className="mt-4 grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-        <li id="cs-hcm" className="card"><h3 className="font-semibold">Global HCM replacement</h3><p className="text-sm text-slate-300 mt-1">Vendor selection and readiness for 40k employees.</p></li>
-        <li id="cs-payroll" className="card"><h3 className="font-semibold">Payroll consolidation</h3><p className="text-sm text-slate-300 mt-1">12‑country integration and control framework.</p></li>
-        <li id="cs-ai" className="card"><h3 className="font-semibold">HR Ops AI assistant</h3><p className="text-sm text-slate-300 mt-1">Reduced resolution time by 34%.</p></li>
+      <h2 className="text-2xl font-semibold heading-underline">Proof from recent programmes</h2>
+      <ul className="mt-6 grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+        <li
+          id="cs-hcm"
+          className="card border-white/10 bg-slate-950/50 p-6 transition hover:border-[color:var(--primary)]/40 hover:bg-slate-900/60"
+        >
+          <h3 className="text-lg font-semibold">Global HCM replacement</h3>
+          <p className="mt-2 text-sm text-slate-300">Unified seven regional stacks and staged rollout for 40k colleagues.</p>
+        </li>
+        <li
+          id="cs-payroll"
+          className="card border-white/10 bg-slate-950/50 p-6 transition hover:border-[color:var(--primary)]/40 hover:bg-slate-900/60"
+        >
+          <h3 className="text-lg font-semibold">Payroll consolidation</h3>
+          <p className="mt-2 text-sm text-slate-300">12-country payroll control framework with automated reconciliations.</p>
+        </li>
+        <li
+          id="cs-ai"
+          className="card border-white/10 bg-slate-950/50 p-6 transition hover:border-[color:var(--primary)]/40 hover:bg-slate-900/60"
+        >
+          <h3 className="text-lg font-semibold">HR Ops AI assistant</h3>
+          <p className="mt-2 text-sm text-slate-300">AI co-pilot that lifted satisfaction and cut resolution time by 34%.</p>
+        </li>
       </ul>
     </Section>
   )
@@ -232,15 +298,15 @@ function Testimonials() {
       aria-labelledby={headingId}
       role="region"
     >
-      <h2 id={headingId} className="text-2xl font-semibold">
-        What clients say
+      <h2 id={headingId} className="text-2xl font-semibold heading-underline">
+        Leaders who trust Icarius
       </h2>
       <ul className="mt-4 grid sm:grid-cols-2 md:grid-cols-3 gap-4">
         <li className="card grid grid-cols-1 sm:grid-cols-[auto,1fr] gap-3 items-start">
           <div className="h-14 w-14 rounded-full border mx-auto sm:mx-0" />
           <div className="text-center sm:text-left">
-            <blockquote className="text-base">“Icarius brought clarity and pace to a complex HCM migration.”</blockquote>
-            <p className="text-sm text-slate-300">— CIO, FTSE250</p>
+            <blockquote className="text-base">“Icarius translated our global HCM ambition into a sequenced, fundable plan.”</blockquote>
+            <p className="text-sm text-slate-300">— CIO, FTSE 250 hospitality group</p>
             <div className="stars" aria-label="5 out of 5">★★★★★</div>
             <a className="mini-link" href="/work/global-hcm-replacement">View full case study →</a>
           </div>
@@ -248,8 +314,8 @@ function Testimonials() {
         <li className="card grid grid-cols-1 sm:grid-cols-[auto,1fr] gap-3 items-start">
           <div className="h-14 w-14 rounded-full border mx-auto sm:mx-0" />
           <div className="text-center sm:text-left">
-            <blockquote className="text-base">“The audit sprint gave us a pragmatic backlog we actually shipped.”</blockquote>
-            <p className="text-sm text-slate-300">— HR Director, Retail</p>
+            <blockquote className="text-base">“The audit sprint exposed risks, quick wins, and gave the board confidence to invest.”</blockquote>
+            <p className="text-sm text-slate-300">— HR Director, retail group</p>
             <div className="stars" aria-label="5 out of 5">★★★★★</div>
             <a className="mini-link" href="/work/payroll-consolidation">View full case study →</a>
           </div>
@@ -257,8 +323,8 @@ function Testimonials() {
         <li className="card grid grid-cols-1 sm:grid-cols-[auto,1fr] gap-3 items-start">
           <div className="h-14 w-14 rounded-full border mx-auto sm:mx-0" />
           <div className="text-center sm:text-left">
-            <blockquote className="text-base">“Our HR Ops assistant cut average handle time dramatically.”</blockquote>
-            <p className="text-sm text-slate-300">— Shared Services Lead</p>
+            <blockquote className="text-base">“Our HR Ops assistant now resolves cases in minutes and agents finally trust the data.”</blockquote>
+            <p className="text-sm text-slate-300">— Shared services lead, global firm</p>
             <div className="stars" aria-label="5 out of 5">★★★★★</div>
             <a className="mini-link" href="/work/hr-ops-ai-assistant">View full case study →</a>
           </div>
@@ -279,7 +345,7 @@ function FAQ() {
 
   return (
     <Section className="py-12 border-t border-[rgba(255,255,255,.06)]">
-      <h2 className="text-2xl font-semibold">FAQ</h2>
+      <h2 className="text-2xl font-semibold heading-underline">Questions leaders ask</h2>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: faqJsonLd }} />
       <ul className="divide-y divide-[rgba(255,255,255,.06)]">
         {homepageFaqItems.map((qa, index) => (
@@ -301,23 +367,25 @@ function FAQ() {
 function CTA({ defaultPlan }: { defaultPlan?: string }) {
   return (
     <Section id="contact" className="py-16">
-      <div className="card p-6 sm:p-8 md:p-10">
+      <div className="card border-white/10 bg-gradient-to-br from-slate-950/70 via-slate-950/50 to-slate-900/40 p-6 shadow-[0_24px_60px_rgba(12,18,30,0.45)] sm:p-8 md:p-10">
         <div className="grid gap-6 sm:gap-8 lg:grid-cols-[minmax(0,1fr),minmax(0,420px)] lg:items-start">
           <div className="space-y-4 text-left">
-            <h2 className="text-2xl sm:text-3xl font-semibold">Ready to reduce delivery risk?</h2>
-            <p className="text-slate-300">Tell us about your goals. We’ll respond within one business day.</p>
+            <h2 className="text-2xl sm:text-3xl font-semibold heading-underline">Let’s scope your next milestone</h2>
+            <p className="text-slate-300">
+              Share the change you need to land—new platform, payroll clean-up, or AI enablement—and we’ll outline the fastest, safest route to value.
+            </p>
             <p className="text-sm text-slate-400">
-              Prefer to jump straight to a conversation? Use the booking link and we’ll tailor the agenda.
+              You’ll hear back within one business day with suggested next steps and who from our team will be involved.
             </p>
             <BookCTA
               data-cta="contact"
               plan={defaultPlan}
-              className="inline-flex items-center gap-2 rounded-full border px-4 sm:px-5 py-2.5 sm:py-3 text-sm sm:text-base"
+              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[color:var(--primary)] to-[color:var(--primary-2)] px-5 py-2.5 text-sm font-semibold text-slate-950 shadow-[0_14px_40px_rgba(12,18,30,0.35)] transition hover:-translate-y-0.5 hover:shadow-[0_20px_48px_rgba(12,18,30,0.45)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--primary)]/60 sm:px-6 sm:py-3 sm:text-base"
             >
-              <Phone size={18} /> Book a call
+              <Phone size={18} /> Book a 15-min fit call
             </BookCTA>
           </div>
-          <AssistantForm plan={defaultPlan} className="card p-4 sm:p-6 shadow-none" />
+          <AssistantForm plan={defaultPlan} className="card border-white/10 bg-slate-950/50 p-4 shadow-none sm:p-6" />
         </div>
       </div>
     </Section>

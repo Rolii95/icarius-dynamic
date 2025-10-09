@@ -3,9 +3,10 @@ import type { Metadata } from 'next'
 import { BlogIndex } from '@/app/blog/blog-index'
 import { SORTED_POSTS } from '@/app/blog/posts'
 
-const title = 'HRIT advisory HR systems audit HR AI PMO insights library'
+const heading = 'Insights for HR technology leaders'
+const title = `${heading} | Icarius Consulting`
 const description =
-  'See how our HRIT advisory strategies, HR systems audit tactics, HR AI adoption, and PMO leadership keep transformations focused on tangible impact.'
+  'Playbooks, frameworks, and commentary on delivering HR technology change with measurable impact across HR, payroll, and employee experience.'
 
 export const metadata: Metadata = {
   title,
@@ -27,5 +28,5 @@ export const metadata: Metadata = {
 }
 
 export default function InsightsPage() {
-  return <BlogIndex posts={SORTED_POSTS} heading={title} description={description} />
+  return <BlogIndex posts={SORTED_POSTS} heading={heading} description={description} />
 }

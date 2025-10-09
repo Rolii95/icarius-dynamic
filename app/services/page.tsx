@@ -6,9 +6,9 @@ import { CASE_STUDIES } from '@/app/work/case-studies'
 import { Section } from '@/components/Section'
 import { PageHeader } from '@/components/PageHeader'
 
-const title = 'HRIT advisory HR systems audit HR AI PMO services playbooks'
+const title = 'HR technology services that land change | Icarius Consulting'
 const description =
-  'Explore HRIT advisory roadmaps, HR systems audit accelerators, HR AI experiments, and PMO toolkits aligning teams and platforms around measurable outcomes.'
+  'Explore HRIT advisory, programme leadership, audits, and AI enablement designed to move metrics faster while building internal confidence.'
 
 export const metadata: Metadata = {
   title,
@@ -33,25 +33,25 @@ const services = [
   {
     title: 'Operating model design',
     description:
-      'Align roles, systems, and processes around the outcomes that matter most so teams can scale',
+      'Design workflows, roles, and KPIs so HR, payroll, and finance ship outcomes together without rework.',
     featuredCaseStudies: ['global-hcm-replacement', 'payroll-consolidation'],
   },
   {
     title: 'Platform implementation leadership',
     description:
-      'Navigate ERP, HRIS, or billing deployments with a partner who has led global rollouts before.',
+      'Programme leadership that sets cadence, risk controls, and adoption plans for global rollouts.',
     featuredCaseStudies: ['global-hcm-replacement'],
   },
   {
     title: 'Process optimisation sprints',
     description:
-      'Identify waste, codify best practices, and automate the manual steps that slow delivery.',
+      'Rapid discovery, automation, and policy redesign that remove friction from employee journeys.',
     featuredCaseStudies: ['payroll-consolidation'],
   },
   {
     title: 'Fractional operations support',
     description:
-      'Bridge leadership gaps or accelerate change with an embedded, outcomes-focused operator.',
+      'Hands-on senior operator to stabilise change, mentor leads, and leave a playbook behind.',
     featuredCaseStudies: ['hr-ops-ai-assistant'],
   },
 ]
@@ -64,14 +64,14 @@ export default function ServicesPage() {
       <PageHeader
         title="Services"
         className="mb-10"
-        headingClassName="text-4xl font-semibold tracking-tight"
+        headingClassName="text-4xl font-semibold tracking-tight heading-underline"
         contentClassName="max-w-3xl space-y-4"
         backHref="/"
         backLabel="Back to home"
       >
         <p className="text-lg text-slate-300">
-          Each engagement is tailored to your stage of growth, but the pillars below outline how we typically help founders and
-          operators remove operational friction.
+          Select the plays that match your stage. Each one is designed to shorten time-to-value while giving stakeholders the
+          transparency they need to stay aligned.
         </p>
       </PageHeader>
       <div className="container mx-auto max-w-4xl px-4">
@@ -88,7 +88,7 @@ export default function ServicesPage() {
           <div className="space-y-6 rounded-2xl border border-slate-800 bg-slate-950/40 p-6">
             <h2 className="text-2xl font-semibold text-white">Related case studies</h2>
             <p className="text-sm text-slate-300">
-              Explore how these engagements brought each service pillar to life.
+              Explore how these engagements brought each service pillar to life with measurable outcomes.
             </p>
             <div className="space-y-6">
               {services.map((service) => (

@@ -1,6 +1,6 @@
 const SITE_NAME = 'Icarius Consulting'
 const SITE_DESCRIPTION =
-  'Navigate HRIT advisory, HR systems audit, HR AI innovation, and PMO delivery with Icarius—boutique consultants keeping people, process, and platforms in sync.'
+  'Icarius Consulting helps HR, finance, and operations leaders deliver HR technology programmes that pay back fast—HRIT advisory, programme leadership, audits, and pragmatic AI enablement.'
 
 export const ORGANIZATION_NAME = SITE_NAME
 export const ORGANIZATION_DESCRIPTION = SITE_DESCRIPTION
@@ -26,25 +26,25 @@ export const coreServices = [
   {
     id: 'hrit-advisory',
     name: 'HRIT Advisory',
-    description: 'Target architecture, integration patterns, and build/buy guidance tailored to HR.',
+    description: 'Target architecture, roadmap shaping, and sequencing that connect HR strategy to delivery.',
     serviceType: 'HRIT advisory',
   },
   {
     id: 'pmo-delivery',
     name: 'Project Delivery',
-    description: 'PMO without the drag: RAID, burn-down, change enablement, and crisp cutover plans.',
+    description: 'Embedded programme leadership, cadence, and change enablement that keep rollouts on track.',
     serviceType: 'PMO delivery',
   },
   {
     id: 'hr-systems-audit',
     name: 'System Audits',
-    description: 'Fact-based config & data reviews with prioritised fixes.',
+    description: 'Config, data, and process diagnostics that prioritise fixes by quantified impact.',
     serviceType: 'HR systems audit',
   },
   {
     id: 'hr-ai',
     name: 'AI Solutions',
-    description: 'Pragmatic automation for HR Ops and knowledge.',
+    description: 'Guardrailed automation and knowledge AI that remove toil while staying compliant.',
     serviceType: 'HR AI solutions',
   },
 ] as const satisfies readonly CoreService[]

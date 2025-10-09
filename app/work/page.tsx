@@ -5,9 +5,9 @@ import { CASE_STUDIES } from './case-studies'
 import { Section } from '@/components/Section'
 import { PageHeader } from '@/components/PageHeader'
 
-const title = 'HRIT advisory HR systems audit HR AI PMO outcomes portfolio'
+const title = 'HR technology case studies | Icarius Consulting'
 const description =
-  'Browse case studies where HRIT advisory blueprints, HR systems audit remediations, HR AI pilots, and PMO governance de-risked global people technology change.'
+  'Browse case studies showing how HRIT advisory, programme leadership, audits, and AI enablement delivered measurable improvements for global organisations.'
 
 export const metadata: Metadata = {
   title,
@@ -34,15 +34,15 @@ export default function WorkPage() {
       <PageHeader
         title="Outcomes our clients trust us to deliver"
         className="mb-12"
-        headingClassName="text-4xl font-semibold tracking-tight text-white"
+        headingClassName="text-4xl font-semibold tracking-tight text-white heading-underline"
         contentClassName="max-w-3xl space-y-4"
         eyebrow={
           <p className="text-sm font-medium uppercase tracking-[0.2em] text-sky-300/80">Selected work</p>
         }
       >
         <p className="text-lg text-slate-300">
-          Every engagement balances operational rigour with change empathy. Explore a few recent programmes and the impact they
-          created across HR and finance operations.
+          Every programme blends strategy, delivery discipline, and change enablement. Explore how that combination unlocked
+          measurable improvements in HR, payroll, and employee experience.
         </p>
       </PageHeader>
       <div className="container mx-auto px-4 md:px-6">
