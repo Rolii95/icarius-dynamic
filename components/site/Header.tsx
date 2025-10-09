@@ -4,6 +4,7 @@ import { useScrollShrink } from "@/hooks/useScrollShrink";
 import MobileMenu from "@/components/site/MobileMenu";
 import Brand from "@/components/site/Brand";
 import Link from "next/link";
+import { bookingUrl } from "@/lib/booking";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
@@ -46,7 +47,7 @@ export default function Header() {
             <Link className="text-white/80 hover:text-white" href="/contact">
               Contact
             </Link>
-            <Link className="text-sky-300 hover:text-sky-200" href="https://calendly.com/">
+            <Link className="text-sky-300 hover:text-sky-200" href={bookingUrl} target="_blank" rel="noopener noreferrer">
               Book a 15-min fit call
             </Link>
           </nav>
@@ -85,7 +86,7 @@ export default function Header() {
         <Link className="py-2 text-lg text-white" href="/contact" onClick={close}>
           Contact
         </Link>
-        <Link className="py-2 text-lg text-sky-300" href="https://calendly.com/" onClick={close}>
+        <Link className="py-2 text-lg text-sky-300" href={bookingUrl} target="_blank" rel="noopener noreferrer" onClick={close}>
           Book a 15-min fit call
         </Link>
       </MobileMenu>
