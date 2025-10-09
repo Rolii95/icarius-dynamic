@@ -1,19 +1,16 @@
 'use client'
 
-import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { usePathname, useRouter } from 'next/navigation'
 import { Menu, X } from 'lucide-react'
 
 import { BookCTA } from '@/components/BookCTA'
 import { primaryNavLinks } from '@/lib/navigation'
+import Brand from '@/components/site/Brand'
 
 export function Header() {
   const [solid, setSolid] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const pathname = usePathname()
-  const router = useRouter()
 
   useEffect(() => {
     const onScroll = () => setSolid(window.scrollY > 8)
@@ -43,17 +40,7 @@ export function Header() {
       }`}
     >
       <div className="container mx-auto flex items-center justify-between py-3 px-4">
-        <Link href="/" className="flex items-center gap-3 font-bold leading-none">
-          <Image
-            src="/icarius-logo.svg"
-            alt="Icarius logo"
-            width={40}
-            height={40}
-            className="h-9 w-9 md:h-10 md:w-10"
-            priority
-          />
-          <span className="text-xl md:text-2xl tracking-tight">Icarius Consulting</span>
-        </Link>
+        <Brand />
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-6 text-sm">

@@ -48,7 +48,14 @@ export const metadata: Metadata = {
     images: [{ url: '/twitter-image', width: 1200, height: 630 }],
   },
   robots: { index: true, follow: true },
-  icons: { icon: '/favicon.ico', shortcut: '/favicon.svg', apple: '/apple-touch-icon.png' },
+  icons: {
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.ico' },
+    ],
+    shortcut: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
+  },
   alternates: { canonical: '/' },
 }
 
@@ -66,6 +73,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head>
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="alternate icon" href="/favicon.ico" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: structuredData }} />
         <script
           dangerouslySetInnerHTML={{
