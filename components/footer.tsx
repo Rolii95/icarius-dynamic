@@ -8,9 +8,11 @@ export function Footer(){
     <footer className="border-t">
       {/* Mobile Layout - Stacked */}
       <div className="md:hidden container mx-auto px-4 py-6 text-sm text-slate-300 flex flex-col gap-4 items-center text-center">
-        <Brand />
-        <p>© {new Date().getFullYear()} Icarius Consulting</p>
-        <nav className="flex flex-col gap-3">
+        <div className="flex flex-row items-center gap-3 justify-center w-full">
+          <Brand />
+          <p className="text-base text-slate-300">© {new Date().getFullYear()} Icarius Consulting</p>
+        </div>
+        <nav className="flex flex-col gap-3 w-full mt-2">
           {footerNavLinks.map((link) => (
             <Link key={link.href} href={link.href} className="hover:underline">
               {link.label}
