@@ -50,7 +50,7 @@ export function PageHeader({
   return (
     <header className={containerClassName} data-backlink-container>
       <div className="mx-auto max-w-4xl">
-        <div className="relative z-10 mb-4 w-fit pointer-events-auto">
+        <div className="relative z-50 mb-4 w-fit isolate pointer-events-auto">
           <BackLink
             label={label}
             href={href}
