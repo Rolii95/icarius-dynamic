@@ -160,26 +160,6 @@ export function BackLink({
     return fallbackHref
   }, [fallbackHref, href])
 
-  const normalisePath = useCallback((value: string | null | undefined) => {
-    if (!value) {
-      return '/'
-    }
-
-    const trimmed = value.replace(/\/+$/, '')
-    return trimmed === '' ? '/' : trimmed
-  }, [])
-
-  const isSectionRoot = useMemo(() => {
-    if (href) {
-      return false
-    }
-
-    const currentPath = normalisePath(pathname)
-    const targetPath = normalisePath(fallbackHref)
-
-    return currentPath === targetPath
-  }, [fallbackHref, href, normalisePath, pathname])
-
   const debugAttributes =
     process.env.NODE_ENV !== 'production'
       ? { 'data-back-label': computedLabel, 'data-back-href': computedHref }
@@ -195,6 +175,7 @@ export function BackLink({
         return
       }
 
+      // Only stop navigation when we actually go back()
       if (hasSameOriginReferrer()) {
         event.preventDefault()
         router.back()
@@ -204,10 +185,6 @@ export function BackLink({
   )
 
   useEffect(() => {
-    if (isSectionRoot) {
-      return
-    }
-
     if (typeof window === 'undefined') {
       return
     }
@@ -248,16 +225,14 @@ export function BackLink({
     return () => {
       window.removeEventListener('resize', handleResize)
     }
-  }, [computedLabel, isSectionRoot, overlapPx])
-
-  if (isSectionRoot) {
-    return null
-  }
+  }, [computedLabel, overlapPx])
 
   const classes = [
-    'group relative z-50 inline-flex min-h-[44px] items-center gap-2 pointer-events-auto text-sm font-medium text-sky-300 transition-colors hover:text-sky-200',
-    '-mx-3 -my-2 px-3 py-2 rounded-lg',
-    'focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-300/60',
+    'group relative z-50 inline-flex items-center gap-2 pointer-events-auto',
+    // ≥44px tap target without shifting layout
+    'px-3 py-2 -mx-3 -my-2 rounded-lg',
+    'text-sm font-medium text-sky-300 transition-colors hover:text-sky-200',
+    'focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/60',
     className,
   ]
     .filter(Boolean)

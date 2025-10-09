@@ -6,6 +6,8 @@ type PageHeaderProps = {
   title: ReactNode
   label?: string
   href?: string
+  backLabel?: string
+  backHref?: string
   contextualLabel?: boolean
   className?: string
   headingClassName?: string
@@ -21,6 +23,8 @@ export function PageHeader({
   title,
   label,
   href,
+  backLabel,
+  backHref,
   contextualLabel = true,
   className,
   headingClassName,
@@ -58,8 +62,8 @@ export function PageHeader({
         {showBack && (
           <div className="relative z-50 mb-4 w-fit isolate pointer-events-auto">
             <BackLink
-              label={label}
-              href={href}
+              label={backLabel ?? label}
+              href={backHref ?? href}
               contextualLabel={contextualLabel}
               className={backLinkClassName}
               overlapPx={overlapPx}
