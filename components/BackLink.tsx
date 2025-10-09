@@ -227,7 +227,9 @@ export function BackLink({
   }, [overlapPx, computedLabel])
 
   const classes = [
-    'relative z-10 inline-flex min-h-[44px] items-center gap-2 -mx-2 -my-2 rounded-full px-3 py-2 text-sm font-medium text-sky-300 pointer-events-auto touch-[manipulation] transition-colors hover:text-sky-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-300/60',
+    'group relative z-50 inline-flex min-h-[44px] items-center gap-2 text-sm font-medium text-sky-300 transition-colors hover:text-sky-200',
+    '-mx-3 -my-2 px-3 py-2 rounded-lg pointer-events-auto',
+    'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-300/60',
     className,
   ]
     .filter(Boolean)
@@ -240,9 +242,12 @@ export function BackLink({
       aria-label={computedLabel}
       className={classes}
       onClick={handleClick}
+      style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
       {...debugAttributes}
     >
-      <span aria-hidden="true">←</span>
+      <span aria-hidden="true" className="transition-transform group-hover:-translate-x-0.5">
+        ←
+      </span>
       <span>{computedLabel}</span>
     </Link>
   )
