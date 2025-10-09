@@ -6,6 +6,7 @@ import { AssistantForm } from '@/components/AssistantForm'
 import { BookCTA } from '@/components/BookCTA'
 import { HeroIllustration } from '@/components/HeroIllustration'
 import { Section } from '@/components/Section'
+import { SkeletonLoader } from '@/components/SkeletonLoader'
 import { metadata as rootMetadata } from '@/app/layout'
 import { buildFaqPageSchema, coreServices, type FAQItem, stringifyJsonLd } from '@/lib/structured-data'
 import { siteOrigin } from '@/lib/config/site'
@@ -15,15 +16,51 @@ const DynamicROIWidget = dynamic(() => import('@/components/ROIWidget').then((mo
   ssr: false,
   loading: () => (
     <Section className="py-12 border-t border-[rgba(255,255,255,.06)]">
-      <div className="h-40 animate-pulse rounded-lg border border-white/10 bg-white/5" />
+      <SkeletonLoader minHeight="160px" />
     </Section>
   ),
 })
 
 // Lazy load below-the-fold sections for better initial load
-const DynamicWork = dynamic(() => Promise.resolve(Work), { ssr: true })
-const DynamicTestimonials = dynamic(() => Promise.resolve(Testimonials), { ssr: true })
-const DynamicFAQ = dynamic(() => Promise.resolve(FAQ), { ssr: true })
+const DynamicWork = dynamic(() => Promise.resolve(Work), { 
+  ssr: true,
+  loading: () => (
+    <Section className="py-12 border-t border-[rgba(255,255,255,.06)]">
+      <div className="h-8 w-48 rounded bg-white/5 mb-4" />
+      <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+        {Array.from({ length: 3 }, (_, i) => (
+          <div key={i} className="min-h-[140px] rounded-2xl border border-white/10 bg-white/5 p-6" />
+        ))}
+      </div>
+    </Section>
+  ),
+})
+const DynamicTestimonials = dynamic(() => Promise.resolve(Testimonials), { 
+  ssr: true,
+  loading: () => (
+    <Section className="py-12 border-t border-[rgba(255,255,255,.06)]">
+      <div className="h-8 w-48 rounded bg-white/5 mb-4" />
+      <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+        {Array.from({ length: 3 }, (_, i) => (
+          <div key={i} className="min-h-[200px] rounded-2xl border border-white/10 bg-white/5 p-6" />
+        ))}
+      </div>
+    </Section>
+  ),
+})
+const DynamicFAQ = dynamic(() => Promise.resolve(FAQ), { 
+  ssr: true,
+  loading: () => (
+    <Section className="py-12 border-t border-[rgba(255,255,255,.06)]">
+      <div className="h-8 w-32 rounded bg-white/5 mb-4" />
+      <div className="space-y-3">
+        {Array.from({ length: 3 }, (_, i) => (
+          <div key={i} className="h-16 rounded bg-white/5" />
+        ))}
+      </div>
+    </Section>
+  ),
+})
 
 type PageProps = {
   searchParams?: Record<string, string | string[] | undefined>
