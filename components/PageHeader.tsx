@@ -30,7 +30,7 @@ export function PageHeader({
   children,
 }: PageHeaderProps) {
   const containerClassName = [
-    'container mx-auto px-4 md:px-6 [--overlap:2px] sm:[--overlap:4px]',
+    'container relative mx-auto px-4 md:px-6 [--overlap:2px] sm:[--overlap:4px]',
     className,
   ]
     .filter(Boolean)
@@ -50,7 +50,7 @@ export function PageHeader({
   return (
     <header className={containerClassName} data-backlink-container>
       <div className="mx-auto max-w-4xl">
-        <div className="mb-4">
+        <div className="relative z-10 mb-4 w-fit pointer-events-auto">
           <BackLink
             label={label}
             href={href}
