@@ -4,7 +4,7 @@
 
 /* Brand variables */
 :root {
-  --bg: #0b1020;
+  --bg: #0e1525;
   --surface: #111834;
   --surface-2: #0f1630;
   --primary: #6b8cff;
@@ -57,8 +57,18 @@
   }
 }
 
-html {
-  background-color: var(--bg);
+@media (max-width: 767.98px) {
+  .sticky-header {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    background-color: rgba(14, 21, 37, 0.88) !important;
+    will-change: auto !important;
+  }
+}
+
+html,
+body {
+  background-color: #0e1525;
 }
 
 body {
