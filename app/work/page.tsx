@@ -39,6 +39,8 @@ export default function WorkPage() {
         eyebrow={
           <p className="text-sm font-medium uppercase tracking-[0.2em] text-sky-300/80">Selected work</p>
         }
+        backLabel="Back to home"
+        backHref="/"
       >
         <p className="text-lg text-slate-300">
           Every programme blends strategy, delivery discipline, and change enablement. Explore how that combination unlocked
