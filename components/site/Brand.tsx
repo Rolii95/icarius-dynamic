@@ -7,7 +7,7 @@ export default function Brand() {
     <Link
       href="/"
       aria-label="Icarius Consulting — home"
-      className="flex items-center gap-3 rounded-xl focus:outline-none focus-visible:ring-2 ring-sky-400/60"
+      className="flex flex-col md:flex-row items-center gap-2 md:gap-3 rounded-xl focus:outline-none focus-visible:ring-2 ring-sky-400/60"
       data-brand-scale="2"
     >
       {/* mark: 56x56 (was 28x28) */}
@@ -20,7 +20,7 @@ export default function Brand() {
         className="w-[56px] h-[56px]"
         priority
       />
-      <div className="leading-none">
+  <div className="leading-none text-center md:text-left">
         {/* name: ~32px (was ~16px) */}
         <div className="font-bold tracking-[0.02em] text-white text-[32px]">
           Icarius
