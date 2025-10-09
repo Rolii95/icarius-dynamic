@@ -84,14 +84,15 @@ export default function MobileMenu({ open, onClose, id = "mobile-menu", children
           className={[
             "w-[88vw] max-w-sm",
             "mr-4 pr-[env(safe-area-inset-right)]",
-            "h-screen",
+            // Use min-h-[100svh] for mobile viewport, fallback to min-h-screen for older browsers
+            "min-h-[100svh] min-h-screen",
             "bg-[#0E1525] border-b border-white/10 shadow-xl",
             "transform-gpu transition-transform duration-200 origin-top-right",
             open ? "translate-y-0" : "-translate-y-full",
             "overflow-y-auto overscroll-contain",
             "pt-[env(safe-area-inset-top)]",
           ].join(" ")}
-          style={{ height: "100dvh", WebkitTapHighlightColor: "transparent" }}
+          style={{ WebkitTapHighlightColor: "transparent" }}
         >
           <div className="p-4 flex items-center justify-between">
             <span className="text-white/70 text-sm">Menu</span>
