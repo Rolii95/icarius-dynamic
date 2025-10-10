@@ -135,7 +135,7 @@ function Hero() {
     <Section className="py-16 md:py-24 hero-watermark">
       <div className="grid md:grid-cols-2 gap-10 items-center">
         <div>
-          <h1 className="text-4xl md:text-6xl font-semibold tracking-tight heading-underline h1-accent">
+          <h1 className="heading-underline h1-accent font-semibold tracking-tight leading-[1.12] [text-wrap:balance] max-w-[30ch] text-[clamp(24px,4.2vw,40px)]">
             Accelerate Your <span className="bg-gradient-to-r from-[color:var(--primary)] to-[color:var(--primary-2)] bg-clip-text text-transparent">HRIS Journey</span> with Expert Guidance, Seamless Integrations & Future-Ready AI HR Solutions
           </h1>
           <p className="mt-5 max-w-xl text-lg text-slate-300">
