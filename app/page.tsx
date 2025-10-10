@@ -136,7 +136,7 @@ function Hero() {
       <div className="grid md:grid-cols-2 gap-10 items-center">
         <div>
           <h1 className="text-4xl md:text-6xl font-semibold tracking-tight heading-underline h1-accent">
-            De-risk <span className="bg-gradient-to-r from-[color:var(--primary)] to-[color:var(--primary-2)] bg-clip-text text-transparent">HRIS change</span>. Enable AI in HR.
+            Accelerate Your <span className="bg-gradient-to-r from-[color:var(--primary)] to-[color:var(--primary-2)] bg-clip-text text-transparent">HRIS Journey</span> with Expert Guidance, Seamless Integrations & Future-Ready AI HR Solutions
           </h1>
           <p className="mt-5 max-w-xl text-lg text-slate-300">
             HRIT advisory & digital HR partner specialising in HRIS (Workday, SAP, Oracle), integrations and AI enablement. We stabilise payroll, unblock data and improve employee experience.
