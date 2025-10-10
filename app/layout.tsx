@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import dynamic from 'next/dynamic'
+import Script from 'next/script'
 import '@/styles/globals.css'
 import { SiteProviders } from '@/components/consent-provider'
 import { Header } from '@/components/header'
@@ -104,6 +105,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={`${inter.className} text-slate-100`}>
         <ViewObserver />
         <a href="#main" className="skip-link">Skip to content</a>
+        {process.env.NODE_ENV === 'production' && process.env.NEXT_PUBLIC_CF_BEACON_TOKEN ? (
+          <Script
+            src="https://static.cloudflareinsights.com/beacon.min.js"
+            strategy="afterInteractive"
+            defer
+            data-cf-beacon={JSON.stringify({ token: process.env.NEXT_PUBLIC_CF_BEACON_TOKEN })}
+          />
+        ) : null}
         <SiteProviders>
           <Header />
           <main id="main" tabIndex={-1} className="container mx-auto px-4 pb-32">
