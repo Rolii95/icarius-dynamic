@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 
 const contactMethods = [
   {
-    label: 'Book a 15-min HRIT consult',
+    label: 'Book a call with our expert',
     href: bookingUrl,
     description: 'Outline your HRIS, payroll, or analytics priority and we will map the fastest, safest path to value.',
     newTab: true,
@@ -84,7 +84,7 @@ export default function ContactPage() {
                   data-cta={method.cta}
                   data-plan={method.plan}
                 >
-                  {method.newTab ? method.label : `mailto:${siteConfig.contactEmail}`} →
+                  {method.newTab ? 'Book a call' : `mailto:${siteConfig.contactEmail}`} →
                 </a>
               </li>
             ))}

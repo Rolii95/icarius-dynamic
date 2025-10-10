@@ -87,7 +87,7 @@ export type ContactModalTriggerProps = ContactModalTriggerBaseProps
 export function ContactModalTrigger({
   plan,
   cta = 'book-cta',
-  children = 'Book a 15-min HRIT consult',
+  children = 'Book a 30-min call',
   className,
   onClick,
   target,
