@@ -25,7 +25,7 @@ export function BlogCTA({ plan, className, children }: BlogCTAProps) {
 
   return (
     <Link href={href} className={classes} prefetch={false}>
-      {children ?? 'Book a 15-min HRIT consult'}
+      {children ?? 'Book a 30-min call'}
     </Link>
   )
 }

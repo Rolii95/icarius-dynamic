@@ -147,7 +147,7 @@ function Hero() {
               data-cta="hero"
               className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[color:var(--primary)] to-[color:var(--primary-2)] px-6 py-3 text-base font-semibold text-slate-950 shadow-[0_18px_45px_rgba(12,18,30,0.35)] transition hover:-translate-y-0.5 hover:shadow-[0_24px_55px_rgba(12,18,30,0.45)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--primary)]/60 sm:w-auto"
             >
-              Book a 15-min HRIT consult
+              Book a 30-min call
             </BookCTA>
             <a
               href="#pricing"
@@ -265,7 +265,7 @@ function Pricing() {
               plan={card.plan}
               className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/20 px-5 py-2.5 text-sm font-semibold text-slate-100 transition hover:border-[color:var(--primary)]/60 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--primary)]/60"
             >
-              Book a 15-min HRIT consult
+              Book a 30-min call
             </BookCTA>
           </div>
         ))}
@@ -399,7 +399,7 @@ function CTA({ defaultPlan }: { defaultPlan?: string }) {
               plan={defaultPlan}
               className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[color:var(--primary)] to-[color:var(--primary-2)] px-5 py-2.5 text-sm font-semibold text-slate-950 shadow-[0_14px_40px_rgba(12,18,30,0.35)] transition hover:-translate-y-0.5 hover:shadow-[0_20px_48px_rgba(12,18,30,0.45)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--primary)]/60 sm:px-6 sm:py-3 sm:text-base"
             >
-              <Phone size={18} /> Book a 15-min HRIT consult
+              <Phone size={18} /> Book a 30-min call
             </BookCTA>
           </div>
           <AssistantForm plan={defaultPlan} className="card border-white/10 bg-slate-950/50 p-4 shadow-none sm:p-6" />
