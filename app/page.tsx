@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic'
+import Link from 'next/link'
 import { CheckCircle2, ChevronDown, Phone, Lightbulb, Rocket, Search, Sparkles } from 'lucide-react'
 import type { Metadata } from 'next'
 
@@ -149,12 +150,12 @@ function Hero() {
             >
               Book a 30-min call
             </BookCTA>
-            <a
-              href="#pricing"
+            <Link
+              href="/packages"
               className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/20 px-6 py-3 text-base font-semibold text-slate-100 transition hover:-translate-y-0.5 hover:border-[color:var(--primary)]/60 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--primary)]/60 sm:w-auto"
             >
               See HR packages →
-            </a>
+            </Link>
           </div>
           <p className="mt-4 text-sm text-slate-400">Trusted by HR teams in FTSE 250, retail and professional services</p>
         </div>
