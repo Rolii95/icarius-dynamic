@@ -31,27 +31,33 @@ export const metadata: Metadata = {
 
 const services = [
   {
-    title: 'Operating model design',
-    description:
-      'Design workflows, roles, and KPIs so HR, payroll, and finance ship outcomes together without rework.',
-    featuredCaseStudies: ['global-hcm-replacement', 'payroll-consolidation'],
-  },
-  {
-    title: 'Platform implementation leadership',
-    description:
-      'Programme leadership that sets cadence, risk controls, and adoption plans for global rollouts.',
+    title: 'HRIS Strategy & Roadmap',
+    description: 'Right-size your HR stack and sequence change.',
     featuredCaseStudies: ['global-hcm-replacement'],
   },
   {
-    title: 'Process optimisation sprints',
-    description:
-      'Rapid discovery, automation, and policy redesign that remove friction from employee journeys.',
+    title: 'AI Enablement for HR',
+    description: 'Identify use-cases, pilots and guardrails; deploy safe HR copilots.',
+    featuredCaseStudies: ['hr-ops-ai-assistant'],
+  },
+  {
+    title: 'People Analytics & Reporting',
+    description: 'Automate metrics and compliance; move from spreadsheets to self-serve.',
+    featuredCaseStudies: ['hr-ops-ai-assistant'],
+  },
+  {
+    title: 'Payroll & Time Stabilisation',
+    description: 'Reduce errors and rework; meet payroll SLAs.',
     featuredCaseStudies: ['payroll-consolidation'],
   },
   {
-    title: 'Fractional operations support',
-    description:
-      'Hands-on senior operator to stabilise change, mentor leads, and leave a playbook behind.',
+    title: 'Integration Architecture',
+    description: 'Design robust flows across HR, payroll, finance and IT.',
+    featuredCaseStudies: ['global-hcm-replacement', 'payroll-consolidation'],
+  },
+  {
+    title: 'Employee Experience & Service Delivery',
+    description: 'Simplify journeys—onboarding, absence, helpdesk.',
     featuredCaseStudies: ['hr-ops-ai-assistant'],
   },
 ]
@@ -69,9 +75,12 @@ export default function ServicesPage() {
         backHref="/"
         backLabel="Back to home"
       >
-        <p className="text-lg text-slate-300">
-          Clear plan in week one • Prototypes that answer the question • Interfaces that convert • Production-ready features, not demos
-        </p>
+        <ul className="text-lg text-slate-300 space-y-2">
+          <li>Clear HRIS plan in week one</li>
+          <li>Prototypes/pilots that answer the question</li>
+          <li>Stabilised payroll & integrations</li>
+          <li>Self-serve analytics your HR team trusts</li>
+        </ul>
       </PageHeader>
       <div className="container mx-auto max-w-4xl px-4">
         <div className="space-y-10">

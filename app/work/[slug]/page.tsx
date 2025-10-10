@@ -93,6 +93,9 @@ export default function CaseStudyPage({ params }: Params) {
         }
       >
         <p className="text-lg text-slate-300">{study.hero.description}</p>
+        <p className="text-sm text-slate-400">
+          Result highlights: cut payroll adjustments by 38% · reduced HR ticket backlog by 42% · Workday integration live in 8 weeks
+        </p>
       </PageHeader>
 
       <div className="container mx-auto max-w-4xl px-4 md:px-6">

@@ -48,7 +48,7 @@ export default function Header() {
               Contact
             </Link>
             <Link className="text-sky-300 hover:text-sky-200" href={bookingUrl} target="_blank" rel="noopener noreferrer">
-              Book a 15-min fit call
+              Book a 15-min HRIT consult
             </Link>
           </nav>
           <button
@@ -87,7 +87,7 @@ export default function Header() {
           Contact
         </Link>
         <Link className="py-2 text-lg text-sky-300" href={bookingUrl} target="_blank" rel="noopener noreferrer" onClick={close}>
-          Book a 15-min fit call
+          Book a 15-min HRIT consult
         </Link>
       </MobileMenu>
     </>

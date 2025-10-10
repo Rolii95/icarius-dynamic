@@ -265,7 +265,7 @@ export function ChatWidget() {
               <div className="rounded-xl border border-emerald-500/40 bg-emerald-500/10 p-3 sm:p-4 text-xs sm:text-sm text-emerald-100">
                 <p className="mb-2 sm:mb-3 font-medium text-emerald-200">{schedulerCtaCopy}</p>
                 <ContactModalTrigger className="inline-flex items-center justify-center rounded-full bg-emerald-500 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-950 transition hover:bg-emerald-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-300">
-                  Book a 15-min fit call
+                  Book a 15-min HRIT consult
                 </ContactModalTrigger>
               </div>
             )}

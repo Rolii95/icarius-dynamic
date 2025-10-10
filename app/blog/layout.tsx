@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 
 
-const defaultTitle = 'HRIT advisory HR systems audit HR AI PMO insights library'
+const defaultTitle = 'Insights for HRIT, payroll & AI enablement'
 const defaultDescription =
-  'See how our HRIT advisory strategies, HR systems audit tactics, HR AI adoption, and PMO leadership keep transformations focused on tangible impact.'
+  'See how our HRIS change, payroll stabilisation, analytics, and HR AI playbooks keep transformations focused on measurable impact.'
 
 export const metadata: Metadata = {
   title: {

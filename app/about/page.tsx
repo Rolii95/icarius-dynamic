@@ -35,14 +35,10 @@ export default function AboutPage() {
         contentClassName="max-w-3xl space-y-6"
       >
         <p className="text-lg text-slate-300">
-          Icarius Consulting partners with product, design, and engineering leaders to ship roadmap commitments without the usual enterprise drag. We pair enterprise-scale experience with boutique pace so teams deliver what customers actually need.
+          We specialise in HRIT advisory, AI enablement for HR and digital HR transformation.
         </p>
-        <p className="text-slate-300">
-          Our leads have scaled platforms, reworked onboarding, and launched AI assistants across regulated industries. The playbooks cover vendor orchestration, experimentation, and measurement so stakeholders stay confident in every milestone.
-        </p>
-        <p className="text-slate-300">
-          We embed alongside your team, co-own ceremonies, and leave behind operating models that keep momentum compounding. Launches stick, teams stay calm, and your roadmap keeps moving after we step away.
-        </p>
+        <p className="text-slate-300">Small surface, high impact · Show work early · Measure improvements</p>
+        <p className="text-slate-300">10+ HR programmes shipped · HRIS & payroll · People analytics · Change management</p>
       </PageHeader>
     </Section>
   )

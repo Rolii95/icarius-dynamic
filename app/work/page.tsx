@@ -32,7 +32,7 @@ export default function WorkPage() {
   return (
     <Section className="py-16" style={{ minHeight: '600px' }}>
       <PageHeader
-        title="Outcomes product teams trust us to deliver"
+        title="HR technology outcomes we've delivered"
         className="mb-12"
         headingClassName="text-4xl font-semibold tracking-tight text-white heading-underline"
         contentClassName="max-w-3xl space-y-4"
@@ -42,9 +42,7 @@ export default function WorkPage() {
         backLabel="Back to home"
         backHref="/"
       >
-        <p className="text-lg text-slate-300">
-          Explore engagements where embedded leads turned stalled backlogs into launched journeys—with the adoption, NPS, and revenue impact to prove it.
-        </p>
+        <p className="text-lg text-slate-300">Real outcomes from focused HR technology sprints.</p>
       </PageHeader>
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid gap-6 md:grid-cols-2">
