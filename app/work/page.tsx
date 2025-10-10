@@ -32,7 +32,7 @@ export default function WorkPage() {
   return (
     <Section className="py-16" style={{ minHeight: '600px' }}>
       <PageHeader
-        title="Outcomes our clients trust us to deliver"
+        title="Outcomes product teams trust us to deliver"
         className="mb-12"
         headingClassName="text-4xl font-semibold tracking-tight text-white heading-underline"
         contentClassName="max-w-3xl space-y-4"
@@ -43,8 +43,7 @@ export default function WorkPage() {
         backHref="/"
       >
         <p className="text-lg text-slate-300">
-          Every programme blends strategy, delivery discipline, and change enablement. Explore how that combination unlocked
-          measurable improvements in HR, payroll, and employee experience.
+          Explore engagements where embedded leads turned stalled backlogs into launched journeys—with the adoption, NPS, and revenue impact to prove it.
         </p>
       </PageHeader>
       <div className="container mx-auto px-4 md:px-6">

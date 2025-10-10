@@ -62,7 +62,7 @@ export default function ServicesPage() {
   return (
     <Section className="py-16" style={{ minHeight: '600px' }}>
       <PageHeader
-        title="Services"
+        title="What you get"
         className="mb-10"
         headingClassName="text-4xl font-semibold tracking-tight heading-underline"
         contentClassName="max-w-3xl space-y-4"
@@ -70,8 +70,7 @@ export default function ServicesPage() {
         backLabel="Back to home"
       >
         <p className="text-lg text-slate-300">
-          Select the plays that match your stage. Each one is designed to shorten time-to-value while giving stakeholders the
-          transparency they need to stay aligned.
+          Clear plan in week one • Prototypes that answer the question • Interfaces that convert • Production-ready features, not demos
         </p>
       </PageHeader>
       <div className="container mx-auto max-w-4xl px-4">

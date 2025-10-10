@@ -136,10 +136,10 @@ function Hero() {
       <div className="grid md:grid-cols-2 gap-10 items-center">
         <div>
           <h1 className="text-4xl md:text-6xl font-semibold tracking-tight heading-underline">
-            Lead <span className="bg-gradient-to-r from-[color:var(--primary)] to-[color:var(--primary-2)] bg-clip-text text-transparent">HR technology change</span> that lands and lasts
+            Ship the <span className="bg-gradient-to-r from-[color:var(--primary)] to-[color:var(--primary-2)] bg-clip-text text-transparent">right features</span>, faster.
           </h1>
           <p className="mt-5 max-w-xl text-lg text-slate-300">
-            Boutique HRIT advisors who turn complex roadmaps into measurable outcomes—delivery leadership, platform audits, and AI enablement tuned to your timeline.
+            Icarius Consulting turns strategy into shipped outcomes—product, UX, and code that move the needle.
           </p>
           {/* Mobile CTA - Stacked with full width */}
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:gap-4">
@@ -156,9 +156,7 @@ function Hero() {
               See packages →
             </a>
           </div>
-          <p className="mt-4 text-sm text-slate-400">
-            Trusted by FTSE 250 brands, PE-backed scale-ups, and global shared services teams.
-          </p>
+          <p className="mt-4 text-sm text-slate-400">No pitch—feasibility & next steps.</p>
         </div>
         <HeroIllustration />
       </div>
@@ -202,22 +200,22 @@ function Services() {
 function Pricing() {
   const cards = [
     {
-      name: 'Audit sprint',
+      name: 'Diagnostic Sprint',
       price: 6000,
       plan: 'audit-sprint',
-      tagline: 'Three-week diagnostic that quantifies risk, value, and the roadmap to unlock both.',
+      tagline: 'Ship a validated MVP in 2–4 weeks.',
     },
     {
-      name: 'Delivery jumpstart',
+      name: 'Transformation Partner',
       price: 12000,
       plan: 'delivery-jumpstart',
-      tagline: 'Embedded delivery leadership to stand up cadence, cutover, and stakeholder confidence fast.',
+      tagline: 'Accelerate a key journey (onboarding/checkout).',
     },
     {
-      name: 'AI readiness',
+      name: 'Fractional Operator',
       price: 9000,
       plan: 'ai-readiness',
-      tagline: 'Design safe, compliant AI pilots that reduce handling time without compromising governance.',
+      tagline: 'Senior product/UX/engineering capacity on tap.',
     },
   ] as const
 

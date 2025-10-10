@@ -31,21 +31,18 @@ export const metadata: Metadata = {
 
 const packages = [
   {
-    name: 'Diagnostic sprint',
-    summary:
-      'Three-week assessment that quantifies risk, value, and priority backlog so leadership can decide fast.',
+    name: 'Diagnostic Sprint',
+    summary: 'Ship a validated MVP in 2–4 weeks.',
     relatedCaseStudies: ['payroll-consolidation'],
   },
   {
-    name: 'Transformation partner',
-    summary:
-      'Embedded programme leadership to establish cadence, unblock vendors, and keep stakeholders aligned.',
+    name: 'Transformation Partner',
+    summary: 'Accelerate a key journey (onboarding/checkout).',
     relatedCaseStudies: ['global-hcm-replacement'],
   },
   {
-    name: 'Fractional operator',
-    summary:
-      'Part-time senior operator who stabilises change, mentors leads, and leaves a playbook behind.',
+    name: 'Fractional Operator',
+    summary: 'Senior product/UX/engineering capacity on tap.',
     relatedCaseStudies: ['hr-ops-ai-assistant'],
   },
 ]
@@ -64,8 +61,7 @@ export default function PackagesPage() {
         backLabel="Back to home"
       >
         <p className="text-lg text-slate-300">
-          Choose the level of partnership you need—from rapid assessment through to embedded transformation leadership.
-          Every package flexes to your geography, team structure, and internal capacity.
+          Choose the partnership that fits your roadmap—rapid validation, journey acceleration, or fractional leadership—with measurable checkpoints baked in.
         </p>
       </PageHeader>
       <div className="container mx-auto max-w-4xl px-4">

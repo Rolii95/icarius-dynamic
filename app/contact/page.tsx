@@ -32,7 +32,7 @@ const contactMethods = [
   {
     label: 'Book a 15-min fit call',
     href: bookingUrl,
-    description: 'Schedule a 15-minute fit call to confirm goals, timelines, and whether we are the right partner.',
+    description: 'Confirm goals, success metrics, and whether we are the right partner in a focused 15-minute fit call.',
     newTab: true,
     cta: 'contact-page',
     plan: 'general',
@@ -40,7 +40,7 @@ const contactMethods = [
   {
     label: 'Email the team',
     href: `mailto:${siteConfig.contactEmail}`,
-    description: 'Share context, RFPs, or supporting information and we will respond within one business day.',
+    description: 'Share context, RFPs, or supporting information and we will reply within one business day with next steps.',
     newTab: false,
     cta: 'contact-page-email',
     plan: 'general',
@@ -58,12 +58,10 @@ export default function ContactPage() {
         <div className="space-y-6">
           <header className="space-y-4">
             <p className="text-lg text-slate-300">
-              Let’s discuss the change you need to land—platform replacement, payroll clean-up, or AI enablement. Choose the
-              option that fits and we’ll respond quickly with next steps.
+              Let’s get your next milestone unstuck—launch, conversion lift, or internal tooling upgrade. Pick the option that fits and we’ll reply with feasibility, timeline, and who will lead the work.
             </p>
             <p className="text-sm text-slate-400">
-              Based in {BUSINESS_ADDRESS.addressLocality} {BUSINESS_ADDRESS.postalCode}, {BUSINESS_ADDRESS.addressRegion}, we partner with
-              clients across the UK, EMEA, and North America. Prefer to speak now? Call{' '}
+              Based in {BUSINESS_ADDRESS.addressLocality} {BUSINESS_ADDRESS.postalCode}, {BUSINESS_ADDRESS.addressRegion}, we partner with clients across the UK, EMEA, and North America. Expect clear comms, weekly touchpoints, and quick answers. Prefer to speak now? Call{' '}
               <a href={`tel:${CONTACT_PHONE_URI}`} className="text-[color:var(--primary)]">
                 {CONTACT_PHONE}
               </a>
