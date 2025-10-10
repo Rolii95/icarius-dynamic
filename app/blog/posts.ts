@@ -9,7 +9,7 @@ export type Post = {
 export const POSTS: Post[] = [
   {
     slug: 'hris-audit-sprint-playbook',
-    title: 'HRIS Audit Sprint Playbook',
+    title: 'HRIS Diagnostic Sprint Playbook',
     summary:
       'Use a six-week sprint model to surface HRIS risk, quantify impact, and build a remediation roadmap leaders trust.',
     date: '2024-11-05',
@@ -17,7 +17,7 @@ export const POSTS: Post[] = [
   },
   {
     slug: 'delivery-jumpstart-30-days',
-    title: 'Delivery Jumpstart: 30 Days to Program Momentum',
+    title: 'HRIS Implementation Jumpstart: 30 Days to Program Momentum',
     summary:
       'Stabilise struggling HR transformations with a 30-day cadence reset that rebuilds trust and accelerates value.',
     date: '2024-10-22',
@@ -25,7 +25,7 @@ export const POSTS: Post[] = [
   },
   {
     slug: 'ai-readiness-for-hr',
-    title: 'AI Readiness for HR',
+    title: 'AI HR Readiness',
     summary:
       'Prepare HR data, governance, and teams for responsible AI pilots that balance innovation with compliance.',
     date: '2024-09-18',

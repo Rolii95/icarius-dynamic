@@ -139,6 +139,8 @@ export function BlogIndex({ posts, heading, description }: BlogIndexProps) {
                   <time dateTime={post.date}>{formatDate(post.date)}</time>
                   <span aria-hidden="true">•</span>
                   <span>{post.tags.join(' / ')}</span>
+                  <span aria-hidden="true">·</span>
+                  <span>5 min read</span>
                 </div>
                 <h2 className="text-xl font-semibold text-slate-50 transition group-hover:text-indigo-200">
                   {post.title}

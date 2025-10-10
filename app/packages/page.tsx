@@ -31,18 +31,28 @@ export const metadata: Metadata = {
 
 const packages = [
   {
-    name: 'Diagnostic Sprint',
-    summary: 'Ship a validated MVP in 2–4 weeks.',
+    name: 'HRIS Diagnostic Sprint',
+    summary: 'In 2–4 weeks: issues list, prioritised fixes and a 90-day HRIS plan.',
     relatedCaseStudies: ['payroll-consolidation'],
   },
   {
-    name: 'Transformation Partner',
-    summary: 'Accelerate a key journey (onboarding/checkout).',
+    name: 'HRIS Implementation Jumpstart',
+    summary: 'Accelerate a key HR journey (onboarding, absence, talent).',
     relatedCaseStudies: ['global-hcm-replacement'],
   },
   {
-    name: 'Fractional Operator',
-    summary: 'Senior product/UX/engineering capacity on tap.',
+    name: 'AI HR Readiness',
+    summary: 'Assess data, privacy and process for AI; ship a safe HR pilot in 3–6 weeks.',
+    relatedCaseStudies: ['hr-ops-ai-assistant'],
+  },
+  {
+    name: 'HR Transformation Partner',
+    summary: 'Embedded partner to manage vendors, cadence, change and value tracking.',
+    relatedCaseStudies: ['global-hcm-replacement', 'payroll-consolidation'],
+  },
+  {
+    name: 'Fractional HRIT Leader',
+    summary: 'Senior HRIT/PMO capacity on tap.',
     relatedCaseStudies: ['hr-ops-ai-assistant'],
   },
 ]
@@ -61,7 +71,7 @@ export default function PackagesPage() {
         backLabel="Back to home"
       >
         <p className="text-lg text-slate-300">
-          Choose the partnership that fits your roadmap—rapid validation, journey acceleration, or fractional leadership—with measurable checkpoints baked in.
+          Compare HRIT offers tailored to your programme stage—diagnostics, implementation leadership, transformation partnership, or fractional oversight—with measurable checkpoints baked in.
         </p>
       </PageHeader>
       <div className="container mx-auto max-w-4xl px-4">

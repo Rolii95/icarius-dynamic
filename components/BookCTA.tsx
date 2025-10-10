@@ -18,7 +18,7 @@ export type BookCTAProps = {
 } & Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'href'>
 
 export const BookCTA = forwardRef<HTMLAnchorElement, BookCTAProps>(
-  ({ plan, children = 'Book a 15-min fit call', target = '_blank', rel, ...props }, ref) => {
+  ({ plan, children = 'Book a 15-min HRIT consult', target = '_blank', rel, ...props }, ref) => {
     const href = buildBookingUrl(plan)
     const computedRel = rel ?? (target === '_blank' ? 'noopener noreferrer' : undefined)
     const [triggerReady, setTriggerReady] = useState(false)

@@ -135,11 +135,11 @@ function Hero() {
     <Section className="py-16 md:py-24 hero-watermark">
       <div className="grid md:grid-cols-2 gap-10 items-center">
         <div>
-          <h1 className="text-4xl md:text-6xl font-semibold tracking-tight heading-underline">
-            Ship the <span className="bg-gradient-to-r from-[color:var(--primary)] to-[color:var(--primary-2)] bg-clip-text text-transparent">right features</span>, faster.
+          <h1 className="text-4xl md:text-6xl font-semibold tracking-tight heading-underline h1-accent">
+            De-risk <span className="bg-gradient-to-r from-[color:var(--primary)] to-[color:var(--primary-2)] bg-clip-text text-transparent">HRIS change</span>. Enable AI in HR.
           </h1>
           <p className="mt-5 max-w-xl text-lg text-slate-300">
-            Icarius Consulting turns strategy into shipped outcomes—product, UX, and code that move the needle.
+            HRIT advisory & digital HR partner specialising in HRIS (Workday, SAP, Oracle), integrations and AI enablement. We stabilise payroll, unblock data and improve employee experience.
           </p>
           {/* Mobile CTA - Stacked with full width */}
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:gap-4">
@@ -147,16 +147,16 @@ function Hero() {
               data-cta="hero"
               className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[color:var(--primary)] to-[color:var(--primary-2)] px-6 py-3 text-base font-semibold text-slate-950 shadow-[0_18px_45px_rgba(12,18,30,0.35)] transition hover:-translate-y-0.5 hover:shadow-[0_24px_55px_rgba(12,18,30,0.45)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--primary)]/60 sm:w-auto"
             >
-              Book a 15-min fit call
+              Book a 15-min HRIT consult
             </BookCTA>
             <a
               href="#pricing"
               className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/20 px-6 py-3 text-base font-semibold text-slate-100 transition hover:-translate-y-0.5 hover:border-[color:var(--primary)]/60 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--primary)]/60 sm:w-auto"
             >
-              See packages →
+              See HR packages →
             </a>
           </div>
-          <p className="mt-4 text-sm text-slate-400">No pitch—feasibility & next steps.</p>
+          <p className="mt-4 text-sm text-slate-400">Trusted by HR teams in FTSE 250, retail and professional services</p>
         </div>
         <HeroIllustration />
       </div>
@@ -176,7 +176,7 @@ function Services() {
     <Section id="services" className="py-12 border-t border-[rgba(255,255,255,.06)]">
       <h2 className="text-2xl font-semibold heading-underline">Where we accelerate value</h2>
       <p className="mt-3 max-w-2xl text-sm text-slate-400">
-        Targeted interventions that keep strategy, delivery, and run-state operations in lockstep.
+        Targeted HRIT engagements that keep HRIS change, payroll, integrations, analytics, and AI enablement in lockstep.
       </p>
       <ul className="mt-6 grid grid-cols-2 gap-4 md:grid-cols-4">
         {coreServices.map((service) => {
@@ -200,24 +200,46 @@ function Services() {
 function Pricing() {
   const cards = [
     {
-      name: 'Diagnostic Sprint',
+      name: 'HRIS Diagnostic Sprint',
       price: 6000,
       plan: 'audit-sprint',
-      tagline: 'Ship a validated MVP in 2–4 weeks.',
+      tagline: 'In 2–4 weeks: issues list, prioritised fixes and a 90-day HRIS plan.',
     },
     {
-      name: 'Transformation Partner',
+      name: 'HRIS Implementation Jumpstart',
       price: 12000,
       plan: 'delivery-jumpstart',
-      tagline: 'Accelerate a key journey (onboarding/checkout).',
+      tagline: 'Accelerate a key HR journey (onboarding, absence, talent).',
     },
     {
-      name: 'Fractional Operator',
+      name: 'Fractional HRIT Leader',
       price: 9000,
       plan: 'ai-readiness',
-      tagline: 'Senior product/UX/engineering capacity on tap.',
+      tagline: 'Senior HRIT/PMO capacity on tap.',
     },
   ] as const
+
+  const cardBulletPoints: Record<(typeof cards)[number]['name'], string[]> = {
+    'HRIS Diagnostic Sprint': [
+      'discovery sprint',
+      'system healthcheck',
+      'integration map',
+      'remediation backlog',
+      '90-day plan',
+    ],
+    'HRIS Implementation Jumpstart': [
+      'environment setup',
+      'data migration plan',
+      'test scripts',
+      'cutover checklist',
+    ],
+    'Fractional HRIT Leader': [
+      'weekly cadence',
+      'backlog shaping',
+      'cross-functional alignment',
+      'clean handover',
+    ],
+  }
 
   return (
     <Section id="pricing" className="py-12 border-t border-[rgba(255,255,255,.06)]">
@@ -232,22 +254,18 @@ function Pricing() {
             <p className="mt-2 text-sm text-slate-400">{card.tagline}</p>
             <p className="mt-4 text-3xl font-bold tracking-tight text-white">£{card.price.toLocaleString('en-GB')}</p>
             <ul className="mt-4 space-y-1 text-sm text-slate-300">
-              <li className="flex items-center gap-2">
-                <CheckCircle2 size={16} /> Board-ready findings deck
-              </li>
-              <li className="flex items-center gap-2">
-                <CheckCircle2 size={16} /> Prioritised backlog with owners
-              </li>
-              <li className="flex items-center gap-2">
-                <CheckCircle2 size={16} /> 30-day co-pilot support
-              </li>
+              {cardBulletPoints[card.name].map((item) => (
+                <li key={item} className="flex items-center gap-2">
+                  <CheckCircle2 size={16} /> {item}
+                </li>
+              ))}
             </ul>
             <BookCTA
               data-cta="pricing"
               plan={card.plan}
               className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/20 px-5 py-2.5 text-sm font-semibold text-slate-100 transition hover:border-[color:var(--primary)]/60 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--primary)]/60"
             >
-              Book a 15-min fit call
+              Book a 15-min HRIT consult
             </BookCTA>
           </div>
         ))}
@@ -260,6 +278,7 @@ function Work() {
   return (
     <Section id="work" className="py-12 border-t border-[rgba(255,255,255,.06)]">
       <h2 className="text-2xl font-semibold heading-underline">Proof from recent programmes</h2>
+      <p className="mt-3 text-sm text-slate-400">Real outcomes from focused HR technology sprints.</p>
       <ul className="mt-6 grid gap-4 sm:grid-cols-2 md:grid-cols-3">
         <li
           id="cs-hcm"
@@ -368,9 +387,9 @@ function CTA({ defaultPlan }: { defaultPlan?: string }) {
       <div className="card border-white/10 bg-gradient-to-br from-slate-950/70 via-slate-950/50 to-slate-900/40 p-6 shadow-[0_24px_60px_rgba(12,18,30,0.45)] sm:p-8 md:p-10">
         <div className="grid gap-6 sm:gap-8 lg:grid-cols-[minmax(0,1fr),minmax(0,420px)] lg:items-start">
           <div className="space-y-4 text-left">
-            <h2 className="text-2xl sm:text-3xl font-semibold heading-underline">Let’s scope your next milestone</h2>
+            <h2 className="text-2xl sm:text-3xl font-semibold heading-underline">Let’s scope your next HR milestone</h2>
             <p className="text-slate-300">
-              Share the change you need to land—new platform, payroll clean-up, or AI enablement—and we’ll outline the fastest, safest route to value.
+              Share the HRIS rollout, payroll clean-up, integration fix, or AI enablement you need to land—we’ll outline the fastest, safest route to value.
             </p>
             <p className="text-sm text-slate-400">
               You’ll hear back within one business day with suggested next steps and who from our team will be involved.
@@ -380,7 +399,7 @@ function CTA({ defaultPlan }: { defaultPlan?: string }) {
               plan={defaultPlan}
               className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[color:var(--primary)] to-[color:var(--primary-2)] px-5 py-2.5 text-sm font-semibold text-slate-950 shadow-[0_14px_40px_rgba(12,18,30,0.35)] transition hover:-translate-y-0.5 hover:shadow-[0_20px_48px_rgba(12,18,30,0.45)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--primary)]/60 sm:px-6 sm:py-3 sm:text-base"
             >
-              <Phone size={18} /> Book a 15-min fit call
+              <Phone size={18} /> Book a 15-min HRIT consult
             </BookCTA>
           </div>
           <AssistantForm plan={defaultPlan} className="card border-white/10 bg-slate-950/50 p-4 shadow-none sm:p-6" />

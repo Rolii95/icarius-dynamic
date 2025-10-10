@@ -5,7 +5,7 @@ import { BUSINESS_ADDRESS, CONTACT_PHONE, CONTACT_PHONE_URI } from '@/lib/struct
 import { siteConfig } from '@/lib/siteConfig'
 import { BackLink } from '@/components/BackLink'
 
-const title = 'Contact Icarius Consulting | Book a fit call'
+const title = 'Contact Icarius Consulting | Book an HRIT consult'
 const description =
   'Connect with HR technology specialists to scope HRIT, payroll, or AI programmes shaped around your stakeholders, timelines, and outcomes.'
 
@@ -30,9 +30,9 @@ export const metadata: Metadata = {
 
 const contactMethods = [
   {
-    label: 'Book a 15-min fit call',
+    label: 'Book a 15-min HRIT consult',
     href: bookingUrl,
-    description: 'Confirm goals, success metrics, and whether we are the right partner in a focused 15-minute fit call.',
+    description: 'Outline your HRIS, payroll, or analytics priority and we will map the fastest, safest path to value.',
     newTab: true,
     cta: 'contact-page',
     plan: 'general',
@@ -40,7 +40,7 @@ const contactMethods = [
   {
     label: 'Email the team',
     href: `mailto:${siteConfig.contactEmail}`,
-    description: 'Share context, RFPs, or supporting information and we will reply within one business day with next steps.',
+    description: 'Send RFPs, context, or supporting detail—expect a tailored response within one business day.',
     newTab: false,
     cta: 'contact-page-email',
     plan: 'general',
@@ -58,10 +58,10 @@ export default function ContactPage() {
         <div className="space-y-6">
           <header className="space-y-4">
             <p className="text-lg text-slate-300">
-              Let’s get your next milestone unstuck—launch, conversion lift, or internal tooling upgrade. Pick the option that fits and we’ll reply with feasibility, timeline, and who will lead the work.
+              Tell us your HR goal; we’ll propose the shortest path. HRIS replacement, payroll stabilisation, AI pilot, or analytics uplift—share the outcome you need and we’ll respond with options.
             </p>
             <p className="text-sm text-slate-400">
-              Based in {BUSINESS_ADDRESS.addressLocality} {BUSINESS_ADDRESS.postalCode}, {BUSINESS_ADDRESS.addressRegion}, we partner with clients across the UK, EMEA, and North America. Expect clear comms, weekly touchpoints, and quick answers. Prefer to speak now? Call{' '}
+              Replies within 1 business day · UK/EU time zone. Based in {BUSINESS_ADDRESS.addressLocality} {BUSINESS_ADDRESS.postalCode}, {BUSINESS_ADDRESS.addressRegion}, partnering with HR teams across the UK, EMEA, and North America. Prefer to speak now? Call{' '}
               <a href={`tel:${CONTACT_PHONE_URI}`} className="text-[color:var(--primary)]">
                 {CONTACT_PHONE}
               </a>
@@ -84,7 +84,7 @@ export default function ContactPage() {
                   data-cta={method.cta}
                   data-plan={method.plan}
                 >
-                  {method.label} →
+                  {method.newTab ? method.label : `mailto:${siteConfig.contactEmail}`} →
                 </a>
               </li>
             ))}
