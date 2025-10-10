@@ -3,10 +3,10 @@ import type { Metadata } from 'next'
 import { BlogIndex } from '@/app/blog/blog-index'
 import { SORTED_POSTS } from '@/app/blog/posts'
 
-const heading = 'Insights for HR technology leaders'
+const heading = 'Insights to ship faster with confidence'
 const title = `${heading} | Icarius Consulting`
 const description =
-  'Playbooks, frameworks, and commentary on delivering HR technology change with measurable impact across HR, payroll, and employee experience.'
+  'Playbooks, benchmarks, and teardown notes on shipping product, UX, and engineering work that moves the metrics.'
 
 export const metadata: Metadata = {
   title,
