@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { bookingUrl } from '@/lib/booking'
 import { Section } from '@/components/Section'
-import { BUSINESS_ADDRESS, CONTACT_PHONE, CONTACT_PHONE_URI } from '@/lib/structured-data'
 import { siteConfig } from '@/lib/siteConfig'
 import { BackLink } from '@/components/BackLink'
 
@@ -57,16 +56,8 @@ export default function ContactPage() {
         </div>
         <div className="space-y-6">
           <header className="space-y-4">
-            <p className="text-lg text-slate-300">
-              Tell us your HR goal; we’ll propose the shortest path. HRIS replacement, payroll stabilisation, AI pilot, or analytics uplift—share the outcome you need and we’ll respond with options.
-            </p>
-            <p className="text-sm text-slate-400">
-              Replies within 1 business day · UK/EU time zone. Based in {BUSINESS_ADDRESS.addressLocality} {BUSINESS_ADDRESS.postalCode}, {BUSINESS_ADDRESS.addressRegion}, partnering with HR teams across the UK, EMEA, and North America. Prefer to speak now? Call{' '}
-              <a href={`tel:${CONTACT_PHONE_URI}`} className="text-[color:var(--primary)]">
-                {CONTACT_PHONE}
-              </a>
-              .
-            </p>
+            <p className="text-lg text-slate-300">Tell us your HR goal; we’ll propose the shortest path.</p>
+            <p className="text-sm text-slate-400">Replies within 1 business day · UK/EU time zone.</p>
           </header>
           <ul className="space-y-4">
             {contactMethods.map((method) => (
@@ -84,7 +75,7 @@ export default function ContactPage() {
                   data-cta={method.cta}
                   data-plan={method.plan}
                 >
-                  {method.newTab ? 'Book a call' : `mailto:${siteConfig.contactEmail}`} →
+                  {method.newTab ? 'Book a call' : siteConfig.contactEmail} →
                 </a>
               </li>
             ))}

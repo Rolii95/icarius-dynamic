@@ -140,7 +140,7 @@ function Hero() {
             Accelerate Your <span className="bg-gradient-to-r from-[color:var(--primary)] to-[color:var(--primary-2)] bg-clip-text text-transparent">HRIS Journey</span> with Expert Guidance, Seamless Integrations & Future-Ready AI HR Solutions
           </h1>
           <p className="mt-5 max-w-xl text-lg text-slate-300">
-            HRIT advisory & digital HR partner specialising in HRIS (Workday, SAP, Oracle), integrations and AI enablement. We stabilise payroll, unblock data and improve employee experience.
+            HRIT advisory across Workday, SAP & Oracle—stabilise payroll, fix integrations and enable AI for HR.
           </p>
           {/* Mobile CTA - Stacked with full width */}
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:gap-4">
@@ -210,7 +210,7 @@ function Pricing() {
       name: 'HRIS Implementation Jumpstart',
       price: 12000,
       plan: 'delivery-jumpstart',
-      tagline: 'Accelerate a key HR journey (onboarding, absence, talent).',
+      tagline: 'Environment setup · data migration plan · test scripts · cutover checklist.',
     },
     {
       name: 'Fractional HRIT Leader',

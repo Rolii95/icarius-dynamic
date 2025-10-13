@@ -48,7 +48,7 @@ export function ContactModal({ open, onClose, plan, triggerRef }: ContactModalPr
       <div className="flex flex-col gap-4">
         <div className="flex items-start justify-between gap-4">
           <h2 id="contact-modal-title" className="text-2xl font-semibold">
-            Book an intro call
+            Book a 30-min call
           </h2>
           <button
             ref={closeButtonRef}

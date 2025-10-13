@@ -142,7 +142,7 @@ export function createOgImage() {
                 textTransform: 'uppercase',
               }}
             >
-              HR Transformation Partners
+              HR Transformation Partner
             </span>
           </span>
           <span style={{ fontWeight: 600 }}>icarius-consulting.com</span>

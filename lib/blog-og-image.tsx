@@ -95,7 +95,7 @@ export function createBlogOgImage({ title, tagline }: BlogOgImageOptions) {
           }}
         >
           <span style={{ fontWeight: 600 }}>icarius-consulting.com</span>
-          <span style={{ color: '#8eebff' }}>HR Transformation Partners</span>
+          <span style={{ color: '#8eebff' }}>HR Transformation Partner</span>
         </div>
       </div>
     ),
