@@ -37,7 +37,7 @@ const packages = [
   },
   {
     name: 'HRIS Implementation Jumpstart',
-    summary: 'Accelerate a key HR journey (onboarding, absence, talent).',
+    summary: 'Environment setup · data migration plan · test scripts · cutover checklist.',
     relatedCaseStudies: ['global-hcm-replacement'],
   },
   {
@@ -47,7 +47,7 @@ const packages = [
   },
   {
     name: 'HR Transformation Partner',
-    summary: 'Embedded partner to manage vendors, cadence, change and value tracking.',
+    summary: 'Vendor management · PMO cadence · change & comms · value tracking.',
     relatedCaseStudies: ['global-hcm-replacement', 'payroll-consolidation'],
   },
   {

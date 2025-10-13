@@ -23,7 +23,7 @@ const initialAssistantMessage =
   "Hi! I'm the Icarius assistant. Ask about our HRIT advisory, HR systems audits, AI delivery, or how to start a project."
 
 const schedulerCtaCopy =
-  "Let's get something on the calendar. Book a quick intro call so we can dig in together."
+  "Let's get something on the calendar. Book a 30-min call so we can dig in together."
 
 export function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false)
