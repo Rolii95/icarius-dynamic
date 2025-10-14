@@ -325,7 +325,7 @@ function Testimonials() {
           <div className="text-center sm:text-left">
             <blockquote className="text-base">“Icarius translated our global HCM ambition into a sequenced, fundable plan.”</blockquote>
             <p className="text-sm text-slate-300">— CIO, FTSE 250 hospitality group</p>
-            <div className="stars" aria-label="5 out of 5">★★★★★</div>
+            <p className="stars" role="img" aria-label="Rated 5 out of 5">★★★★★</p>
             <a className="mini-link" href="/work/global-hcm-replacement">View full case study →</a>
           </div>
         </li>
@@ -334,7 +334,7 @@ function Testimonials() {
           <div className="text-center sm:text-left">
             <blockquote className="text-base">“The audit sprint exposed risks, quick wins, and gave the board confidence to invest.”</blockquote>
             <p className="text-sm text-slate-300">— HR Director, retail group</p>
-            <div className="stars" aria-label="5 out of 5">★★★★★</div>
+            <p className="stars" role="img" aria-label="Rated 5 out of 5">★★★★★</p>
             <a className="mini-link" href="/work/payroll-consolidation">View full case study →</a>
           </div>
         </li>
@@ -343,7 +343,7 @@ function Testimonials() {
           <div className="text-center sm:text-left">
             <blockquote className="text-base">“Our HR Ops assistant now resolves cases in minutes and agents finally trust the data.”</blockquote>
             <p className="text-sm text-slate-300">— Shared services lead, global firm</p>
-            <div className="stars" aria-label="5 out of 5">★★★★★</div>
+            <p className="stars" role="img" aria-label="Rated 5 out of 5">★★★★★</p>
             <a className="mini-link" href="/work/hr-ops-ai-assistant">View full case study →</a>
           </div>
         </li>
