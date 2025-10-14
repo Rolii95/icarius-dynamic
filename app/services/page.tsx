@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 
 import Link from 'next/link'
 
+import servicesData from '@/data/services.json'
+
 import { CASE_STUDIES } from '@/app/work/case-studies'
 import { Section } from '@/components/Section'
 import { PageHeader } from '@/components/PageHeader'
@@ -29,38 +31,23 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 }
 
-const services = [
-  {
-    title: 'HRIS Strategy & Roadmap',
-    description: 'Right-size your HR stack and sequence change.',
-    featuredCaseStudies: ['global-hcm-replacement'],
-  },
-  {
-    title: 'AI Enablement for HR',
-    description: 'Identify use-cases, pilots and guardrails; deploy safe HR copilots.',
-    featuredCaseStudies: ['hr-ops-ai-assistant'],
-  },
-  {
-    title: 'People Analytics & Reporting',
-    description: 'Automate metrics and compliance; move from spreadsheets to self-serve.',
-    featuredCaseStudies: ['hr-ops-ai-assistant'],
-  },
-  {
-    title: 'Payroll & Time Stabilisation',
-    description: 'Reduce errors and rework; meet payroll SLAs.',
-    featuredCaseStudies: ['payroll-consolidation'],
-  },
-  {
-    title: 'Integration Architecture',
-    description: 'Design robust flows across HR, payroll, finance and IT.',
-    featuredCaseStudies: ['global-hcm-replacement', 'payroll-consolidation'],
-  },
-  {
-    title: 'Employee Experience & Service Delivery',
-    description: 'Simplify journeys—onboarding, absence, helpdesk.',
-    featuredCaseStudies: ['hr-ops-ai-assistant'],
-  },
-]
+type Service = {
+  id: string
+  title: string
+  oneLiner: string
+  bullets?: string[]
+  chips: string
+  featuredCaseStudies?: string[]
+}
+
+const services = servicesData as Service[]
+const whatYouGet = Array.from(
+  new Set(
+    services
+      .flatMap((service) => service.bullets ?? [])
+      .filter((bullet): bullet is string => Boolean(bullet?.trim()))
+  )
+)
 
 export default function ServicesPage() {
   const caseStudyMap = new Map(CASE_STUDIES.map((study) => [study.slug, study]))
@@ -75,23 +62,37 @@ export default function ServicesPage() {
         backHref="/"
         backLabel="Back to home"
       >
-        <ul className="text-lg text-slate-300 space-y-2">
-          <li>Clear HRIS plan in week one</li>
-          <li>Prototypes/pilots that answer the question</li>
-          <li>Stabilised payroll & integrations</li>
-          <li>Self-serve analytics your HR team trusts</li>
-        </ul>
+        {whatYouGet.length > 0 ? (
+          <ul
+            className="text-lg text-slate-300 space-y-2 list-disc pl-6 marker:text-sky-300"
+            aria-label="Key outcomes you can expect"
+          >
+            {whatYouGet.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        ) : null}
       </PageHeader>
       <div className="container mx-auto max-w-4xl px-4">
         <div className="space-y-10">
-          <dl className="grid gap-8 md:grid-cols-2">
+          <div className="grid gap-8 md:grid-cols-2" role="list" aria-label="Services Icarius offers">
             {services.map((service) => (
-              <div key={service.title} className="rounded-xl border border-slate-800 bg-slate-950/40 p-6">
-                <dt className="text-xl font-medium text-white">{service.title}</dt>
-                <dd className="mt-3 text-sm text-slate-300">{service.description}</dd>
-              </div>
+              <article
+                key={service.id}
+                aria-labelledby={`service-${service.id}`}
+                className="rounded-xl border border-slate-800 bg-slate-950/40 p-6"
+                role="listitem"
+              >
+                <h2 id={`service-${service.id}`} className="text-xl font-medium text-white">
+                  {service.title}
+                </h2>
+                <p className="mt-3 text-sm text-slate-300">{service.oneLiner}</p>
+                <p className="mt-4 text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
+                  {service.chips}
+                </p>
+              </article>
             ))}
-          </dl>
+          </div>
 
           <div className="space-y-6 rounded-2xl border border-slate-800 bg-slate-950/40 p-6">
             <h2 className="text-2xl font-semibold text-white">Related case studies</h2>
@@ -100,11 +101,11 @@ export default function ServicesPage() {
             </p>
             <div className="space-y-6">
               {services.map((service) => (
-                <div key={`${service.title}-related`} className="space-y-3">
+                <div key={`${service.id}-related`} className="space-y-3">
                   <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-400">
                     {service.title}
                   </h3>
-                  <ul className="space-y-2">
+                  <ul className="space-y-2" aria-label={`Case studies related to ${service.title}`}>
                     {service.featuredCaseStudies?.map((slug) => {
                       const study = caseStudyMap.get(slug)
 

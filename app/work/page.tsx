@@ -56,6 +56,12 @@ export default function WorkPage() {
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-sky-300/80">{study.hero.eyebrow}</p>
                 <h2 className="mt-3 text-2xl font-semibold text-white">{study.title}</h2>
                 <p className="mt-3 text-sm text-slate-300">{study.summary}</p>
+                {study.meta ? (
+                  <p className="mt-3 text-xs font-medium uppercase tracking-[0.2em] text-slate-400">
+                    {study.meta.label}
+                    {study.meta.readingTime ? ` · ${study.meta.readingTime}` : ''}
+                  </p>
+                ) : null}
               </div>
               <div className="mt-6 flex items-center text-sm font-medium text-sky-300">
                 <span>View case study</span>
