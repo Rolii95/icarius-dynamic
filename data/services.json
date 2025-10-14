@@ -9,20 +9,47 @@
       "Stabilised payroll & integrations",
       "Self-serve analytics your HR team trusts"
     ],
-    "chips": "2–4 weeks · Fixed scope · Weekly demo"
+    "chips": "2–4 weeks · Fixed scope · Weekly demo",
+    "featuredCaseStudies": ["global-hcm-replacement"]
   },
   {
     "id": "ai-enablement",
     "title": "AI Enablement for HR",
     "oneLiner": "Identify use-cases, pilots & guardrails; deploy safe HR copilots.",
     "bullets": [],
-    "chips": "2–4 weeks · Fixed scope · Weekly demo"
+    "chips": "2–4 weeks · Fixed scope · Weekly demo",
+    "featuredCaseStudies": ["hr-ops-ai-assistant"]
   },
   {
     "id": "people-analytics",
     "title": "People Analytics & Reporting",
     "oneLiner": "Automate metrics & compliance; move from spreadsheets to self-serve.",
     "bullets": [],
-    "chips": "2–4 weeks · Fixed scope · Weekly demo"
+    "chips": "2–4 weeks · Fixed scope · Weekly demo",
+    "featuredCaseStudies": ["hr-ops-ai-assistant"]
+  },
+  {
+    "id": "payroll-stabilisation",
+    "title": "Payroll & Time Stabilisation",
+    "oneLiner": "Reduce errors and rework; meet payroll SLAs.",
+    "bullets": [],
+    "chips": "8–12 weeks · Hybrid delivery · Control playbooks",
+    "featuredCaseStudies": ["payroll-consolidation"]
+  },
+  {
+    "id": "integration-architecture",
+    "title": "Integration Architecture",
+    "oneLiner": "Design robust flows across HR, payroll, finance and IT.",
+    "bullets": [],
+    "chips": "6–10 weeks · Platform agnostic · Architecture runway",
+    "featuredCaseStudies": ["global-hcm-replacement", "payroll-consolidation"]
+  },
+  {
+    "id": "employee-experience",
+    "title": "Employee Experience & Service Delivery",
+    "oneLiner": "Simplify journeys—onboarding, absence, helpdesk.",
+    "bullets": [],
+    "chips": "6–8 weeks · Journey diagnostics · Embedded change",
+    "featuredCaseStudies": ["hr-ops-ai-assistant"]
   }
 ]

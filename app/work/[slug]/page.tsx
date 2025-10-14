@@ -79,6 +79,16 @@ export default function CaseStudyPage({ params }: Params) {
     { label: 'Services', value: study.overview.services.join(', ') },
   ]
 
+  const highlightItems = Array.isArray(study.resultHighlights)
+    ? study.resultHighlights
+    : study.resultHighlights
+      ? [study.resultHighlights]
+      : []
+
+  if (highlightItems.length === 0 && process.env.NODE_ENV !== 'production') {
+    console.warn(`Case study "${study.slug}" is missing resultHighlights data.`)
+  }
+
   return (
     <article className="py-16">
       <PageHeader
@@ -93,9 +103,11 @@ export default function CaseStudyPage({ params }: Params) {
         }
       >
         <p className="text-lg text-slate-300">{study.hero.description}</p>
-        <p className="text-sm text-slate-400">
-          Result highlights: cut payroll adjustments by 38% · reduced HR ticket backlog by 42% · Workday integration live in 8 weeks
-        </p>
+        {highlightItems.length > 0 ? (
+          <p className="text-sm text-slate-400">
+            Result highlights: {highlightItems.join(' · ')}
+          </p>
+        ) : null}
       </PageHeader>
 
       <div className="container mx-auto max-w-4xl px-4 md:px-6">

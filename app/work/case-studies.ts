@@ -3,6 +3,11 @@ export type CaseStudy = {
   title: string
   summary: string
   resultsSummary: string
+  resultHighlights?: string | string[]
+  meta?: {
+    label: string
+    readingTime?: string
+  }
   seoTitle: string
   seoDescription: string
   hero: {
@@ -40,6 +45,12 @@ export const CASE_STUDIES: CaseStudy[] = [
     summary: 'Global HCM blueprint and rollout readiness for 40k colleagues.',
     resultsSummary:
       'Unified seven regional HR stacks, staged a 40k-colleague rollout, and unlocked measurable savings, cleaner data, and faster releases.',
+    resultHighlights: [
+      'Unified 7 regional HR stacks',
+      '40k colleagues prepared for rollout',
+      'Board-approved roadmap in 12 weeks'
+    ],
+    meta: { label: 'Case study', readingTime: '5 min read' },
     seoTitle: 'Global HCM replacement case study | Icarius Consulting',
     seoDescription:
       'Discover how Icarius combined HRIT advisory, audit rigor, and programme leadership to unify a hospitality group\'s global HCM landscape.',
@@ -100,6 +111,12 @@ export const CASE_STUDIES: CaseStudy[] = [
     summary: '12-country payroll control framework with automated reconciliations.',
     resultsSummary:
       'Delivered a consolidated control framework that shrank errors, accelerated onboarding, and tightened finance reporting cadences.',
+    resultHighlights: [
+      '63% payroll error reduction',
+      'New markets onboarded in 4 weeks',
+      'Finance reporting lag cut to 3 days'
+    ],
+    meta: { label: 'Case study', readingTime: '4 min read' },
     seoTitle: 'Payroll consolidation case study | Icarius Consulting',
     seoDescription:
       'See how HRIT advisory guidance and audit-driven controls consolidated payroll operations into a compliant, insight-rich framework.',
@@ -155,6 +172,12 @@ export const CASE_STUDIES: CaseStudy[] = [
     summary: 'AI assistant that reduced handle time by 34% and lifted satisfaction.',
     resultsSummary:
       'Combined AI guardrails with knowledge modernisation to shrink handle time by 34% and lift satisfaction 18 points.',
+    resultHighlights: [
+      '34% average handle time reduction',
+      '61% first-contact resolution',
+      '18-point satisfaction lift'
+    ],
+    meta: { label: 'Case study', readingTime: '6 min read' },
     seoTitle: 'HR operations AI assistant case study | Icarius Consulting',
     seoDescription:
       'Learn how HRIT advisory prioritisation, audit-driven cleanup, and AI guardrails delivered a compliant assistant that sped up HR case resolution.',
