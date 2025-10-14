@@ -32,7 +32,9 @@ export default function AccessibilityPage() {
       <div className="prose prose-invert max-w-3xl mx-auto">
         <div className="mb-6 flex items-center gap-2 not-prose">
           <ConditionalGoBackButton />
-          <h1 className="m-0 min-w-0 text-4xl font-semibold tracking-tight">Accessibility statement</h1>
+          <h1 className="m-0 min-w-0 text-4xl font-semibold tracking-tight h1-accent heading-underline">
+            Accessibility statement
+          </h1>
         </div>
         <p>
           We want everyone to be able to browse icarius-consulting.com without barriers. This statement

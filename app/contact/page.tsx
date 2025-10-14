@@ -52,7 +52,7 @@ export default function ContactPage() {
       <div className="container mx-auto max-w-3xl px-4">
         <div className="mb-6 space-y-2">
           <BackLink className="inline-flex -translate-x-1 sm:-translate-x-1.5" />
-          <h1 className="min-w-0 text-4xl font-semibold tracking-tight heading-underline">Contact</h1>
+          <h1 className="min-w-0 text-4xl font-semibold tracking-tight heading-underline h1-accent">Contact</h1>
         </div>
         <div className="space-y-6">
           <header className="space-y-4">

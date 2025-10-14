@@ -47,7 +47,7 @@ export function PageHeader({
     .join(' ')
 
   const headingClasses = [
-    'text-3xl font-semibold tracking-tight text-white sm:text-4xl',
+    'text-3xl font-semibold tracking-tight text-white sm:text-4xl h1-accent',
     headingClassName,
   ]
     .filter(Boolean)
