@@ -5,6 +5,7 @@ import Link from 'next/link'
 
 import { Section } from '@/components/Section'
 import { PageHeader } from '@/components/PageHeader'
+import { bookingUrl } from '@/lib/booking'
 
 import type { Post } from './posts'
 
@@ -31,6 +32,11 @@ interface BlogIndexProps {
 export function BlogIndex({ posts, heading, description }: BlogIndexProps) {
   const [query, setQuery] = useState('')
   const [activeTag, setActiveTag] = useState<string | null>(null)
+
+  const insightsMailto = 'mailto:contact@icarius-consulting.com?subject=Site%20Insights%20CTA'
+  const callToActionHref = bookingUrl || insightsMailto
+  const ctaClasses =
+    'inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[color:var(--primary)] to-[color:var(--primary-2)] px-5 py-2.5 text-sm font-semibold text-slate-950 shadow-[0_14px_40px_rgba(12,18,30,0.35)] transition hover:-translate-y-0.5 hover:shadow-[0_20px_48px_rgba(12,18,30,0.45)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--primary)]/60 sm:w-auto sm:px-6 sm:py-3 sm:text-base'
 
   const tags = useMemo(() => {
     const unique = new Set<string>()
@@ -132,7 +138,7 @@ export function BlogIndex({ posts, heading, description }: BlogIndexProps) {
             <Link
               key={post.slug}
               href={`/blog/${post.slug}`}
-              className="group block h-full rounded-2xl border border-slate-800 bg-slate-900/40 p-6 transition hover:border-indigo-400 hover:bg-slate-900/60"
+              className="group block h-full rounded-2xl border border-slate-800 bg-slate-900/40 p-6 transition hover:border-indigo-400 hover:bg-slate-900/60 lift-card"
             >
               <article className="flex h-full flex-col gap-4">
                 <div className="flex items-center gap-3 text-sm text-slate-400">
@@ -161,6 +167,21 @@ export function BlogIndex({ posts, heading, description }: BlogIndexProps) {
             No articles match your filters yet. Try clearing the search or choosing a different topic.
           </p>
         ) : null}
+
+        <div className="container mx-auto mt-12 flex flex-col gap-4 rounded-2xl border border-slate-800/70 bg-slate-900/40 px-5 py-6 text-center md:flex-row md:items-center md:justify-between md:text-left md:px-6">
+          <p className="text-base font-medium text-slate-100 md:max-w-2xl">
+            Enjoyed this? Book a 30-min call — we’ll map it to your roadmap.
+          </p>
+          <a
+            href={callToActionHref}
+            data-insights-cta
+            className={ctaClasses}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Book a 30-min call
+          </a>
+        </div>
       </Section>
     </div>
   )
