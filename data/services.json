@@ -1,0 +1,28 @@
+[
+  {
+    "id": "hris-strategy",
+    "title": "HRIS Strategy & Roadmap",
+    "oneLiner": "Right-size your HR stack and sequence change.",
+    "bullets": [
+      "Clear HRIS plan in week one",
+      "Prototypes/pilots that answer the question",
+      "Stabilised payroll & integrations",
+      "Self-serve analytics your HR team trusts"
+    ],
+    "chips": "2–4 weeks · Fixed scope · Weekly demo"
+  },
+  {
+    "id": "ai-enablement",
+    "title": "AI Enablement for HR",
+    "oneLiner": "Identify use-cases, pilots & guardrails; deploy safe HR copilots.",
+    "bullets": [],
+    "chips": "2–4 weeks · Fixed scope · Weekly demo"
+  },
+  {
+    "id": "people-analytics",
+    "title": "People Analytics & Reporting",
+    "oneLiner": "Automate metrics & compliance; move from spreadsheets to self-serve.",
+    "bullets": [],
+    "chips": "2–4 weeks · Fixed scope · Weekly demo"
+  }
+]
