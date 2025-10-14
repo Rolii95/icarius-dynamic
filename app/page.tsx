@@ -249,7 +249,7 @@ function Pricing() {
         {cards.map((card) => (
           <div
             key={card.name}
-            className="card flex h-full flex-col border-white/10 bg-slate-950/50 p-6 hover:border-[color:var(--primary)]/40 hover:bg-slate-900/60"
+            className="card flex h-full flex-col border-white/10 bg-slate-950/50 p-6 hover:border-[color:var(--primary)]/40 hover:bg-slate-900/60 lift-card"
           >
             <h3 className="text-xl font-semibold capitalize">{card.name}</h3>
             <p className="mt-2 text-sm text-slate-400">{card.tagline}</p>
@@ -283,21 +283,21 @@ function Work() {
       <ul className="mt-6 grid gap-4 sm:grid-cols-2 md:grid-cols-3">
         <li
           id="cs-hcm"
-          className="card border-white/10 bg-slate-950/50 p-6 transition hover:border-[color:var(--primary)]/40 hover:bg-slate-900/60"
+          className="card border-white/10 bg-slate-950/50 p-6 transition hover:border-[color:var(--primary)]/40 hover:bg-slate-900/60 lift-card"
         >
           <h3 className="text-lg font-semibold">Global HCM replacement</h3>
           <p className="mt-2 text-sm text-slate-300">Unified seven regional stacks and staged rollout for 40k colleagues.</p>
         </li>
         <li
           id="cs-payroll"
-          className="card border-white/10 bg-slate-950/50 p-6 transition hover:border-[color:var(--primary)]/40 hover:bg-slate-900/60"
+          className="card border-white/10 bg-slate-950/50 p-6 transition hover:border-[color:var(--primary)]/40 hover:bg-slate-900/60 lift-card"
         >
           <h3 className="text-lg font-semibold">Payroll consolidation</h3>
           <p className="mt-2 text-sm text-slate-300">12-country payroll control framework with automated reconciliations.</p>
         </li>
         <li
           id="cs-ai"
-          className="card border-white/10 bg-slate-950/50 p-6 transition hover:border-[color:var(--primary)]/40 hover:bg-slate-900/60"
+          className="card border-white/10 bg-slate-950/50 p-6 transition hover:border-[color:var(--primary)]/40 hover:bg-slate-900/60 lift-card"
         >
           <h3 className="text-lg font-semibold">HR Ops AI assistant</h3>
           <p className="mt-2 text-sm text-slate-300">AI co-pilot that lifted satisfaction and cut resolution time by 34%.</p>
@@ -320,30 +320,36 @@ function Testimonials() {
         Leaders who trust Icarius
       </h2>
       <ul className="mt-4 grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-        <li className="card grid grid-cols-1 sm:grid-cols-[auto,1fr] gap-3 items-start">
+        <li className="card grid grid-cols-1 sm:grid-cols-[auto,1fr] gap-3 items-start lift-card">
           <div className="h-14 w-14 rounded-full border mx-auto sm:mx-0" />
           <div className="text-center sm:text-left">
             <blockquote className="text-base">“Icarius translated our global HCM ambition into a sequenced, fundable plan.”</blockquote>
             <p className="text-sm text-slate-300">— CIO, FTSE 250 hospitality group</p>
-            <p className="stars" role="img" aria-label="Rated 5 out of 5">★★★★★</p>
+            <div className="stars" role="img" aria-label="Rated 5 out of 5">
+              <span aria-hidden="true">★★★★★</span>
+            </div>
             <a className="mini-link" href="/work/global-hcm-replacement">View full case study →</a>
           </div>
         </li>
-        <li className="card grid grid-cols-1 sm:grid-cols-[auto,1fr] gap-3 items-start">
+        <li className="card grid grid-cols-1 sm:grid-cols-[auto,1fr] gap-3 items-start lift-card">
           <div className="h-14 w-14 rounded-full border mx-auto sm:mx-0" />
           <div className="text-center sm:text-left">
             <blockquote className="text-base">“The audit sprint exposed risks, quick wins, and gave the board confidence to invest.”</blockquote>
             <p className="text-sm text-slate-300">— HR Director, retail group</p>
-            <p className="stars" role="img" aria-label="Rated 5 out of 5">★★★★★</p>
+            <div className="stars" role="img" aria-label="Rated 5 out of 5">
+              <span aria-hidden="true">★★★★★</span>
+            </div>
             <a className="mini-link" href="/work/payroll-consolidation">View full case study →</a>
           </div>
         </li>
-        <li className="card grid grid-cols-1 sm:grid-cols-[auto,1fr] gap-3 items-start">
+        <li className="card grid grid-cols-1 sm:grid-cols-[auto,1fr] gap-3 items-start lift-card">
           <div className="h-14 w-14 rounded-full border mx-auto sm:mx-0" />
           <div className="text-center sm:text-left">
             <blockquote className="text-base">“Our HR Ops assistant now resolves cases in minutes and agents finally trust the data.”</blockquote>
             <p className="text-sm text-slate-300">— Shared services lead, global firm</p>
-            <p className="stars" role="img" aria-label="Rated 5 out of 5">★★★★★</p>
+            <div className="stars" role="img" aria-label="Rated 5 out of 5">
+              <span aria-hidden="true">★★★★★</span>
+            </div>
             <a className="mini-link" href="/work/hr-ops-ai-assistant">View full case study →</a>
           </div>
         </li>

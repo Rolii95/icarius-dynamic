@@ -32,7 +32,9 @@ export default function TermsPage() {
       <div className="prose prose-invert max-w-3xl mx-auto">
         <div className="mb-6 flex items-center gap-2 not-prose">
           <ConditionalGoBackButton />
-          <h1 className="m-0 min-w-0 text-4xl font-semibold tracking-tight">Terms of service</h1>
+          <h1 className="m-0 min-w-0 text-4xl font-semibold tracking-tight h1-accent heading-underline">
+            Terms of service
+          </h1>
         </div>
         <p>
           These terms outline the basis on which Icarius Consulting delivers advisory and project

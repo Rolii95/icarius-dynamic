@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
-import { notFound } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 import { Fragment } from 'react'
+
+import redirects from '@/data/case-redirects.json' assert { type: 'json' }
 
 import { CASE_STUDIES } from '../case-studies'
 import { Section } from '@/components/Section'
@@ -12,12 +14,29 @@ type Params = {
   }
 }
 
+const CASE_REDIRECTS = redirects as Record<string, string>
+
+function resolveStudy(slug: string) {
+  const canonicalSlug = CASE_REDIRECTS[slug] ?? slug
+  const study = CASE_STUDIES.find((item) => item.slug === canonicalSlug)
+
+  return {
+    canonicalSlug,
+    study,
+    redirectSlug: canonicalSlug !== slug ? canonicalSlug : undefined,
+  }
+}
+
 export function generateStaticParams() {
   return CASE_STUDIES.map((study) => ({ slug: study.slug }))
 }
 
 export function generateMetadata({ params }: Params): Metadata {
-  const study = CASE_STUDIES.find((item) => item.slug === params.slug)
+  const { study, redirectSlug } = resolveStudy(params.slug)
+
+  if (redirectSlug) {
+    redirect(`/work/${redirectSlug}`)
+  }
 
   if (!study) {
     return {
@@ -65,7 +84,11 @@ export function generateMetadata({ params }: Params): Metadata {
 }
 
 export default function CaseStudyPage({ params }: Params) {
-  const study = CASE_STUDIES.find((item) => item.slug === params.slug)
+  const { study, redirectSlug } = resolveStudy(params.slug)
+
+  if (redirectSlug) {
+    redirect(`/work/${redirectSlug}`)
+  }
 
   if (!study) {
     notFound()
