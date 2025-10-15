@@ -1,13 +1,17 @@
+import { estimateReadingTime } from '@/lib/reading-time'
+
+export type CaseStudyMeta = {
+  label: string
+  readingTime?: number
+}
+
 export type CaseStudy = {
   slug: string
   title: string
   summary: string
   resultsSummary: string
   resultHighlights?: string | string[]
-  meta?: {
-    label: string
-    readingTime?: string
-  }
+  meta?: CaseStudyMeta
   seoTitle: string
   seoDescription: string
   hero: {
@@ -38,7 +42,11 @@ export type CaseStudy = {
   }
 }
 
-export const CASE_STUDIES: CaseStudy[] = [
+type CaseStudyInput = Omit<CaseStudy, 'meta'> & {
+  meta?: Omit<CaseStudyMeta, 'readingTime'>
+}
+
+const CASE_STUDY_SOURCE: CaseStudyInput[] = [
   {
     slug: 'global-hcm-replacement',
     title: 'Global HCM replacement',
@@ -50,7 +58,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       '40k colleagues prepared for rollout',
       'Board-approved roadmap in 12 weeks'
     ],
-    meta: { label: 'Case study', readingTime: '5 min read' },
+    meta: { label: 'Case study' },
     seoTitle: 'Global HCM replacement case study | Icarius Consulting',
     seoDescription:
       'Discover how Icarius combined HRIT advisory, audit rigor, and programme leadership to unify a hospitality group\'s global HCM landscape.',
@@ -116,7 +124,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       'New markets onboarded in 4 weeks',
       'Finance reporting lag cut to 3 days'
     ],
-    meta: { label: 'Case study', readingTime: '4 min read' },
+    meta: { label: 'Case study' },
     seoTitle: 'Payroll consolidation case study | Icarius Consulting',
     seoDescription:
       'See how HRIT advisory guidance and audit-driven controls consolidated payroll operations into a compliant, insight-rich framework.',
@@ -177,7 +185,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       '61% first-contact resolution',
       '18-point satisfaction lift'
     ],
-    meta: { label: 'Case study', readingTime: '6 min read' },
+    meta: { label: 'Case study' },
     seoTitle: 'HR operations AI assistant case study | Icarius Consulting',
     seoDescription:
       'Learn how HRIT advisory prioritisation, audit-driven cleanup, and AI guardrails delivered a compliant assistant that sped up HR case resolution.',
@@ -228,3 +236,39 @@ export const CASE_STUDIES: CaseStudy[] = [
     },
   },
 ]
+
+function collectCaseStudyText(study: CaseStudyInput): string {
+  const segments: string[] = [
+    study.summary,
+    study.resultsSummary,
+    Array.isArray(study.resultHighlights)
+      ? study.resultHighlights.join(' ')
+      : study.resultHighlights ?? '',
+    study.hero.description,
+    study.challenge.join(' '),
+    study.approach.map((item) => `${item.heading} ${item.description}`).join(' '),
+    study.testimonial?.quote ?? '',
+  ]
+
+  return segments.filter(Boolean).join(' ')
+}
+
+function buildCaseStudy(study: CaseStudyInput): CaseStudy {
+  const text = collectCaseStudyText(study)
+  const readingTime = estimateReadingTime(text)
+
+  const meta = study.meta ?? (readingTime ? { label: 'Case study' } : undefined)
+
+  return {
+    ...study,
+    meta:
+      meta && readingTime
+        ? {
+            ...meta,
+            readingTime,
+          }
+        : meta,
+  }
+}
+
+export const CASE_STUDIES: CaseStudy[] = CASE_STUDY_SOURCE.map(buildCaseStudy)

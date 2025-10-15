@@ -8,9 +8,13 @@ export default defineConfig({
       '@': path.resolve(__dirname),
     },
   },
+  esbuild: {
+    jsx: 'automatic',
+  },
   test: {
-    environment: 'node',
+    environment: 'jsdom',
     include: ['**/*.test.{ts,tsx}'],
     exclude: ['node_modules/**', 'tests/**/*.spec.ts'],
+    setupFiles: ['tests/setup.ts'],
   },
 });
