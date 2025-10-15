@@ -1,15 +1,17 @@
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
-import { CheckCircle2, ChevronDown, Phone, Lightbulb, Rocket, Search, Sparkles } from 'lucide-react'
+import { ChevronDown, Phone, Lightbulb, Rocket, Search, Sparkles } from 'lucide-react'
 import type { Metadata } from 'next'
 
 import { AssistantForm } from '@/components/AssistantForm'
 import { BookCTA } from '@/components/BookCTA'
 import { HeroIllustration } from '@/components/HeroIllustration'
+import { PackageCard, type PackageCardProps } from '@/components/PackageCard'
 import { Section } from '@/components/Section'
 import { SkeletonLoader } from '@/components/SkeletonLoader'
 import { metadata as rootMetadata } from '@/app/layout'
 import { buildFaqPageSchema, coreServices, type FAQItem, stringifyJsonLd } from '@/lib/structured-data'
+import packagesData from '@/data/packages.json'
 import { siteOrigin } from '@/lib/config/site'
 
 // Lazy load ROI widget (interactive component, below fold)
@@ -84,6 +86,8 @@ const homepageFaqItems = [
       'Workday, SuccessFactors, Dayforce, Oracle, UKG, and surrounding payroll, ATS, and IDM estates across the UK, EMEA, and North America.',
   },
 ] satisfies readonly FAQItem[]
+
+const homepagePackages = packagesData as PackageCardProps[]
 
 const title = 'HR technology change that lands and lasts | Icarius Consulting'
 const description =
@@ -199,76 +203,12 @@ function Services() {
 }
 
 function Pricing() {
-  const cards = [
-    {
-      name: 'HRIS Diagnostic Sprint',
-      price: 6000,
-      plan: 'audit-sprint',
-      tagline: 'In 2–4 weeks: issues list, prioritised fixes and a 90-day HRIS plan.',
-    },
-    {
-      name: 'HRIS Implementation Jumpstart',
-      price: 12000,
-      plan: 'delivery-jumpstart',
-      tagline: 'Environment setup · data migration plan · test scripts · cutover checklist.',
-    },
-    {
-      name: 'Fractional HRIT Leader',
-      price: 9000,
-      plan: 'ai-readiness',
-      tagline: 'Senior HRIT/PMO capacity on tap.',
-    },
-  ] as const
-
-  const cardBulletPoints: Record<(typeof cards)[number]['name'], string[]> = {
-    'HRIS Diagnostic Sprint': [
-      'discovery sprint',
-      'system healthcheck',
-      'integration map',
-      'remediation backlog',
-      '90-day plan',
-    ],
-    'HRIS Implementation Jumpstart': [
-      'environment setup',
-      'data migration plan',
-      'test scripts',
-      'cutover checklist',
-    ],
-    'Fractional HRIT Leader': [
-      'weekly cadence',
-      'backlog shaping',
-      'cross-functional alignment',
-      'clean handover',
-    ],
-  }
-
   return (
     <Section id="pricing" className="py-12 border-t border-[rgba(255,255,255,.06)]">
       <h2 className="text-2xl font-semibold heading-underline">Packages</h2>
-      <div className="mt-4 grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {cards.map((card) => (
-          <div
-            key={card.name}
-            className="card flex h-full flex-col border-white/10 bg-slate-950/50 p-6 hover:border-[color:var(--primary)]/40 hover:bg-slate-900/60 lift-card"
-          >
-            <h3 className="text-xl font-semibold capitalize">{card.name}</h3>
-            <p className="mt-2 text-sm text-slate-400">{card.tagline}</p>
-            <p className="mt-4 text-3xl font-bold tracking-tight text-white">£{card.price.toLocaleString('en-GB')}</p>
-            <ul className="mt-4 space-y-1 text-sm text-slate-300">
-              {cardBulletPoints[card.name].map((item) => (
-                <li key={item} className="flex items-center gap-2">
-                  <CheckCircle2 size={16} /> {item}
-                </li>
-              ))}
-            </ul>
-            <BookCTA
-              data-cta="pricing"
-              plan={card.plan}
-              className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/20 px-5 py-2.5 text-sm font-semibold text-slate-100 transition hover:border-[color:var(--primary)]/60 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--primary)]/60"
-            >
-              Book a 30-min call
-            </BookCTA>
-          </div>
+      <div className="mt-4 grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+        {homepagePackages.map((pkg) => (
+          <PackageCard key={pkg.id} {...pkg} />
         ))}
       </div>
     </Section>
