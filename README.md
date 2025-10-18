@@ -3,16 +3,19 @@ Icarius white paper lead magnet
 - Next.js page: pages/whitepaper.tsx
 - API endpoints: pages/api/lead.ts, pages/api/download.ts
 - Uses HMAC signed URLs (SIGNING_KEY) to generate one-time/time-limited download links.
+- Sends the whitepaper link through PurelyMail (or any SMTP provider) via Nodemailer.
+- Optionally POSTs leads to an external webhook (Airtable/Make/Zapier/etc.).
 
-Replace placeholder Mailjet/send code with your ESP. Upload whitepaper to public/whitepaper.pdf or set WHITEPAPER_URL to your S3/Cloudflare storage.
+Configure the SMTP + email settings in `.env`/Vercel (`SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `FROM_EMAIL`, `NEXT_PUBLIC_APP_URL`).
+Upload `public/whitepaper.pdf` or set `WHITEPAPER_URL`/`NEXT_PUBLIC_WHITEPAPER_URL` to your storage bucket/CDN.
 
 ## How the signed download works
 
 When a visitor submits the lead form, `/api/lead`:
 
-1. Adds the contact to your ESP (Mailjet placeholder in code).
-2. Generates a signed link valid for `SIGN_EXP_SECONDS` (default 24h).
-3. Returns the signed URL to the frontend and you should also send it by email (transactional send).
+1. Generates a signed link valid for `SIGN_EXP_SECONDS` (default 24h).
+2. Sends the link via PurelyMail SMTP (Nodemailer) and returns it to the frontend for immediate download.
+3. Optionally posts the lead payload (`email`, `name`, etc.) to `LEAD_WEBHOOK_URL` for CRM/Sheets automations.
 
 The signed URL points to `/api/download?email=...&expires=...&sig=...`.
 
