@@ -1,22 +1,21 @@
-# Icarius Dynamic
+Icarius white paper lead magnet
 
-## Blog RSS feed
+- Next.js page: pages/whitepaper.tsx
+- API endpoints: pages/api/lead.ts, pages/api/download.ts
+- Uses HMAC signed URLs (SIGNING_KEY) to generate one-time/time-limited download links.
 
-Subscribe to the blog updates by visiting the RSS feed at `/blog/rss`. For example, if your site is hosted at `https://example.com`, the feed is available at `https://example.com/blog/rss`.
+Replace placeholder Mailjet/send code with your ESP. Upload whitepaper to public/whitepaper.pdf or set WHITEPAPER_URL to your S3/Cloudflare storage.
 
-## Environment variables
+## How the signed download works
 
-Configure the following environment variables for both local development and production deployments:
+When a visitor submits the lead form, `/api/lead`:
 
-| Variable | Description |
-| --- | --- |
-| `MAILJET_API_KEY` | Mailjet API key used for authenticating requests. |
-| `MAILJET_API_SECRET` | Mailjet API secret paired with the API key for authentication. |
-| `MAILJET_LIST_ID` | Identifier of the Mailjet contact list that receives newsletter subscriptions. |
-| `NEXT_PUBLIC_FEATURE_CHATBOT_DRAG` | Enable the draggable chatbot experiment (`true` to enable the handle). |
+1. Adds the contact to your ESP (Mailjet placeholder in code).
+2. Generates a signed link valid for `SIGN_EXP_SECONDS` (default 24h).
+3. Returns the signed URL to the frontend and you should also send it by email (transactional send).
 
-## Chatbot drag feature toggles
+The signed URL points to `/api/download?email=...&expires=...&sig=...`.
 
-- Set `NEXT_PUBLIC_FEATURE_CHATBOT_DRAG=true` to render the draggable handle in local development or preview builds.
-- Override behaviour at runtime for QA by running `localStorage.setItem('icarius:chat:drag', 'true')` or `'false'` in the browser console. This value takes precedence over the environment flag.
-- The widget stores its last position in `localStorage` under the key `icarius:chat:pos`. Clear that key to reset the placement back to the default corner.
+`/api/download` checks expiry and HMAC signature (using `SIGNING_KEY`) and then issues a redirect to the actual `WHITEPAPER_URL` (could be S3 presigned URL, Cloudflare Workers asset, or `/public/whitepaper.pdf`).
+
+This prevents casual link sharing and allows you to track/limit access. For higher security, generate a presigned S3 URL on the fly (recommended if using S3).
