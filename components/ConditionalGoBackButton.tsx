@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation'
 import { GoBackButton } from '@/components/GoBackButton'
 
 export function ConditionalGoBackButton({ className }: { className?: string }) {
-  const pathname = usePathname()
+  const pathname = usePathname() ?? ''
 
   // Show Go back button on all pages except:
   // - Homepage (/)

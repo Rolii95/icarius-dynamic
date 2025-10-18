@@ -1,0 +1,81 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Icarius Fixer <you@yourcompany.com>
+Date: Sat, 18 Oct 2025 00:00:00 +0000
+Subject: [PATCH] fix: guard against null pathname in ConditionalGoBackButton
+
+---
+ components/ConditionalGoBackButton.tsx | 34 +++++++++++++++++++++++++++-------
+ 1 file changed, 27 insertions(+), 7 deletions(-)
+
+diff --git a/components/ConditionalGoBackButton.tsx b/components/ConditionalGoBackButton.tsx
+index e69de29..1111111 100644
+--- a/components/ConditionalGoBackButton.tsx
++++ b/components/ConditionalGoBackButton.tsx
+@@ -1,24 +1,44 @@
+-'use client';
+-
+-import { useRouter, usePathname } from 'next/navigation';
+-import React from 'react';
+-
+-export default function ConditionalGoBackButton(): JSX.Element | null {
+-  const router = useRouter();
+-  const pathname = usePathname(); // string | null
+-
+-  // Show the Go Back button when path is not the root and looks like a nested page,
+-  // e.g., /services/[slug] or /work/[category]/[slug]
+-  const shouldShowGoBack = pathname !== '/' && /\/[^/]+\/[^/]+/.test(pathname);
+-
+-  if (!shouldShowGoBack) return null;
+-
+-  return (
+-    <button
+-      type="button"
+-      onClick={() => router.back()}
+-      aria-label="Go back"
+-      className="inline-flex items-center gap-2 px-3 py-1 rounded bg-slate-800 text-white hover:bg-slate-700"
+-    >
+-      ‹ Back
+-    </button>
+-  );
+-}
++'use client';
++
++import { useRouter, usePathname } from 'next/navigation';
++import React from 'react';
++
++/**
++ * ConditionalGoBackButton
++ *
++ * `usePathname()` can return `null` in some Next.js lifecycle contexts (SSR / RSC).
++ * Guard against `null` before calling string methods like `.match()` or `.test()`.
++ *
++ * This component normalises the pathname to an empty string when `null` so
++ * downstream checks are safe and TypeScript will not fail the build.
++ */
++export default function ConditionalGoBackButton(): JSX.Element | null {
++  const router = useRouter();
++  const pathname = usePathname(); // string | null
++
++  // Normalise pathname to a string so TypeScript won't complain about null.
++  // This is safe: when pathname is null it becomes '' and tests like .test(...) will be false.
++  const path = pathname ?? '';
++
++  // Show the Go Back button when path is not the root and looks like a nested page,
++  // e.g., /services/[slug] or /work/[category]/[slug]
++  const shouldShowGoBack = path !== '/' && /\/[^/]+\/[^/]+/.test(path);
++
++  if (!shouldShowGoBack) return null;
++
++  return (
++    <button
++      type="button"
++      onClick={() => router.back()}
++      aria-label="Go back"
++      className="inline-flex items-center gap-2 px-3 py-1 rounded bg-slate-800 text-white hover:bg-slate-700"
++    >
++      ‹ Back
++    </button>
++  );
++}
+-- 
+2.38.1

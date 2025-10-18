@@ -116,7 +116,7 @@ export function BackLink({
   className = '',
   overlapPx = 4,
 }: BackLinkProps) {
-  const pathname = usePathname()
+  const pathname = usePathname() ?? ''
   const router = useRouter()
   const linkRef = useRef<HTMLAnchorElement | null>(null)
 
