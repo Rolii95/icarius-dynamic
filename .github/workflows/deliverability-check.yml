@@ -1,0 +1,61 @@
+name: Deliverability Check
+
+on:
+  workflow_dispatch:
+    inputs:
+      domain:
+        description: "Override domain (optional)"
+        required: false
+      dkim_selector:
+        description: "DKIM selector (optional)"
+        required: false
+      sending_ip:
+        description: "Sending IP for PTR check (optional)"
+        required: false
+
+jobs:
+  dns:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Use Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run DNS deliverability check
+        env:
+          DELIVERABILITY_DOMAIN: ${{ inputs.domain != '' && inputs.domain || secrets.DELIVERABILITY_DOMAIN }}
+          DKIM_SELECTOR: ${{ inputs.dkim_selector }}
+          SENDING_IP: ${{ inputs.sending_ip }}
+        run: |
+          if [ -z "${DELIVERABILITY_DOMAIN}" ]; then
+            echo "DELIVERABILITY_DOMAIN secret is missing" && exit 1
+          fi
+          ./scripts/check-deliverability.sh
+        shell: bash
+
+      - name: Archive DNS results
+        if: always()
+        env:
+          DELIVERABILITY_DOMAIN: ${{ inputs.domain != '' && inputs.domain || secrets.DELIVERABILITY_DOMAIN }}
+          DKIM_SELECTOR: ${{ inputs.dkim_selector }}
+          SENDING_IP: ${{ inputs.sending_ip }}
+        run: |
+          if [ -z "${DELIVERABILITY_DOMAIN}" ]; then
+            echo "DELIVERABILITY_DOMAIN secret is missing" && exit 1
+          fi
+          ./scripts/dns-check.js --domain "${DELIVERABILITY_DOMAIN}" ${DKIM_SELECTOR:+--dkim-selector ${DKIM_SELECTOR}} ${SENDING_IP:+--ip ${SENDING_IP}} > deliverability-report.txt
+        shell: bash
+
+      - name: Upload artifact
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: deliverability-report
+          path: deliverability-report.txt
