@@ -131,6 +131,7 @@ function resolveGaClientId(request: NextApiRequest): string {
 
 function resolveDownloadUrl(): string {
   const baseUrl =
+    process.env.NEXT_PUBLIC_BASE_URL ||
     process.env.NEXT_PUBLIC_SITE_URL ||
     process.env.SITE_URL ||
     process.env.BASE_URL ||

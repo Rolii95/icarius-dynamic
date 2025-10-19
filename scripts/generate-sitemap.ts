@@ -2,7 +2,11 @@ import fs from "node:fs";
 import path from "node:path";
 import { CASE_STUDIES } from "@/data/caseStudies";
 
-const BASE_URL = "https://www.icarius-consulting.com";
+const BASE_URL = (
+  process.env.NEXT_PUBLIC_BASE_URL ||
+  process.env.BASE_URL ||
+  "https://www.icarius-consulting.com"
+).replace(/\/$/, "");
 
 const resourcesPaths = ["/resources/white-paper"];
 const staticPaths = ["/", "/about", "/contact", "/services", "/case-studies"];
