@@ -19,17 +19,6 @@ const withMDX = createMDX({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
-  // Enable webpack bundle analyzer in development
-  webpack: (config, { isServer }) => {
-    // Optimize for production
-    if (!isServer) {
-      config.optimization = {
-        ...config.optimization,
-        usedExports: true,
-      }
-    }
-    return config
-  },
   async headers() {
     return [
       {
