@@ -4,7 +4,14 @@ import { CASE_STUDIES } from "@/data/caseStudies";
 
 const BASE_URL = "https://www.icarius-consulting.com";
 
-const staticPaths = ["/", "/about", "/contact", "/services", "/case-studies"];
+const staticPaths = [
+  "/",
+  "/about",
+  "/contact",
+  "/services",
+  "/case-studies",
+  "/resources/white-paper",
+];
 const caseStudyPaths = Object.keys(CASE_STUDIES).map((slug) => `/case-studies/${slug}`);
 const allPaths = [...staticPaths, ...caseStudyPaths];
 

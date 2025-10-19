@@ -9,6 +9,14 @@ Icarius white paper lead magnet
 Configure the SMTP + email settings in `.env`/Vercel (`SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `FROM_EMAIL`, `NEXT_PUBLIC_APP_URL`).
 Upload `public/whitepaper.pdf` or set `WHITEPAPER_URL`/`NEXT_PUBLIC_WHITEPAPER_URL` to your storage bucket/CDN.
 
+## Updating the lead magnet asset
+
+- Replace `public/assets/icarius-hr-ai-whitepaper.pdf` with your production PDF. Commit the path, not the binary, if you store
+  the file in object storage.
+- For tighter control, point the response in `pages/api/lead-magnet.ts` at a time-limited URL (for example, a presigned S3 or
+  Cloudflare R2 link) instead of the public asset.
+- Remember to mirror the change in any marketing automations that email the download link.
+
 ## How the signed download works
 
 When a visitor submits the lead form, `/api/lead`:
