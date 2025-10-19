@@ -1,34 +1,23 @@
 Icarius white paper lead magnet
 
-- Next.js page: pages/whitepaper.tsx
-- API endpoints: pages/api/lead.ts, pages/api/download.ts
-- Uses HMAC signed URLs (SIGNING_KEY) to generate one-time/time-limited download links.
-- Sends the whitepaper link through PurelyMail (or any SMTP provider) via Nodemailer.
-- Optionally POSTs leads to an external webhook (Airtable/Make/Zapier/etc.).
+- Landing page: `pages/resources/white-paper.tsx`
+- Lead capture API: `pages/api/lead-magnet.ts`
+- Client analytics: `@/lib/analytics` (fires `LeadMagnetSubmit` to the data layer, Plausible, Cloudflare, and GA4 when consented)
+- Attribution storage: sessionStorage key `icarius:lead-tracking` (UTM, source, referrer, landing page)
+- Optional email sequences: see [`docs/lead-followup.md`](docs/lead-followup.md) for transactional automations and [`docs/deliverability.md`](docs/deliverability.md) for DNS guidance.
 
-Configure the SMTP + email settings in `.env`/Vercel (`SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `FROM_EMAIL`, `NEXT_PUBLIC_APP_URL`).
-
-See [`docs/deliverability.md`](docs/deliverability.md) for production DNS requirements and [`docs/lead-followup.md`](docs/lead-followup.md) for transactional email configuration and monitoring expectations.
-Upload `public/whitepaper.pdf` or set `WHITEPAPER_URL`/`NEXT_PUBLIC_WHITEPAPER_URL` to your storage bucket/CDN.
+Configure analytics and email credentials in `.env`/Vercel as needed. The API accepts `BASE_URL`/`SITE_URL`/`NEXT_PUBLIC_SITE_URL` to build absolute download links when responding to the client or transactional emails.
 
 ## Updating the lead magnet asset
 
-- Replace `public/assets/icarius-hr-ai-whitepaper.pdf` with your production PDF. Commit the path, not the binary, if you store
-  the file in object storage.
-- For tighter control, point the response in `pages/api/lead-magnet.ts` at a time-limited URL (for example, a presigned S3 or
-  Cloudflare R2 link) instead of the public asset.
-- Remember to mirror the change in any marketing automations that email the download link.
+- Replace `public/assets/icarius-hr-ai-whitepaper.pdf` with your production PDF. Commit the path, not the binary, if you prefer to host the file outside the repo.
+- For production we recommend hosting the PDF on S3/R2 (or another CDN) and returning a short-lived, signed URL from `pages/api/lead-magnet.ts`. The existing response object already supports overriding `downloadUrl`.
+- Set `BASE_URL` (or `SITE_URL` / `NEXT_PUBLIC_SITE_URL`) in the environment so absolute download URLs resolve correctly in emails and analytics events.
+- Mirror any URL changes in nurture workflows or CRM automations that reference the asset.
 
-## How the signed download works
+## Production checklist
 
-When a visitor submits the lead form, `/api/lead`:
-
-1. Generates a signed link valid for `SIGN_EXP_SECONDS` (default 24h).
-2. Sends the link via PurelyMail SMTP (Nodemailer) and returns it to the frontend for immediate download.
-3. Optionally posts the lead payload (`email`, `name`, etc.) to `LEAD_WEBHOOK_URL` for CRM/Sheets automations.
-
-The signed URL points to `/api/download?email=...&expires=...&sig=...`.
-
-`/api/download` checks expiry and HMAC signature (using `SIGNING_KEY`) and then issues a redirect to the actual `WHITEPAPER_URL` (could be S3 presigned URL, Cloudflare Workers asset, or `/public/whitepaper.pdf`).
-
-This prevents casual link sharing and allows you to track/limit access. For higher security, generate a presigned S3 URL on the fly (recommended if using S3).
+1. Configure analytics environment variables (`NEXT_PUBLIC_PLAUSIBLE_DOMAIN`, `NEXT_PUBLIC_GA4_MEASUREMENT_ID`, `GA4_MEASUREMENT_ID`, etc.) so attribution events fire correctly.
+2. Provide SMTP/ESP credentials if you enable the optional follow-up automations.
+3. Enable rate limiting or CAPTCHA upstream before making the form public.
+4. Review retention policies in `lib/persistence/lead.ts` and purge local JSON storage before deploying.
