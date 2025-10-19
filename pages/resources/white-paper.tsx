@@ -275,36 +275,36 @@ export default function WhitePaperPage() {
         <main className="relative isolate flex-1 overflow-hidden">
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.12),_transparent_55%)]"
+            className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(107,140,255,0.08),_transparent_60%)]"
           />
-          <div className="relative mx-auto flex w-full max-w-7xl flex-col gap-16 px-4 pb-24 pt-16 lg:flex-row lg:items-start lg:gap-20 lg:px-6 xl:gap-28">
-            <section className="w-full max-w-3xl space-y-12 lg:flex-1">
-              <div className="space-y-6">
-                <span className="inline-flex items-center gap-2 rounded-full border border-sky-400/40 bg-sky-400/10 px-4 py-1 text-sm font-medium uppercase tracking-[0.18em] text-sky-200">
+          <div className="relative mx-auto flex w-full max-w-7xl flex-col gap-12 px-4 pb-20 pt-12 sm:gap-16 sm:pb-24 sm:pt-16 lg:flex-row lg:items-start lg:gap-20 lg:px-6 xl:gap-24">
+            <section className="w-full max-w-3xl space-y-10 sm:space-y-12 lg:flex-1">
+              <div className="space-y-5 sm:space-y-6">
+                <span className="inline-flex items-center gap-2 rounded-full border border-[color:var(--primary)]/30 bg-[color:var(--primary)]/8 px-4 py-1.5 text-sm font-medium uppercase tracking-[0.18em] text-[color:var(--primary-2)] transition-colors hover:border-[color:var(--primary)]/40 hover:bg-[color:var(--primary)]/12">
                   Resource
                 </span>
-                <h1 className="text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl">
+                <h1 className="text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl leading-[1.1]">
                   The HR leader&apos;s field guide to AI-ready systems
                 </h1>
-                <p className="max-w-2xl text-lg leading-relaxed text-white/70 sm:text-xl">{description}</p>
+                <p className="max-w-2xl text-lg leading-relaxed text-white/75 sm:text-xl sm:leading-relaxed">{description}</p>
               </div>
 
-              <dl className="grid gap-4 rounded-3xl border border-white/10 bg-white/5 p-6 text-white/80 sm:grid-cols-3">
+              <dl className="grid gap-4 rounded-3xl border border-white/10 bg-white/[0.03] p-6 text-white/80 backdrop-blur-sm sm:grid-cols-3 sm:gap-6 sm:p-8 transition-all hover:border-white/15 hover:bg-white/[0.04]">
                 {highlights.map((item) => (
-                  <div key={item.label} className="space-y-1">
-                    <dt className="text-xs uppercase tracking-[0.2em] text-slate-200/70">{item.label}</dt>
-                    <dd className="text-2xl font-semibold text-white">{item.value}</dd>
+                  <div key={item.label} className="space-y-1.5">
+                    <dt className="text-xs uppercase tracking-[0.2em] text-white/60">{item.label}</dt>
+                    <dd className="text-2xl font-semibold text-white sm:text-3xl">{item.value}</dd>
                   </div>
                 ))}
               </dl>
 
-              <div className="space-y-10 rounded-3xl border border-white/10 bg-[#0B1324]/70 p-10 shadow-2xl backdrop-blur">
-                <div className="space-y-4">
-                  <h2 className="text-2xl font-semibold text-white">What&apos;s inside</h2>
-                  <ul className="space-y-3 text-base text-white/70">
+              <div className="space-y-8 sm:space-y-10 rounded-3xl border border-white/10 bg-[#0B1324]/60 p-8 sm:p-10 shadow-2xl backdrop-blur-sm transition-all hover:border-white/15">
+                <div className="space-y-4 sm:space-y-5">
+                  <h2 className="text-2xl font-semibold text-white sm:text-3xl">What&apos;s inside</h2>
+                  <ul className="space-y-3.5 text-base text-white/75 sm:text-lg">
                     {benefits.map((benefit) => (
                       <li key={benefit} className="flex items-start gap-3">
-                        <span className="mt-1 inline-flex size-5 items-center justify-center rounded-full bg-sky-400/20 text-sky-200">
+                        <span className="mt-1 inline-flex size-5 shrink-0 items-center justify-center rounded-full bg-[color:var(--primary)]/15 text-[color:var(--primary-2)] transition-colors group-hover:bg-[color:var(--primary)]/20">
                           <svg aria-hidden="true" className="size-3" fill="none" viewBox="0 0 12 12">
                             <path
                               d="M10.414 2.414a2 2 0 0 1 0 2.828l-4.95 4.95a2 2 0 0 1-2.828 0l-1.707-1.707a1 1 0 1 1 1.414-1.414l1.707 1.707a1 1 0 0 0 1.414 0l4.95-4.95a2 2 0 0 0 0-2.828 1 1 0 0 1 1.414 0Z"
@@ -312,19 +312,19 @@ export default function WhitePaperPage() {
                             />
                           </svg>
                         </span>
-                        <span>{benefit}</span>
+                        <span className="leading-relaxed">{benefit}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
 
-                <div className="space-y-6">
-                  <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-200">Trusted by leaders at</h3>
-                  <div className="grid gap-6 sm:grid-cols-2">
+                <div className="space-y-5 sm:space-y-6">
+                  <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-[color:var(--primary-2)]">Trusted by leaders at</h3>
+                  <div className="grid gap-4 sm:grid-cols-2 sm:gap-5">
                     {credibilityQuotes.map((testimonial) => (
-                      <blockquote key={testimonial.name} className="rounded-2xl border border-white/10 bg-white/5 p-5 text-sm text-white/80">
-                        <p className="text-white/90">“{testimonial.quote}”</p>
-                        <footer className="mt-3 text-xs uppercase tracking-[0.2em] text-slate-200/70">{testimonial.name}</footer>
+                      <blockquote key={testimonial.name} className="group rounded-2xl border border-white/10 bg-white/[0.03] p-5 sm:p-6 text-sm text-white/80 backdrop-blur-sm transition-all hover:border-white/15 hover:bg-white/[0.05] hover:shadow-lg">
+                        <p className="text-white/90 leading-relaxed">“{testimonial.quote}”</p>
+                        <footer className="mt-4 text-xs uppercase tracking-[0.2em] text-white/55">{testimonial.name}</footer>
                       </blockquote>
                     ))}
                   </div>
@@ -333,23 +333,23 @@ export default function WhitePaperPage() {
             </section>
 
             <aside className="w-full max-w-xl lg:sticky lg:top-28">
-              <div className="rounded-3xl border border-white/10 bg-[#0B1324]/80 p-8 shadow-2xl backdrop-blur">
+              <div className="rounded-3xl border border-white/10 bg-[#0B1324]/70 p-8 shadow-2xl backdrop-blur-sm transition-all hover:border-white/15">
                 {status === "success" ? (
-                  <div className="space-y-6" aria-live="polite">
-                    <div className="space-y-2">
-                      <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-200">You&apos;re all set</p>
-                      <h2 className="text-3xl font-semibold text-white">Download your copy</h2>
-                      <p className="text-base text-white/70">
+                  <div className="space-y-6 sm:space-y-7" aria-live="polite">
+                    <div className="space-y-3">
+                      <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[color:var(--primary-2)]">You&apos;re all set</p>
+                      <h2 className="text-3xl font-semibold text-white sm:text-4xl">Download your copy</h2>
+                      <p className="text-base text-white/75 leading-relaxed">
                         We&apos;ve emailed a copy to <span className="font-medium text-white">{email}</span>. You can also access it directly below.
                       </p>
                     </div>
-                    <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
-                      <p className="text-sm text-white/60">Icarius HR AI Readiness White Paper (PDF)</p>
+                    <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-sm transition-all hover:border-white/15 hover:bg-white/[0.05]">
+                      <p className="text-sm text-white/65">Icarius HR AI Readiness White Paper (PDF)</p>
                       <a
                         href={downloadUrl || DOWNLOAD_PATH}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="mt-4 inline-flex items-center justify-center gap-2 rounded-full bg-sky-300 px-6 py-3 text-base font-semibold text-slate-950 transition hover:bg-sky-200"
+                        className="mt-4 inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[color:var(--primary)] to-[color:var(--primary-2)] px-6 py-3 text-base font-semibold text-slate-950 shadow-lg transition-all hover:-translate-y-0.5 hover:shadow-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--primary)]/60"
                       >
                         <svg aria-hidden="true" className="size-5" fill="currentColor" viewBox="0 0 20 20">
                           <path d="M9 3a1 1 0 1 1 2 0v6.586l1.293-1.293a1 1 0 0 1 1.414 1.414l-3 3a1 1 0 0 1-1.414 0l-3-3A1 1 0 0 1 6.996 8.29L8.293 9.586V3Zm-7 9a2 2 0 0 1 2-2h2a1 1 0 1 1 0 2H4v3h12v-3h-2a1 1 0 1 1 0-2h2a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-3Z" />
@@ -357,13 +357,13 @@ export default function WhitePaperPage() {
                         Download the PDF
                       </a>
                     </div>
-                    <p className="text-xs text-white/40">
-                      Need help activating the playbook? <Link href="/contact" className="text-sky-300 underline underline-offset-4">Talk with Icarius</Link> and we&apos;ll map the next sprint.
+                    <p className="text-xs text-white/45">
+                      Need help activating the playbook? <Link href="/contact" className="text-[color:var(--primary-2)] underline underline-offset-4 hover:text-[color:var(--primary)] transition-colors">Talk with Icarius</Link> and we&apos;ll map the next sprint.
                     </p>
                   </div>
                 ) : (
-                  <form className="space-y-6" noValidate onSubmit={submit}>
-                    <div className="space-y-2">
+                  <form className="space-y-6 sm:space-y-7" noValidate onSubmit={submit}>
+                    <div className="space-y-2.5">
                       <label htmlFor="whitepaper-email" className="text-sm font-semibold text-white">
                         Work email
                       </label>
@@ -375,19 +375,19 @@ export default function WhitePaperPage() {
                         required
                         value={email}
                         onChange={(event) => setEmail(event.target.value)}
-                        className="w-full rounded-2xl border border-white/10 bg-[#0F1A32] px-4 py-3 text-base text-white placeholder:text-white/40 focus:border-sky-300 focus:outline-none focus:ring-2 focus:ring-sky-400/60"
+                        className="w-full rounded-2xl border border-white/10 bg-[#0F1A32]/80 px-4 py-3.5 text-base text-white placeholder:text-white/40 backdrop-blur-sm transition-all focus:border-[color:var(--primary)] focus:outline-none focus:ring-2 focus:ring-[color:var(--primary)]/40 hover:border-white/15"
                         placeholder="you@company.com"
                         aria-describedby="whitepaper-email-helper"
                         aria-invalid={errorMessage ? true : undefined}
                       />
-                      <p id="whitepaper-email-helper" className="text-xs text-white/50">
+                      <p id="whitepaper-email-helper" className="text-xs text-white/55 leading-relaxed">
                         We&apos;ll send the PDF and a short series of Icarius insights. Unsubscribe anytime.
                       </p>
                     </div>
-                    <label className="flex items-start gap-3 text-sm text-white/80">
+                    <label className="flex items-start gap-3 text-sm text-white/80 cursor-pointer group">
                       <input
                         type="checkbox"
-                        className="mt-1 size-4 rounded border-white/50 bg-transparent text-sky-300 focus:ring-sky-400"
+                        className="mt-1 size-4 rounded border-white/30 bg-transparent text-[color:var(--primary)] focus:ring-[color:var(--primary)]/40 transition-colors cursor-pointer"
                         required
                         checked={consent}
                         onChange={(event) => setConsent(event.target.checked)}
@@ -397,14 +397,14 @@ export default function WhitePaperPage() {
                       </span>
                     </label>
                     {errorMessage && (
-                      <p role="alert" className="text-sm text-rose-300" aria-live="assertive">
+                      <p role="alert" className="rounded-lg bg-rose-500/10 border border-rose-400/20 px-4 py-3 text-sm text-rose-300" aria-live="assertive">
                         {errorMessage}
                       </p>
                     )}
                     <button
                       type="submit"
                       disabled={status === "submitting"}
-                      className="flex w-full items-center justify-center gap-2 rounded-full bg-sky-300 px-6 py-3 text-base font-semibold text-slate-950 transition hover:bg-sky-200 disabled:cursor-not-allowed disabled:opacity-70"
+                      className="flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[color:var(--primary)] to-[color:var(--primary-2)] px-6 py-3.5 text-base font-semibold text-slate-950 shadow-lg transition-all hover:-translate-y-0.5 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0 disabled:hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--primary)]/60"
                       aria-busy={status === "submitting"}
                     >
                       {status === "submitting" ? (
@@ -430,8 +430,8 @@ export default function WhitePaperPage() {
                         </>
                       )}
                     </button>
-                    <p className="text-xs text-white/40">
-                      We recommend using a company email. By submitting, you acknowledge Icarius&apos;s <Link href="/privacy" className="text-sky-300 underline underline-offset-4">privacy policy</Link>.
+                    <p className="text-xs text-white/45 leading-relaxed">
+                      We recommend using a company email. By submitting, you acknowledge Icarius&apos;s <Link href="/privacy" className="text-[color:var(--primary-2)] underline underline-offset-4 hover:text-[color:var(--primary)] transition-colors">privacy policy</Link>.
                     </p>
                   </form>
                 )}
