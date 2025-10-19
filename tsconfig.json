@@ -15,7 +15,7 @@
     "moduleResolution": "Bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-  "jsx": "preserve",
+    "jsx": "preserve",
     "incremental": true,
     "baseUrl": ".",
     "paths": {
@@ -34,7 +34,8 @@
     "**/*.ts",
     "**/*.tsx",
     "**/*.mdx",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "types/**/*.d.ts"
   ],
   "exclude": [
     "node_modules"

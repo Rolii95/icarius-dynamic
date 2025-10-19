@@ -1,6 +1,7 @@
 
 import React from 'react';
 import Link from 'next/link'
+import Image from 'next/image'
 
 import { footerNavLinks } from '@/lib/navigation'
 import Brand from '@/components/site/Brand'
@@ -17,13 +18,14 @@ export function Footer(){
       {/* Mobile Layout - Stacked, Centered */}
       <div className="md:hidden container mx-auto px-4 py-6 text-sm text-slate-300 flex flex-col items-center text-center gap-2">
         <div className="flex flex-col items-center gap-2">
-          <img
+          <Image
             src="/brand/icarius_interlock_mark.svg"
-            width="48"
-            height="48"
-            alt=""
+            width={48}
+            height={48}
+            alt="Icarius logo"
             aria-hidden="true"
-            className="w-12 h-12"
+            className="h-12 w-12"
+            priority
           />
           <div className="leading-none text-center">
             <div className="font-bold tracking-[0.02em] text-white text-[28px]">Icarius</div>
