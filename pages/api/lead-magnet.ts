@@ -1,6 +1,8 @@
 import { randomUUID } from "crypto";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { enqueueFollowUp } from "@/lib/automation/emailQueue";
+import { sendLeadMagnetEmail } from "@/lib/email/transactional";
+import { reportDeliverabilityIssue } from "@/lib/monitoring/deliverability";
 import { saveLead, type LeadPersistencePayload } from "@/lib/persistence/lead";
 
 const DOWNLOAD_PATH = "/assets/icarius-hr-ai-whitepaper.pdf";
@@ -17,7 +19,7 @@ interface LeadMagnetRequestBody {
 }
 
 type LeadMagnetResponse =
-  | { ok: true; downloadUrl: string }
+  | { ok: true; downloadUrl: string; emailSent: boolean; message?: string }
   | { ok: false; error: string };
 
 type NullableString = string | undefined;
@@ -318,6 +320,9 @@ export default async function handler(
     },
   };
 
+  let emailSent = false;
+  let emailMessage: string | undefined;
+
   try {
     await saveLead(payload);
 
@@ -358,6 +363,42 @@ export default async function handler(
       }
     });
 
+    const transactionalTemplateId = process.env.LEAD_MAGNET_TEMPLATE_ID || process.env.LEAD_AUTOFOLLOWUP_TEMPLATE_ID;
+    const transactionalMetadata = pruneUndefined({
+      source: payload.tracking.source,
+      referrer: payload.tracking.referrer,
+      landingPage: payload.tracking.landingPage,
+      utm_campaign: payload.tracking.utm?.utm_campaign,
+    });
+
+    const emailResult = await sendLeadMagnetEmail({
+      email: sanitizedEmail,
+      downloadUrl,
+      templateId: transactionalTemplateId || undefined,
+      metadata: Object.keys(transactionalMetadata).length ? transactionalMetadata : undefined,
+    });
+
+    emailSent = emailResult.delivered;
+
+    if (!emailResult.delivered) {
+      emailMessage =
+        emailResult.skipped && emailResult.provider === "none"
+          ? "Email delivery skipped: transactional provider not configured"
+          : "Email delivery pending: please review transactional provider logs";
+
+      if (!emailResult.skipped) {
+        const domain = sanitizedEmail.split("@")[1] ?? "unknown";
+        void reportDeliverabilityIssue({
+          domain,
+          issue: "transactional-email-failed",
+          details: {
+            provider: emailResult.provider,
+            error: emailResult.errorMessage,
+          },
+        });
+      }
+    }
+
     // Example email notification using Nodemailer (not bundled by default):
     //
     // import nodemailer from "nodemailer";
@@ -381,5 +422,5 @@ export default async function handler(
     return response.status(500).json({ ok: false, error: "Unable to process request" });
   }
 
-  return response.status(200).json({ ok: true, downloadUrl });
+  return response.status(200).json({ ok: true, downloadUrl, emailSent, message: emailMessage });
 }

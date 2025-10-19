@@ -7,6 +7,8 @@ Icarius white paper lead magnet
 - Optionally POSTs leads to an external webhook (Airtable/Make/Zapier/etc.).
 
 Configure the SMTP + email settings in `.env`/Vercel (`SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `FROM_EMAIL`, `NEXT_PUBLIC_APP_URL`).
+
+See [`docs/deliverability.md`](docs/deliverability.md) for production DNS requirements and [`docs/lead-followup.md`](docs/lead-followup.md) for transactional email configuration and monitoring expectations.
 Upload `public/whitepaper.pdf` or set `WHITEPAPER_URL`/`NEXT_PUBLIC_WHITEPAPER_URL` to your storage bucket/CDN.
 
 ## Updating the lead magnet asset
