@@ -4,16 +4,10 @@ import { CASE_STUDIES } from "@/data/caseStudies";
 
 const BASE_URL = "https://www.icarius-consulting.com";
 
-const staticPaths = [
-  "/",
-  "/about",
-  "/contact",
-  "/services",
-  "/case-studies",
-  "/resources/white-paper",
-];
+const resourcesPaths = ["/resources/white-paper"];
+const staticPaths = ["/", "/about", "/contact", "/services", "/case-studies"];
 const caseStudyPaths = Object.keys(CASE_STUDIES).map((slug) => `/case-studies/${slug}`);
-const allPaths = [...staticPaths, ...caseStudyPaths];
+const allPaths = [...staticPaths, ...resourcesPaths, ...caseStudyPaths];
 
 const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
