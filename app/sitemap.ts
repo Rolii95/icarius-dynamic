@@ -19,6 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/privacy',
     '/terms',
     '/accessibility',
+    '/resources/white-paper',
   ]
 
   const caseStudyRoutes = CASE_STUDIES.map((study) => `/work/${study.slug}`)
