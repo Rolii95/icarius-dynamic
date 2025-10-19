@@ -1,12 +1,31 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Head from "next/head";
 import { track } from "@/lib/analytics";
+import { hasAnalyticsConsent } from "@/app/consent/ConsentBanner";
 
 const DOWNLOAD_PATH = "/assets/icarius-hr-ai-whitepaper.pdf";
+const TRACKING_STORAGE_KEY = "icarius:lead-tracking";
 
 type Status = "idle" | "submitting" | "success" | "error";
+
+type TrackingMetadata = {
+  utm?: Record<string, string>;
+  referrer?: string;
+  landingPage?: string;
+  source?: string;
+};
+
+const parseHostname = (value?: string) => {
+  if (!value) return undefined;
+  try {
+    return new URL(value).hostname;
+  } catch (error) {
+    console.warn("Unable to parse hostname", error);
+    return value;
+  }
+};
 
 export default function WhitePaperPage() {
   const [status, setStatus] = useState<Status>("idle");
@@ -14,6 +33,135 @@ export default function WhitePaperPage() {
   const [consent, setConsent] = useState(false);
   const [error, setError] = useState("");
   const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
+  const [tracking, setTracking] = useState<TrackingMetadata>({});
+
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    let stored: TrackingMetadata | undefined;
+    try {
+      const raw = window.sessionStorage.getItem(TRACKING_STORAGE_KEY);
+      if (raw) {
+        stored = JSON.parse(raw) as TrackingMetadata;
+      }
+    } catch (error) {
+      console.warn("Unable to read lead tracking metadata", error);
+    }
+
+    const searchParams = new URLSearchParams(window.location.search);
+    const utmEntries = Array.from(searchParams.entries()).reduce<Record<string, string>>((acc, [key, value]) => {
+      if (!key || !value) {
+        return acc;
+      }
+      const trimmedKey = key.trim();
+      const trimmedValue = value.trim();
+      if (!trimmedKey || !trimmedValue) {
+        return acc;
+      }
+      if (trimmedKey.startsWith("utm_")) {
+        acc[trimmedKey] = trimmedValue;
+      }
+      if (trimmedKey === "source" && !acc.utm_source) {
+        acc.utm_source = trimmedValue;
+      }
+      return acc;
+    }, {});
+
+    const documentReferrer = typeof document !== "undefined" ? document.referrer : "";
+    const normalizedReferrer =
+      stored?.referrer && stored.referrer !== "direct"
+        ? stored.referrer
+        : documentReferrer && !documentReferrer.startsWith(window.location.origin)
+          ? documentReferrer
+          : undefined;
+
+    const landingPage = stored?.landingPage ?? window.location.href;
+    const utm = { ...(stored?.utm ?? {}), ...utmEntries };
+    const sourceFromUtm = utm.utm_source || utm.source;
+    const derivedSource =
+      stored?.source ||
+      sourceFromUtm ||
+      parseHostname(normalizedReferrer) ||
+      (normalizedReferrer ? normalizedReferrer : "direct");
+
+    const nextTracking: TrackingMetadata = {
+      utm: Object.keys(utm).length > 0 ? utm : stored?.utm,
+      referrer: normalizedReferrer ?? stored?.referrer ?? "direct",
+      landingPage,
+      source: derivedSource,
+    };
+
+    setTracking(nextTracking);
+
+    try {
+      window.sessionStorage.setItem(TRACKING_STORAGE_KEY, JSON.stringify(nextTracking));
+    } catch (error) {
+      console.warn("Unable to persist lead tracking metadata", error);
+    }
+  }, []);
+
+  const analyticsPayload = useMemo(() => {
+    const base = {
+      source: tracking.source ?? "direct",
+      referrer: tracking.referrer,
+      landingPage: tracking.landingPage,
+    };
+
+    if (!tracking.utm) {
+      return base;
+    }
+
+    return {
+      ...base,
+      ...tracking.utm,
+    };
+  }, [tracking]);
+
+  const dispatchClientAnalytics = (payload: Record<string, unknown>) => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    if (!hasAnalyticsConsent()) {
+      return;
+    }
+
+    track("LeadMagnetSubmit", payload);
+
+    const plausibleDomain = process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN;
+    const plausible = (window as typeof window & { plausible?: (event: string, options?: Record<string, unknown>) => void })
+      .plausible;
+    if (plausibleDomain && typeof plausible === "function") {
+      plausible("LeadMagnetSubmit", { props: payload });
+    }
+
+    const cloudflareToken = process.env.NEXT_PUBLIC_CLOUDFLARE_BEACON_TOKEN;
+    if (cloudflareToken) {
+      const cfBeacon = (window as typeof window & { __cfBeacon?: { push?: (record: unknown) => void } }).__cfBeacon;
+      if (cfBeacon && typeof cfBeacon.push === "function") {
+        cfBeacon.push({ event: "LeadMagnetSubmit", metadata: payload });
+      } else if (typeof navigator !== "undefined" && typeof navigator.sendBeacon === "function") {
+        const beaconUrl = `https://cloudflareinsights.com/cdn-cgi/beacon/rum?token=${encodeURIComponent(cloudflareToken)}`;
+        try {
+          navigator.sendBeacon(beaconUrl, JSON.stringify({ event: "LeadMagnetSubmit", metadata: payload }));
+        } catch (error) {
+          console.warn("Cloudflare beacon send failed", error);
+        }
+      }
+    }
+
+    const ga4MeasurementId =
+      process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID || process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+    if (ga4MeasurementId && typeof window.gtag === "function") {
+      window.gtag("event", "conversion", {
+        event_label: "LeadMagnetSubmit",
+        value: 1,
+        ...payload,
+      });
+    }
+  };
 
   const submit: React.FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
@@ -28,7 +176,14 @@ export default function WhitePaperPage() {
       const response = await fetch("/api/lead-magnet", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, consent }),
+        body: JSON.stringify({
+          email,
+          consent,
+          utm: tracking.utm,
+          referrer: tracking.referrer,
+          source: tracking.source,
+          landingPage: tracking.landingPage,
+        }),
       });
 
       if (!response.ok) {
@@ -44,7 +199,7 @@ export default function WhitePaperPage() {
 
       setDownloadUrl(payload.downloadUrl);
       setStatus("success");
-      track("LeadMagnetSubmit", { source: "whitepaper_page" });
+      dispatchClientAnalytics({ ...analyticsPayload, form: "whitepaper_page" });
     } catch (err) {
       setStatus("error");
       setError(err instanceof Error ? err.message : "Something went wrong");
