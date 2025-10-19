@@ -224,22 +224,22 @@ export default function WhitePaperForm() {
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(107,140,255,0.08),_transparent_60%)]"
         />
         <div className="relative mx-auto flex w-full max-w-7xl flex-col gap-10 px-4 pb-20 pt-12 sm:gap-12 sm:pb-24 sm:pt-16 lg:flex-row lg:items-start lg:gap-16 lg:px-6 xl:gap-20">
-          <section className="w-full max-w-3xl space-y-8 sm:space-y-10 lg:flex-1 lg:space-y-12">
+          <section className="w-full max-w-3xl space-y-8 sm:space-y-10 lg:flex-1 lg:space-y-12 lg:min-w-0">
             <div className="space-y-5 sm:space-y-6">
               <span className="inline-flex items-center gap-2 rounded-full border border-[color:var(--primary)]/30 bg-[color:var(--primary)]/8 px-4 py-1.5 text-sm font-medium uppercase tracking-[0.18em] text-[color:var(--primary-2)] transition-colors hover:border-[color:var(--primary)]/40 hover:bg-[color:var(--primary)]/12">
                 Resource
               </span>
-              <h1 className="text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl leading-[1.1]">
+              <h1 className="text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl leading-[1.1] text-balance">
                 The HR leader&apos;s field guide to AI-ready systems
               </h1>
-              <p className="max-w-2xl text-base leading-relaxed text-white/75 sm:text-lg sm:leading-relaxed">{description}</p>
+              <p className="max-w-2xl text-base leading-relaxed text-white/75 text-pretty sm:text-lg sm:leading-relaxed">{description}</p>
             </div>
 
-            <dl className="grid gap-6 rounded-3xl border border-white/10 bg-white/[0.03] p-6 text-white/80 backdrop-blur-sm sm:grid-cols-3 sm:gap-6 sm:p-8 transition-all hover:border-white/15 hover:bg-white/[0.04]">
+            <dl className="grid grid-flow-col auto-cols-[minmax(12rem,1fr)] gap-4 overflow-x-auto rounded-3xl border border-white/10 bg-white/[0.03] p-6 text-white/80 backdrop-blur-sm transition-all hover:border-white/15 hover:bg-white/[0.04] [scrollbar-width:none] sm:auto-cols-auto sm:grid-flow-row sm:grid-cols-3 sm:gap-6 sm:overflow-visible sm:p-8 [&::-webkit-scrollbar]:hidden">
               {highlights.map((item) => (
-                <div key={item.label} className="space-y-1.5">
-                  <dt className="text-xs uppercase tracking-[0.2em] text-white/60">{item.label}</dt>
-                  <dd className="text-2xl font-semibold text-white sm:text-3xl">{item.value}</dd>
+                <div key={item.label} className="space-y-1.5 min-w-0">
+                  <dt className="text-xs uppercase tracking-[0.2em] text-white/60 text-pretty">{item.label}</dt>
+                  <dd className="text-2xl font-semibold text-white sm:text-3xl text-balance">{item.value}</dd>
                 </div>
               ))}
             </dl>
@@ -249,7 +249,7 @@ export default function WhitePaperForm() {
                 <h2 className="text-2xl font-semibold text-white sm:text-3xl">What&apos;s inside</h2>
                 <ul className="space-y-4 text-base text-white/75 sm:text-lg">
                   {benefits.map((benefit) => (
-                    <li key={benefit} className="flex items-start gap-3">
+                    <li key={benefit} className="group flex items-start gap-3">
                       <span className="mt-1 inline-flex size-5 shrink-0 items-center justify-center rounded-full bg-[color:var(--primary)]/15 text-[color:var(--primary-2)] transition-colors group-hover:bg-[color:var(--primary)]/20">
                         <svg aria-hidden="true" className="size-3" fill="none" viewBox="0 0 12 12">
                           <path
@@ -258,7 +258,7 @@ export default function WhitePaperForm() {
                           />
                         </svg>
                       </span>
-                      <span className="leading-relaxed">{benefit}</span>
+                      <span className="leading-relaxed text-pretty">{benefit}</span>
                     </li>
                   ))}
                 </ul>
@@ -266,11 +266,11 @@ export default function WhitePaperForm() {
 
               <div className="space-y-5 sm:space-y-6">
                 <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-[color:var(--primary-2)]">Trusted by leaders at</h3>
-                <div className="grid gap-5 sm:grid-cols-2 sm:gap-6">
+                <div className="grid grid-flow-col auto-cols-[minmax(16rem,1fr)] gap-4 overflow-x-auto [scrollbar-width:none] sm:grid-flow-row sm:auto-cols-auto sm:grid-cols-2 sm:gap-6 sm:overflow-visible [&::-webkit-scrollbar]:hidden">
                   {credibilityQuotes.map((testimonial) => (
                     <blockquote key={testimonial.name} className="group rounded-2xl border border-white/10 bg-white/[0.03] p-5 sm:p-6 text-sm text-white/80 backdrop-blur-sm transition-all hover:border-white/15 hover:bg-white/[0.05] hover:shadow-lg">
-                      <p className="text-white/90 leading-relaxed">&quot;{testimonial.quote}&quot;</p>
-                      <footer className="mt-4 text-xs uppercase tracking-[0.2em] text-white/55">{testimonial.name}</footer>
+                      <p className="text-white/90 leading-relaxed text-pretty">&quot;{testimonial.quote}&quot;</p>
+                      <footer className="mt-4 text-xs uppercase tracking-[0.2em] text-white/55 text-pretty">{testimonial.name}</footer>
                     </blockquote>
                   ))}
                 </div>
@@ -278,7 +278,7 @@ export default function WhitePaperForm() {
             </div>
           </section>
 
-          <aside className="w-full max-w-xl lg:sticky lg:top-28">
+          <aside className="w-full max-w-xl lg:sticky lg:top-28 lg:min-w-[22rem] lg:flex-shrink-0">
             <div className="rounded-3xl border border-white/10 bg-[#0B1324]/70 p-8 sm:p-10 shadow-2xl backdrop-blur-sm transition-all hover:border-white/15">
               {status === "success" ? (
                 <div className="space-y-6 sm:space-y-7" aria-live="polite">
@@ -286,7 +286,7 @@ export default function WhitePaperForm() {
                     <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[color:var(--primary-2)]">You&apos;re all set</p>
                     <h2 className="text-3xl font-semibold text-white sm:text-4xl">Download your copy</h2>
                     <p className="text-base text-white/75 leading-relaxed">
-                      We&apos;ve emailed a copy to <span className="font-medium text-white">{email}</span>. You can also access it directly below.
+                      We&apos;ve emailed a copy to <span className="font-medium text-white break-words">{email}</span>. You can also access it directly below.
                     </p>
                   </div>
                   <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-sm transition-all hover:border-white/15 hover:bg-white/[0.05]">
