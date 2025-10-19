@@ -3,8 +3,6 @@
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 
-import { Header } from "@/components/header";
-import { Footer } from "@/components/footer";
 import { track } from "@/lib/analytics";
 
 const STORAGE_KEY = "icarius:whitepaper:tracking";
@@ -220,9 +218,7 @@ export default function WhitePaperForm() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-gradient-to-b from-[#070E1B] via-[#0E1525] to-[#050A13] text-white">
-      <Header />
-      <main className="relative isolate flex-1 overflow-hidden">
+      <div className="relative isolate overflow-hidden py-16">
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(107,140,255,0.08),_transparent_60%)]"
@@ -388,8 +384,6 @@ export default function WhitePaperForm() {
             </div>
           </aside>
         </div>
-      </main>
-      <Footer />
-    </div>
+      </div>
   );
 }
