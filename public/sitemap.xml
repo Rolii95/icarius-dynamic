@@ -27,6 +27,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.icarius-consulting.com/resources/white-paper</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.icarius-consulting.com/case-studies/hcm-migration</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

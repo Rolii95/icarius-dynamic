@@ -44,6 +44,9 @@ export default function Header() {
             <Link className="text-white/80 hover:text-white" href="/insights">
               Insights
             </Link>
+            <Link className="text-white/80 hover:text-white" href="/resources/white-paper">
+              White paper
+            </Link>
             <Link className="text-white/80 hover:text-white" href="/contact">
               Contact
             </Link>
@@ -82,6 +85,13 @@ export default function Header() {
         </Link>
         <Link className="py-2 text-lg text-white" href="/insights" onClick={close}>
           Insights
+        </Link>
+        <Link
+          className="py-2 text-lg text-white"
+          href="/resources/white-paper"
+          onClick={close}
+        >
+          White paper
         </Link>
         <Link className="py-2 text-lg text-white" href="/contact" onClick={close}>
           Contact
