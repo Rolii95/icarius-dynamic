@@ -4,6 +4,7 @@ import { FormEvent, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 
 import { track } from "@/lib/analytics";
+import styles from "@/styles/resources/white-paper.module.css";
 
 const STORAGE_KEY = "icarius:whitepaper:tracking";
 const DOWNLOAD_PATH = "/assets/icarius-hr-ai-whitepaper.pdf";
@@ -244,7 +245,9 @@ export default function WhitePaperForm() {
               ))}
             </dl>
 
-            <div className="space-y-8 sm:space-y-10 rounded-3xl border border-white/10 bg-[#0B1324]/60 p-8 sm:p-10 shadow-2xl backdrop-blur-sm transition-all hover:border-white/15">
+            <section
+              className={`wp-whats-inside ${styles.wpWhatsInsideSection} space-y-8 sm:space-y-10 rounded-3xl border border-white/10 bg-[#0B1324]/60 p-8 sm:p-10 shadow-2xl backdrop-blur-sm transition-all hover:border-white/15`}
+            >
               <div className="space-y-5 sm:space-y-6">
                 <h2
                   id="whats-inside"
@@ -255,12 +258,12 @@ export default function WhitePaperForm() {
                 <ul
                   role="list"
                   aria-labelledby="whats-inside"
-                  className="grid gap-4 text-base text-white/75 sm:grid-cols-2 sm:gap-5 sm:text-lg xl:grid-cols-3"
+                  className={`wp-whats-inside__list ${styles.wpWhatsInsideList} grid gap-4 text-base text-white/75 sm:grid-cols-2 sm:gap-5 sm:text-lg xl:grid-cols-3`}
                 >
                   {benefits.map((benefit) => (
                     <li
                       key={benefit}
-                      className="group flex items-start gap-3 rounded-2xl border border-white/10 bg-white/[0.02] p-5 transition-colors hover:border-white/15 hover:bg-white/[0.04] sm:p-6"
+                      className={`wp-whats-inside__item ${styles.wpWhatsInsideItem} group flex items-start gap-3 rounded-2xl border border-white/10 bg-white/[0.02] p-5 transition-colors hover:border-white/15 hover:bg-white/[0.04] sm:p-6`}
                     >
                       <span className="mt-1 inline-flex size-5 shrink-0 items-center justify-center rounded-full bg-[color:var(--primary)]/15 text-[color:var(--primary-2)] transition-colors group-hover:bg-[color:var(--primary)]/20">
                         <svg aria-hidden="true" className="size-3" fill="none" viewBox="0 0 12 12">
@@ -287,7 +290,7 @@ export default function WhitePaperForm() {
                   ))}
                 </div>
               </div>
-            </div>
+            </section>
           </section>
 
           <aside className="w-full max-w-xl lg:sticky lg:top-28 lg:min-w-[22rem] lg:flex-shrink-0">
