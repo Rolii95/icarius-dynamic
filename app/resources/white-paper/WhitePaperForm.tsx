@@ -258,22 +258,22 @@ export default function WhitePaperForm() {
                 <ul
                   role="list"
                   aria-labelledby="whats-inside"
-                  className={`wp-whats-inside__list ${styles.wpWhatsInsideList} grid gap-4 text-base text-white/75 sm:gap-5 sm:text-lg`}
+                  className={`wp-whats-inside__list ${styles.wpWhatsInsideList} grid gap-4 text-base text-white/75 sm:gap-6 sm:text-lg`}
                 >
                   {benefits.map((benefit) => (
                     <li
                       key={benefit}
-                      className={`wp-whats-inside__item ${styles.wpWhatsInsideItem} group flex items-start gap-3 rounded-2xl border border-white/10 bg-white/[0.02] p-5 transition-colors hover:border-white/15 hover:bg-white/[0.04] sm:p-6`}
+                      className={`wp-whats-inside__item ${styles.wpWhatsInsideItem} group rounded-2xl border border-white/10 bg-white/[0.02] p-5 transition-all hover:-translate-y-1 hover:border-white/15 hover:bg-white/[0.05] sm:p-6`}
                     >
-                      <span className="mt-1 inline-flex size-5 shrink-0 items-center justify-center rounded-full bg-[color:var(--primary)]/15 text-[color:var(--primary-2)] transition-colors group-hover:bg-[color:var(--primary)]/20">
-                        <svg aria-hidden="true" className="size-3" fill="none" viewBox="0 0 12 12">
+                      <span className="inline-flex size-10 items-center justify-center rounded-full bg-[color:var(--primary)]/12 text-[color:var(--primary-2)] shadow-[0_8px_18px_rgba(20,40,80,0.25)] transition-colors group-hover:bg-[color:var(--primary)]/18">
+                        <svg aria-hidden="true" className="size-4" fill="none" viewBox="0 0 12 12">
                           <path
                             d="M10.414 2.414a2 2 0 0 1 0 2.828l-4.95 4.95a2 2 0 0 1-2.828 0l-1.707-1.707a1 1 0 1 1 1.414-1.414l1.707 1.707a1 1 0 0 0 1.414 0l4.95-4.95a2 2 0 0 0 0-2.828 1 1 0 0 1 1.414 0Z"
                             fill="currentColor"
                           />
                         </svg>
                       </span>
-                      <span className="flex-1 min-w-0 leading-relaxed text-pretty">{benefit}</span>
+                      <span className="leading-relaxed text-pretty">{benefit}</span>
                     </li>
                   ))}
                 </ul>
