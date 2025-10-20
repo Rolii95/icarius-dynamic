@@ -248,7 +248,7 @@ export default function WhitePaperForm() {
             <section
               className={`wp-whats-inside ${styles.wpWhatsInsideSection} space-y-8 sm:space-y-10 rounded-3xl border border-white/10 bg-[#0B1324]/60 p-8 sm:p-10 shadow-2xl backdrop-blur-sm transition-all hover:border-white/15`}
             >
-              <div className="space-y-5 sm:space-y-6">
+              <div className="space-y-5 sm:space-y-6 w-full">
                 <h2
                   id="whats-inside"
                   className="text-2xl font-semibold text-white sm:text-3xl"
@@ -258,7 +258,7 @@ export default function WhitePaperForm() {
                 <ul
                   role="list"
                   aria-labelledby="whats-inside"
-                  className={`wp-whats-inside__list ${styles.wpWhatsInsideList} grid gap-4 text-base text-white/75 sm:grid-cols-2 sm:gap-5 sm:text-lg xl:grid-cols-3`}
+                  className={`wp-whats-inside__list ${styles.wpWhatsInsideList} grid gap-4 text-base text-white/75 sm:gap-5 sm:text-lg`}
                 >
                   {benefits.map((benefit) => (
                     <li
@@ -273,13 +273,13 @@ export default function WhitePaperForm() {
                           />
                         </svg>
                       </span>
-                      <span className="leading-relaxed text-pretty">{benefit}</span>
+                      <span className="flex-1 min-w-0 leading-relaxed text-pretty">{benefit}</span>
                     </li>
                   ))}
                 </ul>
               </div>
 
-              <div className="space-y-5 sm:space-y-6">
+              <div className="space-y-5 sm:space-y-6 w-full">
                 <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-[color:var(--primary-2)]">Trusted by leaders at</h3>
                 <div className="grid grid-flow-col auto-cols-[minmax(16rem,1fr)] gap-4 overflow-x-auto [scrollbar-width:none] sm:grid-flow-row sm:auto-cols-auto sm:grid-cols-2 sm:gap-6 sm:overflow-visible [&::-webkit-scrollbar]:hidden">
                   {credibilityQuotes.map((testimonial) => (
