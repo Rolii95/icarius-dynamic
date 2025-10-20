@@ -246,10 +246,22 @@ export default function WhitePaperForm() {
 
             <div className="space-y-8 sm:space-y-10 rounded-3xl border border-white/10 bg-[#0B1324]/60 p-8 sm:p-10 shadow-2xl backdrop-blur-sm transition-all hover:border-white/15">
               <div className="space-y-5 sm:space-y-6">
-                <h2 className="text-2xl font-semibold text-white sm:text-3xl">What&apos;s inside</h2>
-                <ul className="space-y-4 text-base text-white/75 sm:text-lg">
+                <h2
+                  id="whats-inside"
+                  className="text-2xl font-semibold text-white sm:text-3xl"
+                >
+                  What&apos;s inside
+                </h2>
+                <ul
+                  role="list"
+                  aria-labelledby="whats-inside"
+                  className="grid gap-4 text-base text-white/75 sm:grid-cols-2 sm:gap-5 sm:text-lg xl:grid-cols-3"
+                >
                   {benefits.map((benefit) => (
-                    <li key={benefit} className="group flex items-start gap-3">
+                    <li
+                      key={benefit}
+                      className="group flex items-start gap-3 rounded-2xl border border-white/10 bg-white/[0.02] p-5 transition-colors hover:border-white/15 hover:bg-white/[0.04] sm:p-6"
+                    >
                       <span className="mt-1 inline-flex size-5 shrink-0 items-center justify-center rounded-full bg-[color:var(--primary)]/15 text-[color:var(--primary-2)] transition-colors group-hover:bg-[color:var(--primary)]/20">
                         <svg aria-hidden="true" className="size-3" fill="none" viewBox="0 0 12 12">
                           <path
