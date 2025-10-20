@@ -2,7 +2,8 @@
   position: relative;
 }
 
-:global(section.wp-whats-inside.wp-whats-inside) {
+:global(.wp-whats-inside.wp-whats-inside).wpWhatsInsideSection,
+.wpWhatsInsideSection {
   /* ensure section inherits full width on small screens */
   width: 100%;
 }
