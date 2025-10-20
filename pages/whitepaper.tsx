@@ -78,7 +78,7 @@ export default function Whitepaper() {
             <div className={styles.success}>
               <h2 className={styles.successTitle}>✓ Check your inbox!</h2>
               <p className={styles.successText}>
-                We've sent the white paper to {form.email}.
+                We&apos;ve sent the white paper to {form.email}.
               </p>
               <a
                 href={downloadUrl}
@@ -91,7 +91,7 @@ export default function Whitepaper() {
             </div>
           ) : (
             <>
-              <h2 className={styles.sidebarTitle}>What's inside</h2>
+              <h2 className={styles.sidebarTitle}>What&apos;s inside</h2>
               <ul className={styles.bulletList}>
                 {whatsInside.map((item, i) => (
                   <li key={i}>{item}</li>
@@ -168,7 +168,7 @@ export default function Whitepaper() {
                   {status === "submitting" ? "Submitting..." : "Get the white paper"}
                 </button>
                 <p className={styles.formFooter}>
-                  We'll send the PDF and a short series of Icarius insights. Unsubscribe
+                  We&apos;ll send the PDF and a short series of Icarius insights. Unsubscribe
                   anytime.
                 </p>
               </form>
