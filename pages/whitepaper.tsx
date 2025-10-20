@@ -1,21 +1,17 @@
 import { useState } from "react";
 import Link from "next/link";
-
 import styles from "./whitepaper.module.css";
-
 const stats = [
   { value: "27%+", label: "Payroll accuracy lift in 60 days" },
   { value: "5 squads", label: "Cross-functional AI pilots launched" },
   { value: "70+ countries", label: "HR teams enabled worldwide" },
 ];
-
 const whatsInside = [
   "Rapid HRIS diagnostic checklist to stabilise payroll and integrations.",
   "Executive-ready ROI storyboard to secure leadership funding.",
   "Governance guardrails for rolling out responsible HR AI copilots.",
   "Change management playbook to keep adoption on track post-launch.",
 ];
-
 export default function Whitepaper() {
   const [status, setStatus] = useState<
     "idle" | "submitting" | "done" | "error"
@@ -28,13 +24,11 @@ export default function Whitepaper() {
     consent: false,
   });
   const [downloadUrl, setDownloadUrl] = useState<string | undefined>(undefined);
-
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     if (status === "submitting") {
       return;
     }
-
     setStatus("submitting");
     try {
       const res = await fetch("/api/lead", {
@@ -51,7 +45,6 @@ export default function Whitepaper() {
       console.error(err);
     }
   }
-
   return (
     <main className={styles.page}>
       <div className={styles.wrapper}>
@@ -66,20 +59,18 @@ export default function Whitepaper() {
             </p>
           </div>
         </header>
-
         <div className={styles.content}>
           <section className={styles.leftColumn}>
             <div className={styles.statsBar}>
               {stats.map((stat) => (
-                <div key={stat.label}>
+                <div key={stat.label} className={styles.statBox}>
                   <span className={styles.statsValue}>{stat.value}</span>
                   <span className={styles.statsLabel}>{stat.label}</span>
                 </div>
               ))}
             </div>
-
             <section className={styles.whatsInside}>
-              <h2 className={styles.whatsInsideTitle}>What&apos;s inside</h2>
+              <h2 className={styles.whatsInsideTitle}>What's inside</h2>
               <ul>
                 {whatsInside.map((item) => (
                   <li key={item}>{item}</li>
@@ -87,13 +78,12 @@ export default function Whitepaper() {
               </ul>
             </section>
           </section>
-
           <aside className={styles.rightColumn}>
             {status === "done" ? (
               <div className={styles.successCard} aria-live="polite">
                 <div>
                   <p className={styles.statsLabel}>All set — check your inbox</p>
-                  <h3>Download your copy</h3>
+                  Download your copy
                 </div>
                 <p>
                   If you do not see the email, check Promotions or spam. You can also
@@ -111,12 +101,12 @@ export default function Whitepaper() {
                 )}
                 <p>
                   Need help activating the playbook?{" "}
-                  <Link href="/contact">Talk with Icarius</Link> and we&apos;ll map the next
+                  <Link href="/contact">Talk with Icarius</Link> and we'll map the next
                   sprint.
                 </p>
               </div>
             ) : (
-              <form onSubmit={submit} className={styles.formContainer}>
+              <form className={styles.formContainer} onSubmit={submit}>
                 <div className={styles.fieldGroup}>
                   <label htmlFor="whitepaper-name">Full name</label>
                   <input
@@ -127,7 +117,6 @@ export default function Whitepaper() {
                     className={styles.input}
                   />
                 </div>
-
                 <div className={styles.fieldGroup}>
                   <label htmlFor="whitepaper-company">Company</label>
                   <input
@@ -138,7 +127,6 @@ export default function Whitepaper() {
                     className={styles.input}
                   />
                 </div>
-
                 <div className={styles.fieldGroup}>
                   <label htmlFor="whitepaper-email">Business email</label>
                   <input
@@ -150,7 +138,6 @@ export default function Whitepaper() {
                     className={styles.input}
                   />
                 </div>
-
                 <div className={styles.fieldGroup}>
                   <label htmlFor="whitepaper-title">Job title (optional)</label>
                   <input
@@ -160,7 +147,6 @@ export default function Whitepaper() {
                     className={styles.input}
                   />
                 </div>
-
                 <label className={styles.checkboxRow} htmlFor="whitepaper-consent">
                   <input
                     required
@@ -175,14 +161,12 @@ export default function Whitepaper() {
                     I agree to receive the white paper and follow-up emails.
                   </span>
                 </label>
-
                 {status === "error" && (
                   <p className={styles.errorMessage}>
                     There was an error — please try again or email
                     contact@icarius-consulting.com
                   </p>
                 )}
-
                 <button
                   type="submit"
                   className={styles.submitButton}
@@ -190,9 +174,8 @@ export default function Whitepaper() {
                 >
                   {status === "submitting" ? "Submitting..." : "Get the white paper"}
                 </button>
-
                 <p className={styles.formFooter}>
-                  We&apos;ll send the PDF and a short series of Icarius insights. Unsubscribe
+                  We'll send the PDF and a short series of Icarius insights. Unsubscribe
                   anytime.
                 </p>
               </form>
