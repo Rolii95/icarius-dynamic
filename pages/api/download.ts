@@ -7,17 +7,38 @@ const SIGNING_KEY = process.env.SIGNING_KEY || 'replace_with_secure_key';
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const { email, expires, sig } = req.query;
-  if (!email || !expires || !sig) return res.status(400).send('Missing parameters');
+  if (
+    typeof email !== 'string' ||
+    typeof expires !== 'string' ||
+    typeof sig !== 'string'
+  ) {
+    return res.status(400).send('Missing parameters');
+  }
 
   const now = Math.floor(Date.now() / 1000);
-  if (now > parseInt(String(expires), 10)) return res.status(410).send('Link expired');
+  const expiry = Number.parseInt(expires, 10);
+  if (!Number.isFinite(expiry)) return res.status(400).send('Invalid expiry timestamp');
+  if (now > expiry) return res.status(410).send('Link expired');
 
-  const payload = `${String(email)}|${String(expires)}`;
+  const payload = `${email}|${expires}`;
   const expected = crypto.createHmac('sha256', SIGNING_KEY).update(payload).digest('hex');
 
-  // timingSafeEqual expects Buffers and same length
-  const valid = crypto.timingSafeEqual(Buffer.from(expected), Buffer.from(String(sig)));
-  if (!valid) return res.status(403).send('Invalid signature');
+  const isValid = (() => {
+    try {
+      const expectedBuffer = Buffer.from(expected, 'hex');
+      const providedBuffer = Buffer.from(sig, 'hex');
+
+      if (expectedBuffer.length !== providedBuffer.length) {
+        return false;
+      }
+
+      return crypto.timingSafeEqual(expectedBuffer, providedBuffer);
+    } catch (error) {
+      return false;
+    }
+  })();
+
+  if (!isValid) return res.status(403).send('Invalid signature');
 
   // Optional: increment counter/analytics here (DB / external webhook)
   // Redirect to real file (S3/Cloudflare/your /public path)
