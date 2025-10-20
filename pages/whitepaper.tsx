@@ -1,5 +1,20 @@
-// pages/whitepaper.tsx
 import { useState } from "react";
+import Link from "next/link";
+
+import styles from "./whitepaper.module.css";
+
+const stats = [
+  { value: "27%+", label: "Payroll accuracy lift in 60 days" },
+  { value: "5 squads", label: "Cross-functional AI pilots launched" },
+  { value: "70+ countries", label: "HR teams enabled worldwide" },
+];
+
+const whatsInside = [
+  "Rapid HRIS diagnostic checklist to stabilise payroll and integrations.",
+  "Executive-ready ROI storyboard to secure leadership funding.",
+  "Governance guardrails for rolling out responsible HR AI copilots.",
+  "Change management playbook to keep adoption on track post-launch.",
+];
 
 export default function Whitepaper() {
   const [status, setStatus] = useState<
@@ -16,6 +31,10 @@ export default function Whitepaper() {
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
+    if (status === "submitting") {
+      return;
+    }
+
     setStatus("submitting");
     try {
       const res = await fetch("/api/lead", {
@@ -34,32 +53,55 @@ export default function Whitepaper() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-[#071033] to-[#0f172a] text-white p-6">
-      <div className="max-w-4xl mx-auto bg-white/5 backdrop-blur rounded-2xl p-8 lg:p-12">
-        <div className="grid lg:grid-cols-2 gap-8 items-center">
+    <main className={styles.page}>
+      <div className={styles.wrapper}>
+        <header className={styles.hero}>
           <div>
-            <h1 className="text-3xl lg:text-4xl font-semibold leading-snug">
+            <h1 className={styles.heroTitle}>
               De-risk HRIS change — Enable AI in HR
             </h1>
-            <p className="mt-4 text-slate-200">
-              A practical playbook for HR leaders: stabilise payroll &
-              integrations, run a fast HRIS diagnostic, and pilot safe AI.
+            <p className={styles.heroCopy}>
+              A practical playbook for HR leaders: stabilise payroll & integrations,
+              run a fast HRIS diagnostic, and pilot safe AI.
             </p>
           </div>
+        </header>
 
-          <div className="p-6 bg-slate-900/60 rounded-xl">
+        <div className={styles.content}>
+          <section className={styles.leftColumn}>
+            <div className={styles.statsBar}>
+              {stats.map((stat) => (
+                <div key={stat.label}>
+                  <span className={styles.statsValue}>{stat.value}</span>
+                  <span className={styles.statsLabel}>{stat.label}</span>
+                </div>
+              ))}
+            </div>
+
+            <section className={styles.whatsInside}>
+              <h2 className={styles.whatsInsideTitle}>What&apos;s inside</h2>
+              <ul>
+                {whatsInside.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </section>
+          </section>
+
+          <aside className={styles.rightColumn}>
             {status === "done" ? (
-              <div className="text-center">
-                <h3 className="text-lg font-medium">
-                  All set — check your inbox
-                </h3>
-                <p className="mt-2 text-slate-300">
-                  If you don&rsquo;t see it, check Promotions or spam. Or
-                  download directly:
+              <div className={styles.successCard} aria-live="polite">
+                <div>
+                  <p className={styles.statsLabel}>All set — check your inbox</p>
+                  <h3>Download your copy</h3>
+                </div>
+                <p>
+                  If you do not see the email, check Promotions or spam. You can also
+                  download it directly:
                 </p>
                 {downloadUrl && (
                   <a
-                    className="underline mt-4 inline-block"
+                    className={styles.downloadLink}
                     href={downloadUrl}
                     target="_blank"
                     rel="noreferrer"
@@ -67,97 +109,95 @@ export default function Whitepaper() {
                     Download white paper
                   </a>
                 )}
+                <p>
+                  Need help activating the playbook?{" "}
+                  <Link href="/contact">Talk with Icarius</Link> and we&apos;ll map the next
+                  sprint.
+                </p>
               </div>
             ) : (
-              <form onSubmit={submit} className="space-y-3">
-                <div>
-                  <label className="text-xs">
-                    Full name
-                    <input
-                      required
-                      value={form.name}
-                      onChange={(e) =>
-                        setForm({ ...form, name: e.target.value })
-                      }
-                      className="w-full mt-1 p-2 rounded bg-slate-800 text-white"
-                    />
-                  </label>
+              <form onSubmit={submit} className={styles.formContainer}>
+                <div className={styles.fieldGroup}>
+                  <label htmlFor="whitepaper-name">Full name</label>
+                  <input
+                    required
+                    id="whitepaper-name"
+                    value={form.name}
+                    onChange={(e) => setForm({ ...form, name: e.target.value })}
+                    className={styles.input}
+                  />
                 </div>
-                <div>
-                  <label className="text-xs">
-                    Company
-                    <input
-                      required
-                      value={form.company}
-                      onChange={(e) =>
-                        setForm({ ...form, company: e.target.value })
-                      }
-                      className="w-full mt-1 p-2 rounded bg-slate-800 text-white"
-                    />
-                  </label>
+
+                <div className={styles.fieldGroup}>
+                  <label htmlFor="whitepaper-company">Company</label>
+                  <input
+                    required
+                    id="whitepaper-company"
+                    value={form.company}
+                    onChange={(e) => setForm({ ...form, company: e.target.value })}
+                    className={styles.input}
+                  />
                 </div>
-                <div>
-                  <label className="text-xs">
-                    Business email
-                    <input
-                      required
-                      type="email"
-                      value={form.email}
-                      onChange={(e) =>
-                        setForm({ ...form, email: e.target.value })
-                      }
-                      className="w-full mt-1 p-2 rounded bg-slate-800 text-white"
-                    />
-                  </label>
+
+                <div className={styles.fieldGroup}>
+                  <label htmlFor="whitepaper-email">Business email</label>
+                  <input
+                    required
+                    type="email"
+                    id="whitepaper-email"
+                    value={form.email}
+                    onChange={(e) => setForm({ ...form, email: e.target.value })}
+                    className={styles.input}
+                  />
                 </div>
-                <div>
-                  <label className="text-xs">
-                    Job title (optional)
-                    <input
-                      value={form.title}
-                      onChange={(e) =>
-                        setForm({ ...form, title: e.target.value })
-                      }
-                      className="w-full mt-1 p-2 rounded bg-slate-800 text-white"
-                    />
-                  </label>
+
+                <div className={styles.fieldGroup}>
+                  <label htmlFor="whitepaper-title">Job title (optional)</label>
+                  <input
+                    id="whitepaper-title"
+                    value={form.title}
+                    onChange={(e) => setForm({ ...form, title: e.target.value })}
+                    className={styles.input}
+                  />
                 </div>
-                <div className="text-xs">
-                  <label className="inline-flex items-center gap-2 text-left">
-                    <input
-                      required
-                      type="checkbox"
-                      checked={form.consent}
-                      onChange={(e) =>
-                        setForm({ ...form, consent: e.target.checked })
-                      }
-                      className="mr-2"
-                    />
-                    <span>
-                      I agree to receive the white paper and follow-up emails.
-                    </span>
-                  </label>
-                </div>
-                <div>
-                  <button
-                    type="submit"
-                    disabled={status === "submitting"}
-                    className="w-full py-2 rounded bg-gradient-to-r from-[#0ea5e9] to-[#7dd3fc] font-medium text-slate-900"
-                  >
-                    {status === "submitting"
-                      ? "Submitting…"
-                      : "Get the white paper"}
-                  </button>
-                </div>
+
+                <label className={styles.checkboxRow} htmlFor="whitepaper-consent">
+                  <input
+                    required
+                    type="checkbox"
+                    id="whitepaper-consent"
+                    checked={form.consent}
+                    onChange={(e) =>
+                      setForm({ ...form, consent: e.target.checked })
+                    }
+                  />
+                  <span className={styles.consentText}>
+                    I agree to receive the white paper and follow-up emails.
+                  </span>
+                </label>
+
                 {status === "error" && (
-                  <p className="text-xs text-rose-400">
+                  <p className={styles.errorMessage}>
                     There was an error — please try again or email
                     contact@icarius-consulting.com
                   </p>
                 )}
+
+                <button
+                  type="submit"
+                  className={styles.submitButton}
+                  disabled={status === "submitting"}
+                >
+                  {status === "submitting" ? "Submitting..." : "Get the white paper"}
+                </button>
+
+                <p className={styles.formFooter}>
+                  We&apos;ll send the PDF and a short series of Icarius insights. Unsubscribe
+                  anytime.
+                </p>
               </form>
             )}
-          </div>
+          </aside>
         </div>
       </div>
     </main>
