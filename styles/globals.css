@@ -140,6 +140,11 @@ body::before {
   background: linear-gradient(180deg, var(--surface), var(--surface-2));
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
+  /* Ensure cards can shrink inside flex/grid siblings and hide accidental overflow */
+  min-width: 0;
+  overflow: hidden;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .lift-card {
@@ -163,6 +168,14 @@ body::before {
   .card {
     /* Disable hover transforms on mobile to prevent touch jank */
     transform: none !important;
+  }
+
+  /* Prevent large, arbitrary text utility classes inside cards from overflowing on narrow viewports.
+     This is intentionally conservative and scoped to `.card` elements to reduce regression risk. */
+  .card [class*='text-'] {
+    /* Use clamp to scale large typographic sizes down on small screens while preserving desktop sizes */
+    font-size: clamp(14px, 4.8vw, 28px) !important;
+    line-height: 1.05 !important;
   }
 }
 

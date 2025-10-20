@@ -160,9 +160,12 @@ export default function CaseStudyPage({ params }: Params) {
             </p>
             <ul className="mt-4 grid gap-4 sm:grid-cols-3">
               {study.outcomes.map((outcome) => (
-                <li key={outcome.label} className="rounded-2xl border border-[rgba(255,255,255,0.08)] bg-slate-950/60 p-4">
+                <li
+                  key={outcome.label}
+                  className="rounded-2xl border border-[rgba(255,255,255,0.08)] bg-slate-950/60 p-4 min-w-0 break-words"
+                >
                   <div className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">{outcome.label}</div>
-                  <div className="mt-2 text-xl font-semibold text-white">{outcome.value}</div>
+                  <div className="mt-2 text-[28px] sm:text-[34px] md:text-[40px] font-extrabold text-white leading-tight break-words">{outcome.value}</div>
                 </li>
               ))}
             </ul>

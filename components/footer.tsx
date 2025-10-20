@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -7,7 +7,7 @@ import { footerNavLinks } from '@/lib/navigation'
 import Brand from '@/components/site/Brand'
 import { bookingUrl } from '@/lib/booking'
 
-export function Footer(){
+export function Footer() {
   const insightsMailto = 'mailto:contact@icarius-consulting.com?subject=Site%20Insights%20CTA'
   const ctaHref = bookingUrl || insightsMailto
   const ctaClasses =
@@ -16,14 +16,14 @@ export function Footer(){
   return (
     <footer className="border-t">
       {/* Mobile Layout - Stacked, Centered */}
-      <div className="md:hidden container mx-auto px-4 py-6 text-sm text-slate-300 flex flex-col items-center text-center gap-2">
+      <div className="md:hidden container mx-auto px-4 py-6 text-sm text-slate-300 flex flex-col items-center text-center gap-4">
         <div className="flex flex-col items-center gap-2">
           <Image
             src="/brand/icarius_interlock_mark.svg"
             width={48}
             height={48}
             alt="Icarius logo"
-            aria-hidden="true"
+            aria-hidden={true}
             className="h-12 w-12"
             priority
           />
@@ -32,20 +32,23 @@ export function Footer(){
             <div className="font-semibold tracking-[0.16em] text-white/80 text-[20px]">CONSULTING</div>
           </div>
         </div>
-        <div className="mt-4 flex flex-col items-center gap-3 rounded-2xl border border-slate-800/70 bg-slate-900/40 p-4 text-center">
+
+        <div className="mt-4 flex flex-col items-center gap-3 rounded-2xl border border-slate-800/70 bg-slate-900/40 p-4 text-center w-full">
           <p className="text-base text-slate-200">Enjoyed this? Book a 30-min call — we’ll map it to your roadmap.</p>
           <a href={ctaHref} target="_blank" rel="noopener noreferrer" className={ctaClasses}>
             Book a 30-min call
           </a>
         </div>
-        <p className="text-base text-slate-300 mt-1">© {new Date().getFullYear()} Icarius Consulting</p>
-        <nav className="flex flex-col gap-2 w-full items-center mt-1">
+
+        <nav className="flex flex-col gap-2 w-full items-center mt-3">
           {footerNavLinks.map((link) => (
             <Link key={link.href} href={link.href} className="hover:underline">
               {link.label}
             </Link>
           ))}
         </nav>
+
+        <p className="text-base text-slate-300 mt-3">© {new Date().getFullYear()} Icarius Consulting</p>
       </div>
 
       {/* Desktop Layout - Horizontal */}

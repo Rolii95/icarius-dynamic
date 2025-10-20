@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "test": "vitest run",
+  "test:playwright": "playwright test",
     "analyze": "ANALYZE=true npm run build",
     "prebuild": "tsx scripts/validate-internal-links.ts && tsx scripts/generate-sitemap.ts",
     "typecheck": "tsc --noEmit",
