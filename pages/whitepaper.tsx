@@ -1,17 +1,20 @@
 import { useState } from "react";
 import Link from "next/link";
 import styles from "./whitepaper.module.css";
+
 const stats = [
   { value: "27%+", label: "Payroll accuracy lift in 60 days" },
   { value: "5 squads", label: "Cross-functional AI pilots launched" },
   { value: "70+ countries", label: "HR teams enabled worldwide" },
 ];
+
 const whatsInside = [
   "Rapid HRIS diagnostic checklist to stabilise payroll and integrations.",
   "Executive-ready ROI storyboard to secure leadership funding.",
   "Governance guardrails for rolling out responsible HR AI copilots.",
   "Change management playbook to keep adoption on track post-launch.",
 ];
+
 export default function Whitepaper() {
   const [status, setStatus] = useState<
     "idle" | "submitting" | "done" | "error"
@@ -24,6 +27,7 @@ export default function Whitepaper() {
     consent: false,
   });
   const [downloadUrl, setDownloadUrl] = useState<string | undefined>(undefined);
+
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     if (status === "submitting") {
@@ -45,6 +49,7 @@ export default function Whitepaper() {
       console.error(err);
     }
   }
+
   return (
     <main className={styles.page}>
       <div className={styles.wrapper}>
@@ -54,59 +59,45 @@ export default function Whitepaper() {
               De-risk HRIS change — Enable AI in HR
             </h1>
             <p className={styles.heroCopy}>
-              A practical playbook for HR leaders: stabilise payroll & integrations,
-              run a fast HRIS diagnostic, and pilot safe AI.
+              A practical playbook for HR leaders navigating Workday or SAP rollouts — and preparing your HR function for agentic AI.
             </p>
           </div>
+
+          <div className={styles.statsContainer}>
+            {stats.map((stat, idx) => (
+              <div key={idx} className={styles.statBox}>
+                <span className={styles.statValue}>{stat.value}</span>
+                <span className={styles.statLabel}>{stat.label}</span>
+              </div>
+            ))}
+          </div>
         </header>
-        <div className={styles.content}>
-          <section className={styles.leftColumn}>
-            <div className={styles.statsBar}>
-              {stats.map((stat) => (
-                <div key={stat.label} className={styles.statBox}>
-                  <span className={styles.statsValue}>{stat.value}</span>
-                  <span className={styles.statsLabel}>{stat.label}</span>
-                </div>
-              ))}
+
+        <aside className={styles.sidebar}>
+          {status === "done" && downloadUrl ? (
+            <div className={styles.success}>
+              <h2 className={styles.successTitle}>✓ Check your inbox!</h2>
+              <p className={styles.successText}>
+                We've sent the white paper to {form.email}.
+              </p>
+              <a
+                href={downloadUrl}
+                target="_blank"
+                rel="noreferrer"
+                className={styles.downloadButton}
+              >
+                Download now
+              </a>
             </div>
-            <section className={styles.whatsInside}>
-              <h2 className={styles.whatsInsideTitle}>What's inside</h2>
-              <ul>
-                {whatsInside.map((item) => (
-                  <li key={item}>{item}</li>
+          ) : (
+            <>
+              <h2 className={styles.sidebarTitle}>What's inside</h2>
+              <ul className={styles.bulletList}>
+                {whatsInside.map((item, i) => (
+                  <li key={i}>{item}</li>
                 ))}
               </ul>
-            </section>
-          </section>
-          <aside className={styles.rightColumn}>
-            {status === "done" ? (
-              <div className={styles.successCard} aria-live="polite">
-                <div>
-                  <p className={styles.statsLabel}>All set — check your inbox</p>
-                  Download your copy
-                </div>
-                <p>
-                  If you do not see the email, check Promotions or spam. You can also
-                  download it directly:
-                </p>
-                {downloadUrl && (
-                  <a
-                    className={styles.downloadLink}
-                    href={downloadUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    Download white paper
-                  </a>
-                )}
-                <p>
-                  Need help activating the playbook?{" "}
-                  <Link href="/contact">Talk with Icarius</Link> and we'll map the next
-                  sprint.
-                </p>
-              </div>
-            ) : (
-              <form className={styles.formContainer} onSubmit={submit}>
+              <form onSubmit={submit} className={styles.form}>
                 <div className={styles.fieldGroup}>
                   <label htmlFor="whitepaper-name">Full name</label>
                   <input
@@ -123,7 +114,9 @@ export default function Whitepaper() {
                     required
                     id="whitepaper-company"
                     value={form.company}
-                    onChange={(e) => setForm({ ...form, company: e.target.value })}
+                    onChange={(e) =>
+                      setForm({ ...form, company: e.target.value })
+                    }
                     className={styles.input}
                   />
                 </div>
@@ -179,9 +172,9 @@ export default function Whitepaper() {
                   anytime.
                 </p>
               </form>
-            )}
-          </aside>
-        </div>
+            </>
+          )}
+        </aside>
       </div>
     </main>
   );
