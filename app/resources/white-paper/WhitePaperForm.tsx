@@ -421,7 +421,7 @@ export default function WhitePaperForm() {
                           strokeLinejoin="round"
                         />
                       </svg>
-                      Send me the white paper
+                      Download white paper now
                     </>
                   )}
                 </button>
