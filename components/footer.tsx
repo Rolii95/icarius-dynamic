@@ -29,18 +29,13 @@ export function Footer() {
             <p className="max-w-md text-sm leading-relaxed text-slate-300">
               Partners to HR technology leaders shipping reliable systems, data integrity, and AI-enabled employee experiences.
             </p>
-            <div className="flex flex-wrap items-center gap-3">
-              <a href={ctaHref} target="_blank" rel="noopener noreferrer" className={`${ctaClasses} w-full sm:w-auto`}>
-                Book a 30-min call
-              </a>
-              <a
-                href="mailto:contact@icarius-consulting.com"
-                className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-5 py-2.5 text-sm font-medium text-slate-200 transition hover:border-white/30 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--primary)]/60"
-              >
-                <Mail className="size-4" aria-hidden="true" />
-                contact@icarius-consulting.com
-              </a>
-            </div>
+            <a
+              href="mailto:contact@icarius-consulting.com"
+              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-5 py-2.5 text-sm font-medium text-slate-200 transition hover:border-white/30 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--primary)]/60"
+            >
+              <Mail className="size-4" aria-hidden="true" focusable="false" />
+              contact@icarius-consulting.com
+            </a>
             <div className="flex gap-3">
               {socialLinks.map((social) => {
                 const Icon = social.icon
