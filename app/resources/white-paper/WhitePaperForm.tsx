@@ -47,6 +47,11 @@ const credibilityQuotes = [
 
 type Status = "idle" | "submitting" | "success" | "error";
 
+type DeliveryState = {
+  sent: boolean;
+  message?: string;
+};
+
 type TrackingState = {
   utm?: Record<string, string>;
   referrer?: string;
@@ -92,6 +97,7 @@ export default function WhitePaperForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [downloadUrl, setDownloadUrl] = useState<string>(downloadUrlDefault);
+  const [delivery, setDelivery] = useState<DeliveryState | null>(null);
   const [tracking, setTracking] = useState<TrackingState>({});
 
   const analyticsPayload = useMemo(
@@ -172,6 +178,7 @@ export default function WhitePaperForm() {
 
     setStatus("submitting");
     setErrorMessage(null);
+    setDelivery(null);
 
     try {
       const response = await fetch("/api/lead-magnet", {
@@ -192,12 +199,21 @@ export default function WhitePaperForm() {
         throw new Error((payload as { error?: string })?.error || "Unable to submit the form right now.");
       }
 
-      const payload = (await response.json()) as { ok: boolean; downloadUrl?: string };
+      const payload = (await response.json()) as {
+        ok: boolean;
+        downloadUrl?: string;
+        emailSent?: boolean;
+        message?: string;
+      };
       if (!payload.ok) {
         throw new Error("Unexpected response from the server.");
       }
 
       setDownloadUrl(payload.downloadUrl || downloadUrlDefault);
+      setDelivery({
+        sent: payload.emailSent ?? false,
+        message: payload.message ?? undefined,
+      });
       setStatus("success");
 
       track("LeadMagnetSubmit", analyticsPayload);
@@ -299,10 +315,25 @@ export default function WhitePaperForm() {
                 <div className="space-y-6 sm:space-y-7" aria-live="polite">
                   <div className="space-y-3">
                     <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[color:var(--primary-2)]">You&apos;re all set</p>
-                    <h2 className="text-3xl font-semibold text-white sm:text-4xl">Download your copy</h2>
+                    <h2 className="text-3xl font-semibold text-white sm:text-4xl">
+                      {delivery?.sent ? "Check your inbox" : "Instant download ready"}
+                    </h2>
                     <p className="text-base text-white/75 leading-relaxed">
-                      We&apos;ve emailed a copy to <span className="font-medium text-white break-words">{email}</span>. You can also access it directly below.
+                      {delivery?.sent ? (
+                        <>
+                          We&apos;ve emailed a copy to <span className="font-medium text-white break-words">{email}</span>. You can also access it directly below.
+                        </>
+                      ) : (
+                        <>
+                          Email delivery is pending, so use the instant download below. We&apos;ll follow up at <span className="font-medium text-white break-words">{email}</span> once it sends.
+                        </>
+                      )}
                     </p>
+                    {delivery?.message && (
+                      <p className="rounded-2xl border border-amber-400/40 bg-amber-500/10 px-4 py-3 text-sm text-amber-200">
+                        {delivery.message}
+                      </p>
+                    )}
                   </div>
                   <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-sm transition-all hover:border-white/15 hover:bg-white/[0.05]">
                     <p className="text-sm text-white/65">Icarius HR AI Readiness White Paper (PDF)</p>

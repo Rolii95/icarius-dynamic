@@ -1,6 +1,18 @@
 import { mkdir, readFile, writeFile } from "fs/promises";
 import path from "path";
 
+const PERSISTENCE_ENDPOINT =
+  process.env.LEADS_PERSISTENCE_ENDPOINT || process.env.LEADS_WEBHOOK_URL;
+const PERSISTENCE_API_KEY = process.env.LEADS_PERSISTENCE_API_KEY;
+const resolveTimeout = () => {
+  const raw = process.env.LEADS_PERSISTENCE_TIMEOUT_MS;
+  if (!raw) return 5000;
+  const parsed = Number(raw);
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : 5000;
+};
+
+const PERSISTENCE_TIMEOUT_MS = resolveTimeout();
+
 export interface LeadTrackingMetadata {
   utm?: Record<string, string>;
   referrer?: string;
@@ -73,15 +85,68 @@ const readExistingLeads = async (): Promise<StoredLead[]> => {
   }
 };
 
+const resolveEndpointOrigin = (endpoint: string): string => {
+  try {
+    return new URL(endpoint).origin;
+  } catch {
+    return endpoint;
+  }
+};
+
+const postLeadToEndpoint = async (lead: LeadPersistencePayload): Promise<string> => {
+  if (!PERSISTENCE_ENDPOINT) {
+    throw new Error("Lead persistence endpoint not configured");
+  }
+
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), PERSISTENCE_TIMEOUT_MS);
+
+  try {
+    const response = await fetch(PERSISTENCE_ENDPOINT, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        ...(PERSISTENCE_API_KEY ? { Authorization: `Bearer ${PERSISTENCE_API_KEY}` } : {}),
+      },
+      body: JSON.stringify(lead),
+      signal: controller.signal,
+    });
+
+    if (!response.ok) {
+      const errorBody = await response.text().catch(() => "");
+      throw new Error(`Persistence endpoint responded with ${response.status}: ${errorBody.slice(0, 500)}`);
+    }
+
+    return resolveEndpointOrigin(PERSISTENCE_ENDPOINT);
+  } catch (error) {
+    if (error instanceof Error && error.name === "AbortError") {
+      throw new Error(`Persistence request timed out after ${PERSISTENCE_TIMEOUT_MS}ms`);
+    }
+    throw error;
+  } finally {
+    clearTimeout(timeout);
+  }
+};
+
 export async function saveLead(lead: LeadPersistencePayload): Promise<void> {
   const maskedEmail = maskEmail(lead.email);
 
   if (process.env.NODE_ENV === "production") {
-    console.info("[lead:persistence] production noop", {
-      email: maskedEmail,
-      source: lead.tracking.source ?? "unknown",
-    });
-    return;
+    try {
+      const endpointOrigin = await postLeadToEndpoint(lead);
+      console.info("[lead:persistence] persisted to endpoint", {
+        email: maskedEmail,
+        source: lead.tracking.source ?? "unknown",
+        endpoint: endpointOrigin,
+      });
+      return;
+    } catch (error) {
+      console.error("[lead:persistence] endpoint failed", {
+        email: maskedEmail,
+        error: error instanceof Error ? error.message : error,
+      });
+      throw error instanceof Error ? error : new Error("Lead persistence failed");
+    }
   }
 
   try {
