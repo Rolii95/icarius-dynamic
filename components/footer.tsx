@@ -82,7 +82,7 @@ export function Footer() {
             </div>
           </div>
 
-          <div className="rounded-3xl border border-white/10 bg-slate-900/40 p-6 shadow-[0_18px_60px_rgba(10,16,28,0.45)]">
+          <div className="w-full rounded-3xl border border-white/10 bg-slate-900/40 p-6 shadow-[0_18px_60px_rgba(10,16,28,0.45)] lg:max-w-sm lg:justify-self-end">
             <div className="space-y-4">
               <h2 className="text-lg font-semibold text-white">Ready for your next delivery sprint?</h2>
               <p className="text-sm leading-relaxed text-slate-300">
