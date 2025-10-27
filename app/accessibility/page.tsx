@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
+import { PageHeader } from '@/components/PageHeader'
 import { Section } from '@/components/Section'
-import { ConditionalGoBackButton } from '@/components/ConditionalGoBackButton'
 
 const title = 'HRIT advisory HR systems audit HR AI PMO access pledge'
 const description =
@@ -29,13 +29,14 @@ export const metadata: Metadata = {
 export default function AccessibilityPage() {
   return (
     <Section className="py-12">
+      <PageHeader
+        title="Accessibility statement"
+        backHref="/"
+        backLabel="Back to home"
+        headingClassName="text-4xl font-semibold tracking-tight text-white sm:text-5xl heading-underline"
+        contentClassName="max-w-3xl"
+      />
       <div className="prose prose-invert max-w-3xl mx-auto">
-        <div className="mb-6 flex items-center gap-2 not-prose">
-          <ConditionalGoBackButton />
-          <h1 className="m-0 min-w-0 text-4xl font-semibold tracking-tight h1-accent heading-underline">
-            Accessibility statement
-          </h1>
-        </div>
         <p>
           We want everyone to be able to browse icarius-consulting.com without barriers. This statement
           summarises the measures we have taken so far and how you can let us know if something is not

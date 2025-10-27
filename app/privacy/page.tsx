@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
+import { PageHeader } from '@/components/PageHeader'
 import { Section } from '@/components/Section'
-import { ConditionalGoBackButton } from '@/components/ConditionalGoBackButton'
 
 const title = 'HRIT advisory HR systems audit HR AI PMO privacy guard'
 const description =
@@ -29,13 +29,14 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
   return (
     <Section className="py-12">
+      <PageHeader
+        title="Privacy policy"
+        backHref="/"
+        backLabel="Back to home"
+        headingClassName="text-4xl font-semibold tracking-tight text-white sm:text-5xl heading-underline"
+        contentClassName="max-w-3xl"
+      />
       <div className="prose prose-invert max-w-3xl mx-auto">
-        <div className="mb-6 flex items-center gap-2 not-prose">
-          <ConditionalGoBackButton />
-          <h1 className="m-0 min-w-0 text-4xl font-semibold tracking-tight h1-accent heading-underline">
-            Privacy policy
-          </h1>
-        </div>
         <p>
           Icarius Consulting operates as a boutique advisory firm. We only collect the personal
           information that you choose to share with us—typically when you book a call, subscribe to

@@ -53,7 +53,7 @@ export function Footer() {
                     aria-label={social.name}
                     className="inline-flex size-10 items-center justify-center rounded-full border border-white/15 bg-white/5 text-slate-200 transition hover:border-white/30 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--primary)]/60"
                   >
-                    <Icon className="size-4" aria-hidden="true" />
+                    <Icon className="size-4" aria-hidden="true" focusable="false" />
                   </Link>
                 )
               })}

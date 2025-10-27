@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
+import { PageHeader } from '@/components/PageHeader'
 import { Section } from '@/components/Section'
-import { ConditionalGoBackButton } from '@/components/ConditionalGoBackButton'
 
 const title = 'HRIT advisory HR systems audit HR AI PMO terms framework'
 const description =
@@ -29,13 +29,14 @@ export const metadata: Metadata = {
 export default function TermsPage() {
   return (
     <Section className="py-12">
+      <PageHeader
+        title="Terms of service"
+        backHref="/"
+        backLabel="Back to home"
+        headingClassName="text-4xl font-semibold tracking-tight text-white sm:text-5xl heading-underline"
+        contentClassName="max-w-3xl"
+      />
       <div className="prose prose-invert max-w-3xl mx-auto">
-        <div className="mb-6 flex items-center gap-2 not-prose">
-          <ConditionalGoBackButton />
-          <h1 className="m-0 min-w-0 text-4xl font-semibold tracking-tight h1-accent heading-underline">
-            Terms of service
-          </h1>
-        </div>
         <p>
           These terms outline the basis on which Icarius Consulting delivers advisory and project
           services. We aim to keep them concise and human readable. For any engagement, we will provide
