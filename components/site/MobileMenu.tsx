@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef } from "react";
-import { lockBodyScroll, unlockBodyScroll } from "@/lib/scrollLock";
+import { lockBodyScroll, unlockBodyScroll } from "@/lib/scroll-lock";
 
 type Props = {
   open: boolean;
