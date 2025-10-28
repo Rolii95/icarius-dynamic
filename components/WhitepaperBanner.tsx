@@ -15,7 +15,7 @@ type Props = {
 
 export default function WhitepaperBanner({
   downloadUrl = "/resources/white-paper",
-  label = "Free white paper — The Cost of HRIT Misalignment",
+  label = "Navigating-the-AI-HR-Revolution",
   ctaText = "Download the white paper",
   localStorageKey = "icarius_wp_banner_closed",
   excludedPaths = ["/resources/white-paper", "/resources/white-paper/"],
