@@ -9,13 +9,13 @@ export default function Brand() {
       aria-label="Icarius Consulting — home"
       className="flex items-center rounded-xl focus:outline-none focus-visible:ring-2 ring-sky-400/60"
     >
-      {/* Full logo: doubled size from 180x126 to 360x252 */}
+      {/* Full logo: increased by 1.5x from 360x252 to 540x378 */}
       <Image
         src="/brand/icarius_consulting_logo.svg"
-        width={360}
-        height={252}
+        width={540}
+        height={378}
         alt="Icarius Consulting"
-        className="h-auto w-[360px]"
+        className="h-auto w-[540px]"
         priority
       />
     </Link>
