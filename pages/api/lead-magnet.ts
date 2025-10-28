@@ -336,11 +336,19 @@ export default async function handler(
     },
   };
 
+  console.log("[lead-magnet] Attempting to save lead:", {
+    email: sanitizedEmail.split("@")[1], // Just log domain for privacy
+    timestamp,
+    hasUtm: !!utmParams,
+    source: trackingSource
+  });
+
   let emailSent = false;
   let emailMessage: string | undefined;
 
   try {
     await saveLead(payload);
+    console.log("[lead-magnet] Lead saved successfully");
 
     const postSaveTasks: Array<{ name: string; promise: Promise<unknown> }> = [
       { name: "ga4", promise: sendGa4Event(request, payload.tracking, timestamp) },
@@ -387,11 +395,22 @@ export default async function handler(
       utm_campaign: payload.tracking.utm?.utm_campaign,
     });
 
+    console.log("[lead-magnet] Attempting to send email:", {
+      hasTemplateId: !!transactionalTemplateId,
+      metadataKeys: Object.keys(transactionalMetadata)
+    });
+
     const emailResult = await sendLeadMagnetEmail({
       email: sanitizedEmail,
       downloadUrl,
       templateId: transactionalTemplateId || undefined,
       metadata: Object.keys(transactionalMetadata).length ? transactionalMetadata : undefined,
+    });
+
+    console.log("[lead-magnet] Email result:", {
+      delivered: emailResult.delivered,
+      skipped: emailResult.skipped,
+      provider: emailResult.provider
     });
 
     emailSent = emailResult.delivered;
