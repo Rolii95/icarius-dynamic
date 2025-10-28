@@ -138,6 +138,15 @@ function resolveDownloadUrl(): string {
     "";
 
   const normalizedBase = baseUrl.replace(/\/$/, "");
+  
+  // Debug logging to understand what's happening
+  console.log("Resolving download URL:", {
+    baseUrl,
+    normalizedBase,
+    DOWNLOAD_PATH,
+    finalUrl: normalizedBase ? `${normalizedBase}${DOWNLOAD_PATH}` : DOWNLOAD_PATH
+  });
+  
   return normalizedBase ? `${normalizedBase}${DOWNLOAD_PATH}` : DOWNLOAD_PATH;
 }
 

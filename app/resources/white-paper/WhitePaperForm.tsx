@@ -16,7 +16,8 @@ const baseUrl = (
   "https://www.icarius-consulting.com"
 ).replace(/\/$/, "");
 
-const downloadUrlDefault = baseUrl ? `${baseUrl}${DOWNLOAD_PATH}` : DOWNLOAD_PATH;
+// Ensure we always have a working download URL
+const downloadUrlDefault = DOWNLOAD_PATH; // Use relative path for reliability
 
 const description =
   "Stabilise HR data foundations, govern AI responsibly, and deliver ROI on your next HRIS transformation with Icarius Consulting.";
@@ -342,6 +343,7 @@ export default function WhitePaperForm() {
                   <p className="text-sm text-slate-300">Icarius HR AI Readiness White Paper (PDF)</p>
                   <a
                     href={downloadUrl || DOWNLOAD_PATH}
+                    download="icarius-hr-ai-whitepaper.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[color:var(--primary)] to-[color:var(--primary-2)] px-6 py-3 text-base font-semibold text-slate-950 shadow-lg transition-all hover:-translate-y-0.5 hover:shadow-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--primary)]/60"
@@ -351,6 +353,17 @@ export default function WhitePaperForm() {
                     </svg>
                     Download the PDF
                   </a>
+                  
+                  {/* Backup download link if main one fails */}
+                  <p className="mt-3 text-xs text-slate-400 text-center">
+                    Having trouble? <a 
+                      href={DOWNLOAD_PATH} 
+                      download="icarius-hr-ai-whitepaper.pdf"
+                      className="text-[color:var(--primary-2)] underline underline-offset-4 hover:text-[color:var(--primary)] transition-colors"
+                    >
+                      Try this direct download link
+                    </a>
+                  </p>
                 </div>
                 <p className="text-xs text-slate-400">
                   Need help activating the playbook? <Link href="/contact" className="text-[color:var(--primary-2)] underline underline-offset-4 hover:text-[color:var(--primary)] transition-colors">Talk with Icarius</Link> and we&apos;ll map the next sprint.
