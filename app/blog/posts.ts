@@ -8,6 +8,14 @@ export type Post = {
 
 export const POSTS: Post[] = [
   {
+    slug: 'essential-hr-skills-2026',
+    title: 'The Essential Skills Your HR Team Needs for 2026',
+    summary:
+      'Discover the critical AI and data literacy skills your HR team needs to bridge the 48-point gap and drive strategic value in 2026.',
+    date: '2025-10-28',
+    tags: ['AI', 'Skills', 'HR Strategy'],
+  },
+  {
     slug: 'hris-audit-sprint-playbook',
     title: 'HRIS Diagnostic Sprint Playbook',
     summary:

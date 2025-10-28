@@ -1,0 +1,107 @@
+export const metadata = {
+  title: 'The Essential Skills Your HR Team Needs for 2026',
+  description:
+    'Discover the critical AI and data literacy skills your HR team needs to bridge the 48-point gap and drive strategic value in 2026.',
+  date: '2025-10-28',
+  tags: ['AI', 'Skills', 'HR Strategy'],
+  openGraph: {
+    url: '/blog/essential-hr-skills-2026',
+    images: [
+      { url: '/blog/essential-hr-skills-2026/opengraph-image', width: 1200, height: 630 },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    url: '/blog/essential-hr-skills-2026',
+    images: [
+      { url: '/blog/essential-hr-skills-2026/opengraph-image', width: 1200, height: 630 },
+    ],
+  },
+}
+
+import { ArticleJsonLd } from '@/components/ArticleJsonLd'
+import { BlogCTA } from '@/components/BlogCTA'
+import { InlineROI } from '@/components/InlineROI'
+import { NewsletterForm } from '@/components/NewsletterForm'
+import { PageHeader } from '@/components/PageHeader'
+import Link from 'next/link'
+
+<ArticleJsonLd
+  url={`${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.icarius-consulting.com'}/blog/essential-hr-skills-2026`}
+  title={metadata.title}
+  description={metadata.description}
+  datePublished={metadata.date}
+  dateModified={metadata.date}
+  author="Icarius Consulting"
+  image={`${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.icarius-consulting.com'}/blog/essential-hr-skills-2026/opengraph-image`}
+/>
+
+<PageHeader
+  title={metadata.title}
+  href="/blog"
+  className="not-prose mb-10"
+  headingClassName="text-4xl font-semibold tracking-tight text-white"
+  contentClassName="space-y-3"
+/>
+
+As we approach 2026, the gap between what HR teams need to know and what they actually know about AI and data literacy continues to widen. The skills deficit isn't just a training issue—it's a strategic risk that could undermine your organization's competitive advantage.
+
+## The 48-Point Skills Gap
+
+Recent research reveals a concerning 48-point gap between the AI and data literacy skills HR teams need versus what they currently possess. This isn't just about using new tools—it's about fundamentally reshaping how HR drives business value through data-informed decision making.
+
+## Critical Skills for 2026
+
+**AI and Automation Literacy**
+- Understanding when and how to implement AI solutions responsibly
+- Recognizing bias in automated decision-making systems
+- Balancing efficiency gains with human oversight requirements
+
+**Data Analysis and Interpretation** 
+- Moving beyond basic reporting to predictive insights
+- Connecting people metrics to business outcomes
+- Building compelling data narratives for executive audiences
+
+**Change Management in a Digital Context**
+- Leading teams through AI-enabled transformations
+- Managing employee concerns about automation
+- Fostering a culture of continuous learning and adaptation
+
+<InlineROI className="my-12" />
+
+## The Cost of Inaction
+
+Organizations that fail to address this skills gap face significant risks:
+- **Strategic Misalignment**: HR unable to support data-driven business strategies
+- **Competitive Disadvantage**: Slower adoption of transformative technologies  
+- **Trust Deficit**: Poor implementation eroding confidence in HR initiatives
+- **Resource Waste**: "Random Acts of AI" that deliver minimal value
+
+## 📈 Download the Full Strategic Report
+
+You've seen the essential skills required, but what is your action plan to bridge the gap?
+
+Icarius Consulting's "Navigating the AI HR Revolution" report is the definitive guide to addressing the AI skills deficit. We outline the risks of tactical adoption and present a 3-Phase Action Plan to transform HR into a strategic, data-literate business driver.
+
+Don't let the Training Deficit (41% of HR pros lack training) undermine your investment. Get the complete strategy today.
+
+<div className="my-8 rounded-2xl border border-white/10 bg-slate-950/40 p-6 shadow-lg">
+  <Link
+    href="/resources/white-paper"
+    className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-sky-600 via-indigo-600 to-blue-700 px-6 py-3 text-base font-semibold text-white shadow-lg transition-all hover:-translate-y-0.5 hover:shadow-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
+  >
+    📊 Download the White Paper
+  </Link>
+</div>
+
+The future of HR depends on building these capabilities today. Don't wait until 2026 to start closing the gap.
+
+<BlogCTA className="mt-12" />
+
+---
+
+### Get ahead of the AI curve
+
+Stay informed about the latest trends in HR AI adoption, skills development, and strategic transformation. Join our newsletter for insights that keep your team competitive.
+
+<NewsletterForm className="mt-6" />
