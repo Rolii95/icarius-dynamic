@@ -457,9 +457,9 @@ export default async function handler(
       timestamp: new Date().toISOString()
     });
     
-    // Enable debugging for now to identify the issue
+    // Enable debugging when needed
     const isDev = process.env.NODE_ENV === "development";
-    const debugMode = process.env.LEAD_DEBUG === "true" || true; // Temporarily always debug
+    const debugMode = process.env.LEAD_DEBUG === "true";
     
     if (isDev || debugMode) {
       return response.status(500).json({ 

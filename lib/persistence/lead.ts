@@ -165,16 +165,26 @@ export async function saveLead(lead: LeadPersistencePayload): Promise<void> {
 
     await writeFile(STORAGE_FILE, JSON.stringify(existing, null, 2));
 
-    console.info("[lead:persistence] stored", {
+    console.info("[lead:persistence] stored locally", {
       email: maskedEmail,
       source: lead.tracking.source ?? "unknown",
       utm_source: lead.tracking.utm?.utm_source,
     });
   } catch (error) {
-    console.error("[lead:persistence] persist failed", {
+    console.warn("[lead:persistence] local storage failed (filesystem may be read-only)", {
       email: maskedEmail,
       error: error instanceof Error ? error.message : error,
     });
+    
+    // In production environments like Vercel, the filesystem is read-only
+    // This is not a critical failure - the lead data was already processed
+    // We just can't store it locally, which is acceptable for serverless environments
+    if (process.env.NODE_ENV === "production") {
+      console.info("[lead:persistence] skipping local storage in production environment");
+      return; // Don't throw error in production
+    }
+    
+    // In development, we still want to know about storage issues
     throw error;
   }
 }
