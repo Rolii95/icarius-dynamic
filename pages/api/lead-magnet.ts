@@ -416,10 +416,15 @@ export default async function handler(
     emailSent = emailResult.delivered;
 
     if (!emailResult.delivered) {
-      emailMessage =
-        emailResult.skipped && emailResult.provider === "none"
+      // Only show email messages if email delivery is actually expected/configured
+      const hasEmailProvider = !!(process.env.SENDGRID_API_KEY && process.env.SENDGRID_FROM) || !!process.env.SMTP_HOST;
+      
+      if (hasEmailProvider) {
+        emailMessage = emailResult.skipped && emailResult.provider === "none"
           ? "Email delivery skipped: transactional provider not configured"
           : "Email delivery pending: please review transactional provider logs";
+      }
+      // If no email provider is configured, don't set any message (hide email status from user)
 
       if (!emailResult.skipped) {
         const domain = sanitizedEmail.split("@")[1] ?? "unknown";
