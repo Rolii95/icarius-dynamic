@@ -25,7 +25,7 @@ export default function Header() {
     { href: "/insights", label: "Insights", match: (path: string) => path.startsWith("/insights") },
     {
       href: "/resources/white-paper",
-      label: "Resources",
+      label: "White Paper",
       match: (path: string) => path.startsWith("/resources/white-paper"),
     },
     { href: "/contact", label: "Contact", match: (path: string) => path.startsWith("/contact") },

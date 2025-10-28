@@ -4,6 +4,7 @@ import Script from 'next/script'
 import '@/styles/globals.css'
 import { SiteProviders } from '@/components/consent-provider'
 import { Header } from '@/components/header'
+import WhitepaperBanner from '@/components/WhitepaperBanner'
 import { inter } from '@/app/fonts'
 import { ViewObserver } from '@/app/providers'
 import { siteOrigin } from '@/lib/config/site'
@@ -115,6 +116,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         ) : null}
         <SiteProviders>
           <Header />
+          {/* Banner - will hide itself on excluded paths like /resources/white-paper */}
+          <WhitepaperBanner
+            downloadUrl="/resources/white-paper.pdf"
+            excludedPaths={["/resources/white-paper", "/resources/white-paper/"]}
+            // hideDurationMs={14 * 24 * 60 * 60 * 1000} // optional: 14 days
+          />
           <main id="main" tabIndex={-1} className="container mx-auto px-4 pb-32">
             {children}
           </main>
