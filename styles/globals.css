@@ -275,7 +275,7 @@ body::before {
   inset: auto -80px -120px auto;
   width: min(38vw, 360px);
   aspect-ratio: 1 / 1;
-  background-image: url('/brand/icarius_mark.svg');
+  background-image: url('/brand/icarius_watermark.svg');
   background-repeat: no-repeat;
   background-size: contain;
   opacity: 0.05;
