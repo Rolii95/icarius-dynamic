@@ -22,9 +22,9 @@ const description =
   "Stabilise HR data foundations, govern AI responsibly, and deliver ROI on your next HRIS transformation with Icarius Consulting.";
 
 const benefits = [
-  "Blueprint your HRIS modernisation with proven sequencing and risk controls.",
-  "Operational guardrails to keep payroll and time data trusted during AI rollout.",
-  "Executive-ready frameworks to secure sponsorship and accelerate adoption.",
+  "Benchmark your HR team's AI and data literacy skills against best practices. Discover the 48-point gap limiting your strategic success.",
+  "Identify the top 3 high-impact opportunities for AI to drive immediate value. Avoid the costs of \"Random Acts of AI.\"",
+  "Get a 3-Phase Action Plan for upskilling your teams and mitigating the Trust Deficit. Transform HR into a strategic driver.",
 ];
 
 const highlights = [
