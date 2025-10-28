@@ -14,7 +14,7 @@ type Props = {
 };
 
 export default function WhitepaperBanner({
-  downloadUrl = "/resources/white-paper.pdf",
+  downloadUrl = "/resources/white-paper",
   label = "Free white paper — The Cost of HRIT Misalignment",
   ctaText = "Download the white paper",
   localStorageKey = "icarius_wp_banner_closed",

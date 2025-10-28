@@ -118,7 +118,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Header />
           {/* Banner - will hide itself on excluded paths like /resources/white-paper */}
           <WhitepaperBanner
-            downloadUrl="/resources/white-paper.pdf"
+            downloadUrl="/resources/white-paper"
             excludedPaths={["/resources/white-paper", "/resources/white-paper/"]}
             // hideDurationMs={14 * 24 * 60 * 60 * 1000} // optional: 14 days
           />
