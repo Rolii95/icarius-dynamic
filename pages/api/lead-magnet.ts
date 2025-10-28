@@ -281,6 +281,12 @@ export default async function handler(
   request: NextApiRequest,
   response: NextApiResponse<LeadMagnetResponse>,
 ) {
+  console.log("[lead-magnet] Request received:", {
+    method: request.method,
+    body: request.body,
+    timestamp: new Date().toISOString()
+  });
+
   if (request.method !== "POST") {
     response.setHeader("Allow", "POST");
     return response.status(405).json({ ok: false, error: "Method not allowed" });
@@ -425,12 +431,20 @@ export default async function handler(
     // });
   } catch (error) {
     const emailDomain = sanitizedEmail.split("@")[1] ?? "unknown";
-    console.error("Lead magnet persistence failed", {
+    console.error("[lead-magnet] Error occurred:", {
       error: error instanceof Error ? error.message : "unknown",
       emailDomain,
+      stack: error instanceof Error ? error.stack : undefined,
+      timestamp: new Date().toISOString()
     });
     return response.status(500).json({ ok: false, error: "Unable to process request" });
   }
+
+  console.log("[lead-magnet] Success:", {
+    downloadUrl,
+    emailSent,
+    timestamp: new Date().toISOString()
+  });
 
   return response.status(200).json({ ok: true, downloadUrl, emailSent, message: emailMessage });
 }

@@ -122,6 +122,12 @@ const postLeadToEndpoint = async (lead: LeadPersistencePayload): Promise<string>
     if (error instanceof Error && error.name === "AbortError") {
       throw new Error(`Persistence request timed out after ${PERSISTENCE_TIMEOUT_MS}ms`);
     }
+    // Log the full error details for debugging
+    console.error("[lead:persistence] fetch failed", {
+      endpoint: PERSISTENCE_ENDPOINT,
+      error: error instanceof Error ? error.message : error,
+      stack: error instanceof Error ? error.stack : undefined,
+    });
     throw error;
   } finally {
     clearTimeout(timeout);
@@ -141,11 +147,12 @@ export async function saveLead(lead: LeadPersistencePayload): Promise<void> {
       });
       return;
     } catch (error) {
-      console.error("[lead:persistence] endpoint failed", {
+      console.error("[lead:persistence] endpoint failed, falling back to local storage", {
         email: maskedEmail,
         error: error instanceof Error ? error.message : error,
       });
-      throw error instanceof Error ? error : new Error("Lead persistence failed");
+      // Don't throw in production - fall back to local file storage
+      // This ensures the API doesn't fail if the external endpoint is down
     }
   }
 
