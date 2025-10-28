@@ -12,7 +12,7 @@ export default function Brand() {
     >
       {/* mark: 56x56 (was 28x28) */}
       <Image
-        src="/brand/icarius_interlock_mark.svg"
+        src="/brand/icarius_mark.svg"
         width={56}
         height={56}
         alt=""
