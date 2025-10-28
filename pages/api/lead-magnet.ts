@@ -20,7 +20,7 @@ interface LeadMagnetRequestBody {
 
 type LeadMagnetResponse =
   | { ok: true; downloadUrl: string; emailSent: boolean; message?: string }
-  | { ok: false; error: string };
+  | { ok: false; error: string; debug?: { message: string; stack?: string[]; timestamp: string } };
 
 type NullableString = string | undefined;
 
@@ -456,6 +456,23 @@ export default async function handler(
       stack: error instanceof Error ? error.stack : undefined,
       timestamp: new Date().toISOString()
     });
+    
+    // Enable debugging for now to identify the issue
+    const isDev = process.env.NODE_ENV === "development";
+    const debugMode = process.env.LEAD_DEBUG === "true" || true; // Temporarily always debug
+    
+    if (isDev || debugMode) {
+      return response.status(500).json({ 
+        ok: false, 
+        error: "Unable to process request",
+        debug: {
+          message: error instanceof Error ? error.message : "unknown error",
+          stack: error instanceof Error ? error.stack?.split('\n').slice(0, 3) : undefined,
+          timestamp: new Date().toISOString()
+        }
+      });
+    }
+    
     return response.status(500).json({ ok: false, error: "Unable to process request" });
   }
 
