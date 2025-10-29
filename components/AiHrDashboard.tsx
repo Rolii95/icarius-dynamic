@@ -436,7 +436,9 @@ export function AiHrDashboard() {
                 {selectedPhase.deliverables.map((deliverable) => {
                   const totalTasks = deliverable.tasks.length
                   const completedTasks = deliverable.tasks.filter((task) => taskStatus[task.id]).length
-                  const progress = totalTasks === 0 ? 0 : Math.round((completedTasks / totalTasks) * 100)
+                  const progress = Math.round(
+                    (completedTasks / Math.max(1, deliverable.tasks.length)) * 100
+                  )
                   const isActive = deliverable.id === selectedDeliverable.id
 
                   return (
